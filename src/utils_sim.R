@@ -5,7 +5,7 @@
 library(ggplot2)
 library(MASS)
 library(tidyverse)
-source("src/utils_plots.R")
+source("src/utils_ui_and_plots.R")
 # library(dplyr)
 # library(ggplot2)
 
@@ -41,7 +41,7 @@ fit_regression_models <- function(df){
   mod00 <- lm( response ~ 1, data = df)
   coefs <- coef(mod00)
   df_coef00 <- data.frame(
-    group = levels(df_all$group),
+    group = levels(df$group),
     intercept = coefs["(Intercept)"],
     slope = 0.0
   )
@@ -50,7 +50,7 @@ fit_regression_models <- function(df){
   mod01 <- lm( response ~ predictor, data = df)
   coefs <- coef(mod01)
   df_coef01 <- data.frame(
-    group = levels(df_all$group),
+    group = levels(df$group),
     intercept = coefs["(Intercept)"],
     slope = coefs["predictor"]
   )
@@ -59,8 +59,8 @@ fit_regression_models <- function(df){
   mod02 <- lm( response ~ predictor + group - 1, data = df)
   coefs <- coef(mod02)
   df_coef02 <- data.frame(
-    group = levels(df_all$group),
-    intercept = coefs[paste0("group", levels(df_all$group))],
+    group = levels(df$group),
+    intercept = coefs[paste0("group", levels(df$group))],
     slope = coefs["predictor"]
   )
   
@@ -68,9 +68,9 @@ fit_regression_models <- function(df){
   mod03 <- lm(response ~ predictor:group + group - 1, data = df)
   coefs <- coef(mod03)
   df_coef03 <- data.frame(
-    group = levels(df_all$group),
-    intercept = coefs[paste0("group", levels(df_all$group))],
-    slope = coefs[paste0("predictor:group", levels(df_all$group))]
+    group = levels(df$group),
+    intercept = coefs[paste0("group", levels(df$group))],
+    slope = coefs[paste0("predictor:group", levels(df$group))]
   )
   
   return(
@@ -90,8 +90,27 @@ make_data_scatterplot <- function(x){
       aes(x = predictor, y = response, color = group),
       size = 1
     ) +
-    labs(title = "bla bla bli")
+    labs(title = "caraculo") +
+    theme_dark() +
+      theme(
+        plot.background  = element_rect(fill = "#222222", color = NA),
+        panel.background = element_rect(fill = "#222222", color = NA),
+        text             = element_text(color = "white")
+      ) +
+    theme(
+      panel.border = element_rect(
+        colour = "white",
+        fill = NA,
+        linewidth = 1
+      )
+    )
 }
+
+
+
+
+
+
 
 # add regression lines 
 add_lines_to_scatterplot <- function(fig, df_lines) { 
@@ -100,7 +119,8 @@ add_lines_to_scatterplot <- function(fig, df_lines) {
       data = df_lines,
       aes(intercept = intercept, slope = slope, color = group),
       linewidth = 1
-    )
+    )  
+  
 }
 
 
