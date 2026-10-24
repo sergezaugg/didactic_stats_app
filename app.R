@@ -1,8 +1,8 @@
 # ---------------------------
-# aaaaa
 # run the application by clicking the 'Run App' button above.
 # Rscript -e "shiny::runApp('app.R', port=8080, host='0.0.0.0')"
 # Rscript -e "shiny::runApp('app.R', port=8080)"
+# Rscript -e "shiny::runApp()"
 # ---------------------------
 
 library(shiny)
