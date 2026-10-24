@@ -10,6 +10,22 @@ library(ggplot2)
 library(bslib)
 source("src/utils_plots.R")
 
+# Define server logic 
+server <- function(input, output) {
+  # compute stuff 
+  sim_data_x <- reactive(rnorm(n= input$bins_00, mean=input$bins_10, sd = input$bins_20))
+  val_sum_of_all <- reactive(input$bins_00 + input$bins_10 + input$bins_20)
+  # prepare outputs
+  # output$distPlot01 <- renderPlot({ make_simple_scatterplot(x = sim_data_x()) })  
+  output$distPlot02 <- renderPlot({ make_ggplot_scatterplot(x = sim_data_x()) })  
+  output$out_00     <- renderText(paste("Value is : ", input$bins_00))
+  output$out_10     <- renderText(paste("Value is : ", input$bins_10))
+  output$out_20     <- renderText(paste("Value is : ", input$bins_20))
+  output$sum_of_all <- renderText(paste("Sum is : ", val_sum_of_all()))
+}
+
+
+
 # Define UI for application that draws a histogram
 frontend <- fixedPage(
   # add margin 
@@ -37,7 +53,7 @@ frontend <- fixedPage(
             fluidRow(
               column(
                 width = 6,
-                plotOutput("distPlot01"),
+                # plotOutput("distPlot01"),
                 plotOutput("distPlot02")
               ),
               column(
@@ -54,19 +70,6 @@ frontend <- fixedPage(
     )
 )
 
-# Define server logic 
-server <- function(input, output) {
-    # compute stuff 
-    sim_data_x <- reactive(rnorm(n= input$bins_00, mean=input$bins_10, sd = input$bins_20))
-    val_sum_of_all <- reactive(input$bins_00 + input$bins_10 + input$bins_20)
-    # prepare outputs
-    output$distPlot01 <- renderPlot({ make_simple_scatterplot(x = sim_data_x()) })  
-    output$distPlot02 <- renderPlot({ make_ggplot_scatterplot(x = sim_data_x()) })  
-    output$out_00     <- renderText(paste("Value is : ", input$bins_00))
-    output$out_10     <- renderText(paste("Value is : ", input$bins_10))
-    output$out_20     <- renderText(paste("Value is : ", input$bins_20))
-    output$sum_of_all <- renderText(paste("Sum is : ", val_sum_of_all()))
-}
 
 # Run the application 
 shinyApp(ui = frontend, server = server)
