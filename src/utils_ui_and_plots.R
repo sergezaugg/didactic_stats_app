@@ -10,7 +10,7 @@ make_group_controls <- function(group, title) {
     tagList(
       h4(title),
       
-      column(width = 2, 
+      column(width = 3, 
            selectInput(inputId =  paste0("n_",  group),  
              label = "N", 
              choices = c(10, 50, 100, 500, 1000), 

@@ -21,9 +21,23 @@ source("src/utils_ui_and_plots.R")
 # Define UI 
 frontend <- fluidPage(
   
-  # add margin 
-  tags$head(tags$style(HTML(".container-fluid {margin-top: 50px; margin-bottom: 30;}")) ),
   theme = bs_theme(bootswatch = "darkly"),
+  
+  tags$head(
+    tags$style(HTML("
+      .container-fluid {
+        margin-top: 50px;
+        margin-bottom: 30px;
+        min-width: 1200px;
+        max-width: 1600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    "))
+  ),
+  
+  
+  
 
   sidebarLayout(
     
@@ -37,29 +51,35 @@ frontend <- fluidPage(
     # Show results 
     mainPanel(width = 8,
               
-      # Row 1
-      fluidRow(
-        h5("Model Intercept only"),
-        column(3, plotOutput("distPlot00", height = "250px")),
-        column(4, tableOutput("tab00"))
-      ),
+        fluidRow(      
+              
+        column(4,      
+              
+          selectInput(
+            inputId  = "dist_plot",
+            label    = "Choose model",
+            choices  = c(
+              "M0" = "distPlot00",
+              "M1" = "distPlot01",
+              "M2" = "distPlot02",
+              "M3" = "distPlot03"
+            ),
+            selected = "distPlot00",
+          ),
+          
+          plotOutput(
+            outputId = "selected_dist_plot", 
+            height = "250px"
+          )
+          
+        ),
       
-      # Row 2
-      fluidRow(
-        column(3, plotOutput("distPlot01", height = "250px")),
-        column(4, tableOutput("tab01"))
-      ),
-      
-      # Row 3
-      fluidRow(
-        column(3, plotOutput("distPlot02", height = "250px")),
-        column(4, tableOutput("tab02"))
-      ),
-      
-      # Row 4
-      fluidRow(
-        column(3, plotOutput("distPlot03", height = "250px")),
-        column(4, tableOutput("tab03"))
+        column(4,          
+            tableOutput("tab00"),
+            tableOutput("tab01"),
+            tableOutput("tab02"),
+            tableOutput("tab03")
+          )
       )
     )
   )
@@ -111,10 +131,10 @@ server <- function(input, output) {
   fig2 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c02"]])})
   fig3 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c03"]])})
   
-  output$distPlot00 <- renderPlot({fig0()})
-  output$distPlot01 <- renderPlot({fig1()})
-  output$distPlot02 <- renderPlot({fig2()})
-  output$distPlot03 <- renderPlot({fig3()})
+  # output$distPlot00 <- renderPlot({fig0()})
+  # output$distPlot01 <- renderPlot({fig1()})
+  # output$distPlot02 <- renderPlot({fig2()})
+  # output$distPlot03 <- renderPlot({fig3()})
   
   # ------------------------
   
@@ -133,6 +153,17 @@ server <- function(input, output) {
   output$tab03 <- renderTable({
     df_reg_lines()[["df_lm"]][["s03"]]
   }, striped = TRUE, bordered = TRUE, hover = TRUE)
+  
+  
+  output$selected_dist_plot <- renderPlot({
+    switch(
+      input$dist_plot,
+      distPlot00 = fig0(),
+      distPlot01 = fig1(),
+      distPlot02 = fig2(),
+      distPlot03 = fig3()
+    )
+  })
   
   
   
