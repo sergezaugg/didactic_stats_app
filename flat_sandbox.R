@@ -8,8 +8,6 @@ library(tidyverse)
 # source("src/utils_ui_and_plots.R")
 source("src/utils_sim.R")
 
-# library(dplyr)
-# library(ggplot2)
 
 
 
@@ -23,26 +21,19 @@ df_reg_lines <- fit_regression_models(df_all)
 
 names(df_reg_lines)
 
+xx = df_reg_lines[["df_lm"]][["s03"]]
+
+
+xx = as.data.frame(xx$coefficients) %>% rownames_to_column(var = "Term")
+
+
+
 fig <- make_data_scatterplot(x = df_all)
 fig <- add_lines_to_scatterplot(fig, df_reg_lines[["c02"]])
-
 fig
 
 
 
-
-
-# # check
-# df_all %>%
-#   group_by(group) %>%
-#   summarise(
-#     mean_predictor = mean(predictor, na.rm = TRUE),
-#     mean_response = mean(response, na.rm = TRUE),
-#     sd_predictor = sd(predictor, na.rm = TRUE),
-#     sd_response = sd(response, na.rm = TRUE)
-#     )
-# 
-# head(df_all)
 
 
 

@@ -6,8 +6,6 @@ library(ggplot2)
 library(MASS)
 library(tidyverse)
 source("src/utils_ui_and_plots.R")
-# library(dplyr)
-# library(ggplot2)
 
 
 simulate_bivariate_normal <- function(par){ 
@@ -73,15 +71,42 @@ fit_regression_models <- function(df){
     slope = coefs[paste0("predictor:group", levels(df$group))]
   )
   
+  # get standard t-table summary
+  s00 <- as.data.frame(summary(mod00)$coefficients) %>% rownames_to_column(var = "Term")
+  s01 <- as.data.frame(summary(mod01)$coefficients) %>% rownames_to_column(var = "Term")
+  s02 <- as.data.frame(summary(mod02)$coefficients) %>% rownames_to_column(var = "Term")
+  s03 <- as.data.frame(summary(mod03)$coefficients) %>% rownames_to_column(var = "Term")
+  
   return(
+    
     list(
+    "df_plt"= list(
       "c00" = df_coef00,
       "c01" = df_coef01,
       "c02" = df_coef02,
       "c03" = df_coef03
+    ),
+    
+    "df_lm" = list(
+      "s00" = s00,
+      "s01" = s01,
+      "s02" = s02,
+      "s03" = s03
     )
+    )
+    
+    
   )
 }
+
+
+
+
+
+
+
+
+
 
 # scatterplot 
 make_data_scatterplot <- function(x){
@@ -90,12 +115,14 @@ make_data_scatterplot <- function(x){
       aes(x = predictor, y = response, color = group),
       size = 1
     ) +
-    labs(title = "caraculo") +
+    # labs(title = "caraculo") +
     theme_dark() +
       theme(
-        plot.background  = element_rect(fill = "#222222", color = NA),
-        panel.background = element_rect(fill = "#222222", color = NA),
-        text             = element_text(color = "white")
+        plot.background   = element_rect(fill = "#000000", color = NA),
+        panel.background  = element_rect(fill = "#000000", color = NA),
+        legend.background = element_rect(fill = "#000000", colour = NA),
+        legend.key        = element_rect(fill = "#000000", colour = NA),
+        text              = element_text(color = "white")
       ) +
     theme(
       panel.border = element_rect(

@@ -11,8 +11,17 @@ make_group_controls <- function(group, title) {
       h4(title),
       
       column(width = 2, 
-             selectInput(inputId =  paste0("n_",  group),  label = "N", choices = c(10, 50, 100, 500, 1000), selected = 500),
-             radioButtons(inputId = paste0("cor_", group), label = "Corr",choices = c(-0.9, -0.8, -0.5, 0.0, 0.5, 0.8, 0.9),selected = -0.8,inline = FALSE)
+           selectInput(inputId =  paste0("n_",  group),  
+             label = "N", 
+             choices = c(10, 50, 100, 500, 1000), 
+             selected = 500),
+           numericInput(inputId = paste0("cor_", group),
+             label = "Correlation",
+             value = 0.5,
+             min = -1,
+             max = 1,
+             step = 0.1
+           )
       ),
       column(width = 4, 
              sliderInput(inputId = paste0("mux_", group), label = "Mu-X", min = -50, max = 50, value = 30),
@@ -28,27 +37,6 @@ make_group_controls <- function(group, title) {
 }
 
 
-
-
-
-# 
-# make_simple_scatterplot <- function(x){
-#   return (plot(x, ylim = c(-50, 50), col="orange"))
-#   }
-# 
-# 
-# 
-# make_ggplot_scatterplot <- function(x){
-#   ggplot() + 
-#     geom_point(
-#       aes(x = seq(length.out = length(x)), y = x),
-#       color = "steelblue",
-#       size = 2
-#     ) +
-#     ylim(-50, 50) +
-#     labs(title = "bla bla bli caca ")
-# }
-# 
 
 
 

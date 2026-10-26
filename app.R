@@ -3,6 +3,9 @@
 # Rscript -e "shiny::runApp('app.R', port=8080, host='0.0.0.0')"
 # Rscript -e "shiny::runApp('app.R', port=8080)"
 # Rscript -e "shiny::runApp()"
+# Rscript -e "shiny::runApp('app.R')"
+# this one works : 
+# Rscript --vanilla -e "shiny::runApp()"
 # ---------------------------
 
 library(shiny)
@@ -15,7 +18,7 @@ source("src/utils_sim.R")
 source("src/utils_ui_and_plots.R")
 
 
-# Define UI for application that draws a histogram
+# Define UI 
 frontend <- fluidPage(
   
   # add margin 
@@ -33,22 +36,30 @@ frontend <- fluidPage(
     
     # Show results 
     mainPanel(width = 8,
+              
+      # Row 1
       fluidRow(
-        column(
-          width = 5,
-          # textOutput("n_a"),
-          # textOutput("corr_a"),
-          plotOutput("distPlot00"),
-          plotOutput("distPlot01")
-
-        ),
-        column(
-          width = 5,
-          # textOutput("out_00"),
-          plotOutput("distPlot02"),
-          plotOutput("distPlot03"),
-          verbatimTextOutput("debug")
-        )
+        h5("Model Intercept only"),
+        column(3, plotOutput("distPlot00", height = "250px")),
+        column(4, tableOutput("tab00"))
+      ),
+      
+      # Row 2
+      fluidRow(
+        column(3, plotOutput("distPlot01", height = "250px")),
+        column(4, tableOutput("tab01"))
+      ),
+      
+      # Row 3
+      fluidRow(
+        column(3, plotOutput("distPlot02", height = "250px")),
+        column(4, tableOutput("tab02"))
+      ),
+      
+      # Row 4
+      fluidRow(
+        column(3, plotOutput("distPlot03", height = "250px")),
+        column(4, tableOutput("tab03"))
       )
     )
   )
@@ -95,15 +106,35 @@ server <- function(input, output) {
   #   df_reg_lines()[["c02"]] # i checked this is a df as exprected by add_lines_to_scatterplot()
   # })
   
-  fig0 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["c00"]])})
-  fig1 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["c01"]])})
-  fig2 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["c02"]])})
-  fig3 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["c03"]])})
+  fig0 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c00"]])})
+  fig1 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c01"]])})
+  fig2 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c02"]])})
+  fig3 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c03"]])})
   
   output$distPlot00 <- renderPlot({fig0()})
   output$distPlot01 <- renderPlot({fig1()})
   output$distPlot02 <- renderPlot({fig2()})
   output$distPlot03 <- renderPlot({fig3()})
+  
+  # ------------------------
+  
+  output$tab00 <- renderTable({
+    df_reg_lines()[["df_lm"]][["s00"]]
+  }, striped = TRUE, bordered = TRUE, hover = TRUE)
+  
+  output$tab01 <- renderTable({
+    df_reg_lines()[["df_lm"]][["s01"]]
+  }, striped = TRUE, bordered = TRUE, hover = TRUE)
+  
+  output$tab02 <- renderTable({
+    df_reg_lines()[["df_lm"]][["s02"]]
+  }, striped = TRUE, bordered = TRUE, hover = TRUE)
+  
+  output$tab03 <- renderTable({
+    df_reg_lines()[["df_lm"]][["s03"]]
+  }, striped = TRUE, bordered = TRUE, hover = TRUE)
+  
+  
   
 
   
