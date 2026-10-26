@@ -1,11 +1,7 @@
-
-
-
-
-library(ggplot2)
-library(MASS)
-library(tidyverse)
-source("src/utils_ui_and_plots.R")
+# ---------------------------
+# Description : Pure simulation and stats functions
+# Author : Serge Zaugg
+# ---------------------------
 
 
 simulate_bivariate_normal <- function(par){ 
@@ -21,6 +17,7 @@ simulate_bivariate_normal <- function(par){
   return(df)
 }
 
+
 combine_dfs <- function(...) {
   pars <- list(...)
   dfs <- lapply(seq_along(pars), function(i) {
@@ -32,6 +29,7 @@ combine_dfs <- function(...) {
   dfs <- dfs %>% mutate(group = factor(group) )
   return(dfs)
 }
+
 
 fit_regression_models <- function(df){
   
@@ -106,49 +104,6 @@ fit_regression_models <- function(df){
 
 
 
-
-
-# scatterplot 
-make_data_scatterplot <- function(x){
-  ggplot(x) + 
-    geom_point(
-      aes(x = predictor, y = response, color = group),
-      size = 1
-    ) +
-    # labs(title = "caraculo") +
-    theme_dark() +
-      theme(
-        plot.background   = element_rect(fill = "#000000", color = NA),
-        panel.background  = element_rect(fill = "#000000", color = NA),
-        legend.background = element_rect(fill = "#000000", colour = NA),
-        legend.key        = element_rect(fill = "#000000", colour = NA),
-        text              = element_text(color = "white")
-      ) +
-    theme(
-      panel.border = element_rect(
-        colour = "white",
-        fill = NA,
-        linewidth = 1
-      )
-    )
-}
-
-
-
-
-
-
-
-# add regression lines 
-add_lines_to_scatterplot <- function(fig, df_lines) { 
-  fig +
-    geom_abline(
-      data = df_lines,
-      aes(intercept = intercept, slope = slope, color = group),
-      linewidth = 1
-    )  
-  
-}
 
 
 

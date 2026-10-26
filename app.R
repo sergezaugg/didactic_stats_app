@@ -1,4 +1,7 @@
 # ---------------------------
+# Description : entry point of the app
+# Author : Serge Zaugg
+# 
 # run the application by clicking the 'Run App' button above.
 # Rscript -e "shiny::runApp('app.R', port=8080, host='0.0.0.0')"
 # Rscript -e "shiny::runApp('app.R', port=8080)"
@@ -15,8 +18,8 @@ library(shinyWidgets)
 library(MASS)
 library(tidyverse)
 source("src/utils_sim.R")
-source("src/utils_ui_and_plots.R")
-
+source("src/utils_ui.R")
+source("src/utils_plots.R")
 
 # Define UI 
 frontend <- fluidPage(
@@ -36,8 +39,6 @@ frontend <- fluidPage(
     "))
   ),
   
-  
-  
 
   sidebarLayout(
     
@@ -53,32 +54,32 @@ frontend <- fluidPage(
               
         fluidRow(      
               
-        column(4,      
+        column(5,      
               
           selectInput(
             inputId  = "dist_plot",
             label    = "Choose model",
             choices  = c(
-              "M0" = "distPlot00",
-              "M1" = "distPlot01",
-              "M2" = "distPlot02",
-              "M3" = "distPlot03"
+              "M0 (Global mean only)" = "distPlot00",
+              "M1 (Global mean & slope)" = "distPlot01",
+              "M2 (Group mean & global slope)"  = "distPlot02",
+              "M3 (Group mean & group slope)" = "distPlot03"
             ),
             selected = "distPlot00",
           ),
           
           plotOutput(
-            outputId = "selected_dist_plot", 
-            height = "250px"
+            outputId = "sel_scatter_plot", 
+            height = "400px"
           )
           
         ),
       
         column(4,          
-            tableOutput("tab00"),
-            tableOutput("tab01"),
-            tableOutput("tab02"),
-            tableOutput("tab03")
+            tableOutput(outputId = "tab00"),
+            tableOutput(outputId = "tab01"),
+            tableOutput(outputId = "tab02"),
+            tableOutput(outputId = "tab03")
           )
       )
     )
@@ -110,34 +111,19 @@ server <- function(input, output) {
     cov_xy = as.numeric(input$cor_b)
   ))
   
-  # par_b <- list(n=1000, mu_x=5,   mu_y=7,    sd_x=3, sd_y=2, cov_xy =  -0.4)
 
-  df_all <- reactive({combine_dfs(par_a(), par_b())})
-  
-  output$debug <- renderPrint({
-    df_all
-  })
-  
-  
+  df_all       <- reactive({combine_dfs(par_a(), par_b())})
   df_reg_lines <- reactive(fit_regression_models(df_all()))
   fig          <- reactive((make_data_scatterplot(x = df_all())))
   
-  # output$debug <- renderPrint({
-  #   df_reg_lines()[["c02"]] # i checked this is a df as exprected by add_lines_to_scatterplot()
-  # })
-  
+  # output$debug <- renderPrint({df_all})
+
   fig0 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c00"]])})
   fig1 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c01"]])})
   fig2 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c02"]])})
   fig3 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c03"]])})
   
-  # output$distPlot00 <- renderPlot({fig0()})
-  # output$distPlot01 <- renderPlot({fig1()})
-  # output$distPlot02 <- renderPlot({fig2()})
-  # output$distPlot03 <- renderPlot({fig3()})
-  
   # ------------------------
-  
   output$tab00 <- renderTable({
     df_reg_lines()[["df_lm"]][["s00"]]
   }, striped = TRUE, bordered = TRUE, hover = TRUE)
@@ -154,20 +140,18 @@ server <- function(input, output) {
     df_reg_lines()[["df_lm"]][["s03"]]
   }, striped = TRUE, bordered = TRUE, hover = TRUE)
   
+  sel_pl = reactive(input$dist_plot)
   
-  output$selected_dist_plot <- renderPlot({
+  output$sel_scatter_plot <- renderPlot({
     switch(
-      input$dist_plot,
+      # input$dist_plot,
+      sel_pl(),
       distPlot00 = fig0(),
       distPlot01 = fig1(),
       distPlot02 = fig2(),
       distPlot03 = fig3()
     )
   })
-  
-  
-  
-
   
 }
 

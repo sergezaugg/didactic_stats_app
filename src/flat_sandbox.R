@@ -1,14 +1,13 @@
 # ---------------------------
-# sandbox to draft code pieces
+# Description : sandbox to draft code pieces
+# Author : Serge Zaugg
+# 
 # ---------------------------
 
 library(ggplot2)
 library(MASS)
 library(tidyverse)
-# source("src/utils_ui_and_plots.R")
 source("src/utils_sim.R")
-
-
 
 
 par_a <- list(n=1000, mu_x=0,   mu_y=2,    sd_x=3, sd_y=2, cov_xy =  -0.7)

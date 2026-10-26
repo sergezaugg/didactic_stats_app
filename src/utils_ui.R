@@ -1,6 +1,7 @@
-
-
-
+# ---------------------------
+# Description : large ui elements are defined here and later imported to app.R
+# Author : Serge Zaugg
+# ---------------------------
 
 
 # ui elements 
