@@ -9,7 +9,7 @@ make_group_controls <- function(group, title) {
   
   fluidRow(
     tagList(
-      h4(title),
+      h6(title),
       
       column(width = 3, 
            selectInput(inputId =  paste0("n_",  group),  

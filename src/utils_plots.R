@@ -11,7 +11,7 @@ make_data_scatterplot <- function(x){
       aes(x = predictor, y = response, color = group),
       size = 1
     ) +
-    # labs(title = "caraculo") +
+    labs(title = " ") +
     theme_dark() +
     theme(
       plot.background   = element_rect(fill = "#000000", color = NA),
