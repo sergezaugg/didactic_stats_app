@@ -25,6 +25,7 @@ source("src/utils_plots.R")
 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 
+style_divider = "margin-top: 7px; margin-bottom: 11px;"
 
 # Define UI 
 frontend <- fluidPage(
@@ -37,7 +38,7 @@ frontend <- fluidPage(
       .container-fluid {
         margin-top: 50px;
         margin-bottom: 30px;
-        min-width: 1200px;
+        min-width: 1400px;
         max-width: 1600px;
         margin-left: auto;
         margin-right: auto;
@@ -52,9 +53,9 @@ frontend <- fluidPage(
     column(width = 4,
       div(style = style_pannels,  
       h5("Define data distribution"), 
-      tags$hr(),
+      tags$hr(style = style_divider),
       make_group_controls("a", "Group A"),
-      tags$hr(),
+      tags$hr(style = style_divider),
       make_group_controls("b", "Group B")
     )),
     
@@ -63,7 +64,7 @@ frontend <- fluidPage(
       div(style = style_pannels,
 
       h5("Scatterplot and regression lines"), 
-      tags$hr(),
+      tags$hr(style = style_divider),
       
       selectInput(
         inputId  = "dist_plot",
@@ -88,7 +89,7 @@ frontend <- fluidPage(
     column(4, 
       div(style = style_pannels,
         h5("Estimates"), 
-        tags$hr(),
+        tags$hr(style = style_divider),
         div(style = "height: 100px;"),
         tableOutput("sel_ttable")
       )
