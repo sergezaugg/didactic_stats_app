@@ -18,6 +18,25 @@ df_all <- combine_dfs(par_a, par_b)
 
 
 
+#--------------------------------------------
+
+df = df_all
+
+
+
+# ignore all predictors 
+mod00 <- lm( response ~  group - 1, data = df)
+coefs <- coef(mod00)
+r00 <- residuals(mod00)
+df_coef00 <- data.frame(
+  group = levels(df$group),
+  intercept = coefs[paste0("group", levels(df$group))],
+  slope = 0.0
+)
+
+
+
+#--------------------------------------------
 df = df_all
 mod03 <- lm(response ~ predictor:group + group - 1, data = df)
 summary(mod03)

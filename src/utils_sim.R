@@ -42,6 +42,16 @@ fit_regression_models <- function(df){
     slope = 0.0
   )
   
+  # just compare two groups 
+  mod00b <- lm( response ~  group - 1, data = df)
+  coefs <- coef(mod00b)
+  r00b <- residuals(mod00b)
+  df_coef00b <- data.frame(
+    group = levels(df$group),
+    intercept = coefs[paste0("group", levels(df$group))],
+    slope = 0.0
+  )
+  
   # ignore groups 
   mod01 <- lm( response ~ predictor, data = df)
   coefs <- coef(mod01)
@@ -77,6 +87,10 @@ fit_regression_models <- function(df){
     rownames_to_column(var = "Term") %>% 
     mutate(across(where(is.numeric), ~ round(., 2)))
   
+  s00b <- as.data.frame(summary(mod00b)$coefficients) %>% 
+    rownames_to_column(var = "Term") %>% 
+    mutate(across(where(is.numeric), ~ round(., 2)))
+  
   s01 <- as.data.frame(summary(mod01)$coefficients) %>% 
     rownames_to_column(var = "Term") %>% 
     mutate(across(where(is.numeric), ~ round(., 2)))
@@ -94,6 +108,7 @@ fit_regression_models <- function(df){
     list(
     "df_plt"= list(
       "c00" = df_coef00,
+      "c00b" = df_coef00b,
       "c01" = df_coef01,
       "c02" = df_coef02,
       "c03" = df_coef03
@@ -101,6 +116,7 @@ fit_regression_models <- function(df){
     
     "df_lm" = list(
       "s00" = s00,
+      "s00b" = s00b,
       "s01" = s01,
       "s02" = s02,
       "s03" = s03
@@ -108,6 +124,7 @@ fit_regression_models <- function(df){
     
     "df_res" = list(
       "r00" = r00,
+      "r00b" = r00b,
       "r01" = r01,
       "r02" = r02,
       "r03" = r03
