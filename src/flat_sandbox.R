@@ -33,13 +33,18 @@ fig
 
 
 
+# run the application by clicking the 'Run App' button above.
+# Rscript -e "shiny::runApp('app.R', port=8080, host='0.0.0.0')"
 
+# # works in R sesson
+# shiny::runApp(appDir = 'D:/src/src_r/didactic_stats_app', launch.browser = TRUE)
 
+# Rscript --no-init-file -e "print(4+4)"
 
-
-
-
-
+# (from Rstudio's terminal) halleluiaaa !!
+# Rscript --no-init-file -e "shiny::runApp(appDir = 'D:/src/src_r/didactic_stats_app', launch.browser = TRUE)"
+# Rscript --no-init-file -e "shiny::runApp(launch.browser = TRUE)"
+# Rscript --vanilla      -e "shiny::runApp(launch.browser = TRUE)"
 
 
 

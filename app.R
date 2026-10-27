@@ -1,14 +1,6 @@
 # ---------------------------
 # Description : entry point of the app
 # Author : Serge Zaugg
-# 
-# run the application by clicking the 'Run App' button above.
-# Rscript -e "shiny::runApp('app.R', port=8080, host='0.0.0.0')"
-# Rscript -e "shiny::runApp('app.R', port=8080)"
-# Rscript -e "shiny::runApp()"
-# Rscript -e "shiny::runApp('app.R')"
-# this one works : 
-# Rscript --vanilla -e "shiny::runApp()"
 # ---------------------------
 
 library(shiny)
