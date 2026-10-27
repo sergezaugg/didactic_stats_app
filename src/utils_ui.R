@@ -25,12 +25,12 @@ make_group_controls <- function(group, title) {
            )
       ),
       column(width = 4, 
-             sliderInput(inputId = paste0("mux_", group), label = "Mu-X", min = -50, max = 50, value = 30),
-             sliderInput(inputId = paste0("sdx_", group), label = "SD-X", min = 0.1, max = 10.0, value = 5.0)
+             sliderInput(inputId = paste0("mux_", group), label = "Mu-X", min = -50, max = 50, value = 0),
+             sliderInput(inputId = paste0("sdx_", group), label = "SD-X", min = 0.1, max = 10.0, value = 1.0)
       ),
       column(width = 4, 
-             sliderInput(inputId = paste0("muy_", group), label = "Mu-Y", min = -50, max = 50, value = 30),
-             sliderInput(inputId = paste0("sdy_", group), label = "SD-Y", min = 0.1, max = 10.0, value = 5.0)
+             sliderInput(inputId = paste0("muy_", group), label = "Mu-Y", min = -50, max = 50, value = 0),
+             sliderInput(inputId = paste0("sdy_", group), label = "SD-Y", min = 0.1, max = 10.0, value = 1.0)
       )
     )
   )

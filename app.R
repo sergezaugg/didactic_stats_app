@@ -17,14 +17,20 @@ library(bslib)
 library(shinyWidgets)
 library(MASS)
 library(tidyverse)
+library(DT)
 source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
 
+
+style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
+
+
 # Define UI 
 frontend <- fluidPage(
   
-  theme = bs_theme(bootswatch = "darkly"),
+  theme = bs_theme(
+    bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#660055"),
   
   tags$head(
     tags$style(HTML("
@@ -35,56 +41,65 @@ frontend <- fluidPage(
         max-width: 1600px;
         margin-left: auto;
         margin-right: auto;
-      }
+    }
     "))
   ),
   
 
-  sidebarLayout(
+  fluidRow(
     
     # control on the side 
-    sidebarPanel(width = 4,
+    column(width = 4,
+      div(style = style_pannels,  
+      h5("Define data distribution"), 
+      tags$hr(),
       make_group_controls("a", "Group A"),
       tags$hr(),
       make_group_controls("b", "Group B")
+    )),
+    
+          
+    column(width = 4, 
+      div(style = style_pannels,
+
+      h5("Scatterplot and regression lines"), 
+      tags$hr(),
+      
+      selectInput(
+        inputId  = "dist_plot",
+        label    = "Choose model",
+        choices  = c(
+          "M0 (Global mean only)" = "distPlot00",
+          "M1 (Global mean & slope)" = "distPlot01",
+          "M2 (Group mean & global slope)"  = "distPlot02",
+          "M3 (Group mean & group slope)" = "distPlot03"
+        ),
+        selected = "distPlot00",
+      ),
+      
+      plotOutput(
+        outputId = "sel_scatter_plot", 
+        height = "350px"
+      )
+    )
     ),
     
-    # Show results 
-    mainPanel(width = 8,
-              
-        fluidRow(      
-              
-        column(5,      
-              
-          selectInput(
-            inputId  = "dist_plot",
-            label    = "Choose model",
-            choices  = c(
-              "M0 (Global mean only)" = "distPlot00",
-              "M1 (Global mean & slope)" = "distPlot01",
-              "M2 (Group mean & global slope)"  = "distPlot02",
-              "M3 (Group mean & group slope)" = "distPlot03"
-            ),
-            selected = "distPlot00",
-          ),
-          
-          plotOutput(
-            outputId = "sel_scatter_plot", 
-            height = "400px"
-          )
-          
-        ),
-      
-        column(4,          
-            tableOutput(outputId = "tab00"),
-            tableOutput(outputId = "tab01"),
-            tableOutput(outputId = "tab02"),
-            tableOutput(outputId = "tab03")
-          )
+    
+    column(4, 
+      div(style = style_pannels,
+        h5("Estimates"), 
+        tags$hr(),
+        div(style = "height: 100px;"),
+        tableOutput("sel_ttable")
       )
     )
   )
 )
+
+
+
+
+
 
 
 
@@ -123,28 +138,22 @@ server <- function(input, output) {
   fig2 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c02"]])})
   fig3 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c03"]])})
   
-  # ------------------------
-  output$tab00 <- renderTable({
-    df_reg_lines()[["df_lm"]][["s00"]]
-  }, striped = TRUE, bordered = TRUE, hover = TRUE)
-  
-  output$tab01 <- renderTable({
-    df_reg_lines()[["df_lm"]][["s01"]]
-  }, striped = TRUE, bordered = TRUE, hover = TRUE)
-  
-  output$tab02 <- renderTable({
-    df_reg_lines()[["df_lm"]][["s02"]]
-  }, striped = TRUE, bordered = TRUE, hover = TRUE)
-  
-  output$tab03 <- renderTable({
-    df_reg_lines()[["df_lm"]][["s03"]]
-  }, striped = TRUE, bordered = TRUE, hover = TRUE)
   
   sel_pl = reactive(input$dist_plot)
   
+  output$sel_ttable <- renderTable({
+    switch(
+      sel_pl(),
+      distPlot00 = df_reg_lines()[["df_lm"]][["s00"]],
+      distPlot01 = df_reg_lines()[["df_lm"]][["s01"]],
+      distPlot02 = df_reg_lines()[["df_lm"]][["s02"]],
+      distPlot03 = df_reg_lines()[["df_lm"]][["s03"]]
+    )
+  }, striped = TRUE, bordered = TRUE, hover = TRUE)
+  
+  
   output$sel_scatter_plot <- renderPlot({
     switch(
-      # input$dist_plot,
       sel_pl(),
       distPlot00 = fig0(),
       distPlot01 = fig1(),
@@ -152,6 +161,8 @@ server <- function(input, output) {
       distPlot03 = fig3()
     )
   })
+  
+
   
 }
 

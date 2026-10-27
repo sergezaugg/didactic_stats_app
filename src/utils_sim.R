@@ -70,10 +70,21 @@ fit_regression_models <- function(df){
   )
   
   # get standard t-table summary
-  s00 <- as.data.frame(summary(mod00)$coefficients) %>% rownames_to_column(var = "Term")
-  s01 <- as.data.frame(summary(mod01)$coefficients) %>% rownames_to_column(var = "Term")
-  s02 <- as.data.frame(summary(mod02)$coefficients) %>% rownames_to_column(var = "Term")
-  s03 <- as.data.frame(summary(mod03)$coefficients) %>% rownames_to_column(var = "Term")
+  s00 <- as.data.frame(summary(mod00)$coefficients) %>% 
+    rownames_to_column(var = "Term") %>% 
+    mutate(across(where(is.numeric), ~ round(., 2)))
+  
+  s01 <- as.data.frame(summary(mod01)$coefficients) %>% 
+    rownames_to_column(var = "Term") %>% 
+    mutate(across(where(is.numeric), ~ round(., 2)))
+  
+  s02 <- as.data.frame(summary(mod02)$coefficients) %>% 
+    rownames_to_column(var = "Term") %>% 
+    mutate(across(where(is.numeric), ~ round(., 2)))
+  
+  s03 <- as.data.frame(summary(mod03)$coefficients) %>% 
+    rownames_to_column(var = "Term") %>% 
+    mutate(across(where(is.numeric), ~ round(., 2)))
   
   return(
     
