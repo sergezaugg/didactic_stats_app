@@ -65,13 +65,13 @@ ui <- navbarPage(
            inputId  = "dist_plot",
            label    = "Choose model",
            choices  = c(
-             "M0 (Global mean only)" = "distPlot00",
-             "M0b (two means only)" = "distPlot00b",
-             "M1 (Global mean & slope)" = "distPlot01",
-             "M2 (Group mean & global slope)"  = "distPlot02",
-             "M3 (Group mean & group slope)" = "distPlot03"
+             "M1 (Global mean only)" = "m01",
+             "M2 (two means only)" = "m02",
+             "M3 (Global mean & slope)" = "m03",
+             "M4 (Group mean & global slope)"  = "m04",
+             "M5 (Group mean & group slope)" = "m05"
            ),
-           selected = "distPlot00",
+           selected = "m01",
          ),
          
          plotOutput(
@@ -80,6 +80,8 @@ ui <- navbarPage(
          )
         )
       ),
+      
+      # verbatimTextOutput("debug"),
       
       column(4, 
         div(style = style_pannels,
@@ -134,47 +136,61 @@ server <- function(input, output, session) {
     cov_xy = as.numeric(input$cor_b)
   ))
   
+  # stats computation
   df_all       <- reactive({combine_dfs(par_a(), par_b())})
   df_reg_lines <- reactive(fit_regression_models(df_all()))
+  
+  # make all data scatter plots
   fig          <- reactive((make_data_scatterplot(x = df_all())))
   
   # output$debug <- renderPrint({df_all})
   
-  fig0 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c00"]])})
-  fig0b <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c00b"]])})
-  fig1 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c01"]])})
-  fig2 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c02"]])})
-  fig3 <- reactive({add_lines_to_scatterplot(fig(), df_reg_lines()[["df_plt"]][["c03"]])})
+  # add regression lines to all plot
+  figs <- lapply(sprintf("m%02d", 1:5), function(m) {
+    reactive({
+      add_lines_to_scatterplot(fig(),df_reg_lines()[["df_plt"]][[m]])
+    })
+  })
+  names(figs) <- sprintf("fig%02d", 1:5)
+  
+
+  # make all residual plots
+  resfigs <- lapply(sprintf("m%02d", 1:5), function(m) {
+    reactive({
+      make_residuals_plot(df = df_all(), res = df_reg_lines()[["df_res"]][[m]])
+    })
+  })
+  names(resfigs) <- sprintf("res%02d", 1:5)
+  
+  # output$debug <- renderPrint(names(resfigs))
   
   
-  fig_res_00 <- reactive((make_residuals_plot(df = df_all(), res = df_reg_lines()[["df_res"]][["r00"]])))
-  fig_res_00b <- reactive((make_residuals_plot(df = df_all(), res = df_reg_lines()[["df_res"]][["r00b"]])))
-  fig_res_01 <- reactive((make_residuals_plot(df = df_all(), res = df_reg_lines()[["df_res"]][["r01"]])))
-  fig_res_02 <- reactive((make_residuals_plot(df = df_all(), res = df_reg_lines()[["df_res"]][["r02"]])))
-  fig_res_03 <- reactive((make_residuals_plot(df = df_all(), res = df_reg_lines()[["df_res"]][["r03"]])))
+  
   
   
   sel_pl = reactive(input$dist_plot)
   
+  # which t-table to show
   output$sel_ttable <- renderTable({
     switch(
       sel_pl(),
-      distPlot00 = df_reg_lines()[["df_lm"]][["s00"]],
-      distPlot00b = df_reg_lines()[["df_lm"]][["s00b"]],
-      distPlot01 = df_reg_lines()[["df_lm"]][["s01"]],
-      distPlot02 = df_reg_lines()[["df_lm"]][["s02"]],
-      distPlot03 = df_reg_lines()[["df_lm"]][["s03"]]
+      m01 = df_reg_lines()[["df_lm"]][["m01"]],
+      m02 = df_reg_lines()[["df_lm"]][["m02"]],
+      m03 = df_reg_lines()[["df_lm"]][["m03"]],
+      m04 = df_reg_lines()[["df_lm"]][["m04"]],
+      m05 = df_reg_lines()[["df_lm"]][["m05"]]
     )
   }, striped = TRUE, bordered = TRUE, hover = TRUE)
   
+  # which scatter plot to show
   output$sel_scatter_plot <- renderPlot({
     switch(
       sel_pl(),
-      distPlot00 = fig0(),
-      distPlot00b = fig0b(), 
-      distPlot01 = fig1(),
-      distPlot02 = fig2(),
-      distPlot03 = fig3()
+      m01 = figs[['fig01']](),
+      m02 = figs[['fig02']](), 
+      m03 = figs[['fig03']](),
+      m04 = figs[['fig04']](),
+      m05 = figs[['fig05']]()
     )
   })
   
@@ -182,11 +198,11 @@ server <- function(input, output, session) {
   output$sel_residual_plot <- renderPlot({
     switch(
       sel_pl(),
-      distPlot00 = fig_res_00(),
-      distPlot00b = fig_res_00b(),
-      distPlot01 = fig_res_01(),
-      distPlot02 = fig_res_02(),
-      distPlot03 = fig_res_03()
+      m01 = resfigs[['res01']](),
+      m02 = resfigs[['res02']](),
+      m03 = resfigs[['res03']](),
+      m04 = resfigs[['res04']](),
+      m05 = resfigs[['res05']]()
     )
   })
   
