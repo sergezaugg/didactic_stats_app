@@ -1,16 +1,10 @@
 # ---------------------------
-# Description : ggplots are defined here 
+# Description : function that render ggplots 
 # Author : Serge Zaugg
 # ---------------------------
 
-
-# scatterplot 
-make_data_scatterplot <- function(x){
-  ggplot(x) + 
-    geom_point(
-      aes(x = predictor, y = response, color = group),
-      size = 1
-    ) +
+add_scatterplot_formats <- function(fig){
+  fig +
     labs(title = " ") +
     theme_dark() +
     theme(
@@ -29,6 +23,15 @@ make_data_scatterplot <- function(x){
     )
 }
 
+# scatterplot 
+make_data_scatterplot <- function(x){
+  fig <- ggplot(x) + 
+    geom_point(
+      aes(x = predictor, y = response, color = group),
+      size = 1
+    ) 
+  add_scatterplot_formats(fig)
+}
 
 # add regression lines 
 add_lines_to_scatterplot <- function(fig, df_lines) { 
@@ -41,6 +44,17 @@ add_lines_to_scatterplot <- function(fig, df_lines) {
   
 }
 
+# scatter plot of residuals 
+make_residuals_plot <- function(df, res) {
+  fig <- ggplot(df) + 
+    geom_point(
+      aes(x = predictor, y = res, color = group),
+      size = 1
+    ) +
+    facet_wrap(~ group, ncol = 2)
+  
+  add_scatterplot_formats(fig)
+}
 
 
 

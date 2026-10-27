@@ -3,7 +3,6 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-
 simulate_bivariate_normal <- function(par){ 
   x <- mvrnorm(
     n = par$n,
@@ -36,6 +35,7 @@ fit_regression_models <- function(df){
   # ignore all predictors 
   mod00 <- lm( response ~ 1, data = df)
   coefs <- coef(mod00)
+  r00 <- residuals(mod00)
   df_coef00 <- data.frame(
     group = levels(df$group),
     intercept = coefs["(Intercept)"],
@@ -45,6 +45,7 @@ fit_regression_models <- function(df){
   # ignore groups 
   mod01 <- lm( response ~ predictor, data = df)
   coefs <- coef(mod01)
+  r01 <- residuals(mod01)
   df_coef01 <- data.frame(
     group = levels(df$group),
     intercept = coefs["(Intercept)"],
@@ -54,6 +55,7 @@ fit_regression_models <- function(df){
   # sep intercept but common slope 
   mod02 <- lm( response ~ predictor + group - 1, data = df)
   coefs <- coef(mod02)
+  r02 <- residuals(mod02)
   df_coef02 <- data.frame(
     group = levels(df$group),
     intercept = coefs[paste0("group", levels(df$group))],
@@ -63,6 +65,7 @@ fit_regression_models <- function(df){
   # sep intercept and slope models 
   mod03 <- lm(response ~ predictor:group + group - 1, data = df)
   coefs <- coef(mod03)
+  r03 <- residuals(mod03)
   df_coef03 <- data.frame(
     group = levels(df$group),
     intercept = coefs[paste0("group", levels(df$group))],
@@ -101,7 +104,16 @@ fit_regression_models <- function(df){
       "s01" = s01,
       "s02" = s02,
       "s03" = s03
+    ),
+    
+    "df_res" = list(
+      "r00" = r00,
+      "r01" = r01,
+      "r02" = r02,
+      "r03" = r03
     )
+    
+    
     )
     
     

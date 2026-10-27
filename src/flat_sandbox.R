@@ -8,28 +8,67 @@ library(ggplot2)
 library(MASS)
 library(tidyverse)
 source("src/utils_sim.R")
+source("src/utils_plots.R")
 
 
-par_a <- list(n=1000, mu_x=0,   mu_y=2,    sd_x=3, sd_y=2, cov_xy =  -0.7)
-par_b <- list(n=1000, mu_x=5,   mu_y=7,    sd_x=3, sd_y=2, cov_xy =  -0.4)
-par_c <- list(n=1000, mu_x=16,  mu_y=16,  sd_x=3, sd_y=2, cov_xy = -0.5)
+par_a <- list(n=1000, mu_x=0,   mu_y=5, sd_x=3, sd_y=10, cov_xy =  -0.8)
+par_b <- list(n=1000, mu_x=0,   mu_y=0, sd_x=3, sd_y=1, cov_xy =  0.8)
 
 df_all <- combine_dfs(par_a, par_b)
 
-df_reg_lines <- fit_regression_models(df_all)
-
-names(df_reg_lines)
-
-xx = df_reg_lines[["df_lm"]][["s03"]]
 
 
-xx = as.data.frame(xx$coefficients) %>% rownames_to_column(var = "Term")
+df = df_all
+mod03 <- lm(response ~ predictor:group + group - 1, data = df)
+summary(mod03)
+
+mod03b <- lm(response ~ predictor*group , data = df)
+summary(mod03b)
+
+res <- residuals(mod03)
 
 
 
-fig <- make_data_scatterplot(x = df_all)
-fig <- add_lines_to_scatterplot(fig, df_reg_lines[["c02"]])
+# scatter plot of residuals 
+make_residuals_plot <- function(df, res) {
+  ggplot(df) + 
+    geom_point(
+      aes(x = predictor, y = res, color = group),
+      size = 1
+    ) +
+    facet_wrap(~ group, ncol = 2)
+  }
+
+make_residuals_plot(df, res)
+
+
+
+
+
+coefs <- coef(mod03)
+df_coef03 <- data.frame(
+  group = levels(df$group),
+  intercept = coefs[paste0("group", levels(df$group))],
+  slope = coefs[paste0("predictor:group", levels(df$group))]
+)
+
+fig <-  ggplot(df_all) + 
+  geom_point(
+    aes(x = predictor, y = response, color = group),
+    size = 1
+  ) +
+  geom_abline(
+    data = df_coef03,
+    aes(intercept = intercept, slope = slope, color = group),
+    linewidth = 1
+  )
+
 fig
+
+
+
+
+
 
 
 
