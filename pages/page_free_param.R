@@ -8,7 +8,7 @@ style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
 page_free_param <- tabPanel(
   
-  "Regression (free)",
+  "Regression",
   
   fluidRow(
     
