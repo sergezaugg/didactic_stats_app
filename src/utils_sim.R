@@ -3,24 +3,46 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-simulate_bivariate_normal <- function(par){ 
-  x <- mvrnorm(
-    n = par$n,
-    mu = c(par$mu_x, par$mu_y),                    
-    Sigma = matrix(c(1, par$cov_xy, par$cov_xy, 1), nrow = 2)  
-  )
-  x[,1] = ((par$sd_x)*(x[,1]-par$mu_x)) + par$mu_x
-  x[,2] = ((par$sd_y)*(x[,2]-par$mu_y)) + par$mu_y
-  df <- as_tibble(x) %>%
-    set_names(c("predictor", "response"))
+# # old based on mvn
+# simulate_bivariate_normal <- function(par){ 
+#   x <- mvrnorm(
+#     n = par$n,
+#     mu = c(par$mu_x, par$mu_y),                    
+#     Sigma = matrix(c(1, par$cov_xy, par$cov_xy, 1), nrow = 2)  
+#   )
+#   x[,1] = ((par$sd_x)*(x[,1]-par$mu_x)) + par$mu_x
+#   x[,2] = ((par$sd_y)*(x[,2]-par$mu_y)) + par$mu_y
+#   df <- as_tibble(x) %>%
+#     set_names(c("predictor", "response"))
+#   return(df)
+# }
+# 
+# combine_dfs <- function(...) {
+#   pars <- list(...)
+#   dfs <- lapply(seq_along(pars), function(i) {
+#     df <- simulate_bivariate_normal(pars[[i]])
+#     df$group <- LETTERS[i]
+#     df
+#   })
+#   dfs <- bind_rows(dfs)
+#   dfs <- dfs %>% mutate(group = factor(group) )
+#   return(dfs)
+# }
+
+
+# new based on b0 and b1
+simulate_linear_data <- function(par){ 
+  x <- runif(par$n, par$xmin, par$xmax) 
+  y <- par$b0 + par$b1*x
+  y <- y + rnorm(n = par$n, mean = 0, sd = par$sd_res)
+  df <- tibble(predictor = x, response = y)
   return(df)
 }
 
-
-combine_dfs <- function(...) {
+combine_dfs_lin <- function(...) {
   pars <- list(...)
   dfs <- lapply(seq_along(pars), function(i) {
-    df <- simulate_bivariate_normal(pars[[i]])
+    df <- simulate_linear_data(pars[[i]])
     df$group <- LETTERS[i]
     df
   })
@@ -28,6 +50,20 @@ combine_dfs <- function(...) {
   dfs <- dfs %>% mutate(group = factor(group) )
   return(dfs)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # get standard t-table summary
 get_t_table <- function(mod){

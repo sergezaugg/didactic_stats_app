@@ -43,7 +43,7 @@ ui <- navbarPage(
   # pages 
   page_free_param,
   page_controlled_param,
-  page_summary, 
+  page_summary
   
 )
 
@@ -55,24 +55,24 @@ server <- function(input, output, session) {
   # server free params 
   par_a <- reactive(list(
     n      = as.integer(input$n_a),
-    mu_x   = as.numeric(input$mux_a),
-    mu_y   = as.numeric(input$muy_a),
-    sd_x   = as.numeric(input$sdx_a),
-    sd_y   = as.numeric(input$sdy_a),
-    cov_xy = as.numeric(input$cor_a)
+    xmin   = as.numeric(input$xmin_a),
+    xmax   = as.numeric(input$xmax_a),
+    b0     = as.numeric(input$b0_a),
+    b1     = as.numeric(input$b1_a),
+    sd_res = as.numeric(input$sd_res_a)
   ))
   
   par_b <- reactive(list(
     n      = as.integer(input$n_b),
-    mu_x   = as.numeric(input$mux_b),
-    mu_y   = as.numeric(input$muy_b),
-    sd_x   = as.numeric(input$sdx_b),
-    sd_y   = as.numeric(input$sdy_b),
-    cov_xy = as.numeric(input$cor_b)
+    xmin   = as.numeric(input$xmin_b),
+    xmax   = as.numeric(input$xmax_b),
+    b0     = as.numeric(input$b0_b),
+    b1     = as.numeric(input$b1_b),
+    sd_res = as.numeric(input$sd_res_b)
   ))
   
   # simulate data
-  df_all    <- reactive({combine_dfs(par_a(), par_b())})
+  df_all    <- reactive({combine_dfs_lin(par_a(), par_b())})
   # stats computation
   li_models <- reactive(fit_regression_models(df_all()))
   
@@ -92,25 +92,50 @@ server <- function(input, output, session) {
   #-----------------------------------
   # server controlled params 
   par_con_a <- reactive(list(
+    
     n      = as.integer(input$n_con_a),
-    mu_x   = as.numeric(input$mux_con_a),
-    mu_y   = as.numeric(input$muy_con_a),
-    sd_x   = as.numeric(input$sdx_con_a),
-    sd_y   = as.numeric(input$sdy_con_a),
-    cov_xy = as.numeric(input$cor_con_a)
+    xmin   = as.numeric(input$xmin_con_a),
+    xmax   = as.numeric(input$xmax_con_a),
+    b0     = as.numeric(input$b0_con_a),
+    b1     = as.numeric(input$b1_con_a),
+    sd_res = as.numeric(input$sd_res_con_a)
+    
+    
+    # n      = as.integer(input$n_con_a),
+    # mu_x   = as.numeric(input$mux_con_a),
+    # mu_y   = as.numeric(input$muy_con_a),
+    # mu_x   = 0.0,
+    # sd_x   = as.numeric(input$sdx_con_a),
+    # sd_x   = 1.0,
+    # sd_y   = as.numeric(input$sdy_con_a),
+    # cov_xy = as.numeric(input$cor_con_a)
+    
   ))
   
   par_con_b <- reactive(list(
+    
     n      = as.integer(input$n_con_b),
-    mu_x   = as.numeric(input$mux_con_b),
-    mu_y   = as.numeric(input$muy_con_b),
-    sd_x   = as.numeric(input$sdx_con_b),
-    sd_y   = as.numeric(input$sdy_con_b),
-    cov_xy = as.numeric(input$cor_con_b)
+    xmin   = as.numeric(input$xmin_con_b),
+    xmax   = as.numeric(input$xmax_con_b),
+    b0     = as.numeric(input$b0_con_b),
+    b1     = as.numeric(input$b1_con_b),
+    sd_res = as.numeric(input$sd_res_con_b)
+    
+    # 
+    # n      = as.integer(input$n_con_b),
+    # 
+    # # mu_x   = as.numeric(input$mux_con_b),
+    # mu_y   = as.numeric(input$muy_con_b),
+    # mu_x   = 0.0,
+    # # sd_x   = as.numeric(input$sdx_con_b),
+    # sd_x   = 1.0,
+    # 
+    # sd_y   = as.numeric(input$sdy_con_b),
+    # cov_xy = as.numeric(input$cor_con_b)
   ))
   
   # simulate data
-  df_all_con    <- reactive({combine_dfs(par_con_a(), par_con_b())})
+  df_all_con    <- reactive({combine_dfs_lin(par_con_a(), par_con_b())})
   # stats computation
   li_models_con <- reactive(fit_regression_models(df_all_con()))
   
