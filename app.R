@@ -77,28 +77,6 @@ server <- function(input, output, session) {
   df_all       <- reactive({combine_dfs(par_a(), par_b())})
   df_models <- reactive(fit_regression_models(df_all()))
   
-  # make all data scatter plots
-  fig       <- reactive((make_data_scatterplot(x = df_all())))
-  
-  # output$debug <- renderPrint({df_all})
-
-  # add regression lines to all plot
-  figs <- lapply(sprintf("m%02d", 1:5), function(m) {
-    reactive({
-      add_lines_to_scatterplot(fig(),df_models()[["df_plt"]][[m]])
-    })
-  })
-  names(figs) <- sprintf("fig%02d", 1:5)
-
-
-  # make all residual plots
-  resfigs <- lapply(sprintf("m%02d", 1:5), function(m) {
-    reactive({
-      make_residuals_plot(df = df_all(), res = df_models()[["df_res"]][[m]])
-    })
-  })
-  names(resfigs) <- sprintf("res%02d", 1:5)
-  
   # output$debug <- renderPrint(names(resfigs))
 
   # display plots and tables based on user choice
@@ -120,11 +98,11 @@ server <- function(input, output, session) {
   output$sel_scatter_plot <- renderPlot({
     switch(
       sel_pl(),
-      m01 = figs[['fig01']](),
-      m02 = figs[['fig02']](), 
-      m03 = figs[['fig03']](),
-      m04 = figs[['fig04']](),
-      m05 = figs[['fig05']]()
+      m01 = df_models()[["df_plots"]][["m01"]],
+      m02 = df_models()[["df_plots"]][["m02"]], 
+      m03 = df_models()[["df_plots"]][["m03"]],
+      m04 = df_models()[["df_plots"]][["m04"]],
+      m05 = df_models()[["df_plots"]][["m05"]]
     )
   })
   
@@ -132,11 +110,11 @@ server <- function(input, output, session) {
   output$sel_residual_plot <- renderPlot({
     switch(
       sel_pl(),
-      m01 = resfigs[['res01']](),
-      m02 = resfigs[['res02']](),
-      m03 = resfigs[['res03']](),
-      m04 = resfigs[['res04']](),
-      m05 = resfigs[['res05']]()
+      m01 = df_models()[["df_res_plots"]] [["m01"]],
+      m02 = df_models()[["df_res_plots"]] [["m02"]],
+      m03 = df_models()[["df_res_plots"]] [["m03"]],
+      m04 = df_models()[["df_res_plots"]] [["m04"]],
+      m05 = df_models()[["df_res_plots"]] [["m05"]]
     )
   })
   

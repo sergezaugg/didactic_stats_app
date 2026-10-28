@@ -62,11 +62,29 @@ fit_regression_models <- function(df){
     m05  = data.frame(group = groups, intercept = coefs$m05[paste0("group", groups)], slope = coefs$m05[paste0("predictor:group", groups)])
   )
   
+  df_plots <- list(
+    m01  = make_data_scatterplot(x = df, df_lines = df_plt[["m01"]]),
+    m02  = make_data_scatterplot(x = df, df_lines = df_plt[["m02"]]),
+    m03  = make_data_scatterplot(x = df, df_lines = df_plt[["m03"]]),
+    m04  = make_data_scatterplot(x = df, df_lines = df_plt[["m04"]]),
+    m05  = make_data_scatterplot(x = df, df_lines = df_plt[["m05"]])
+  )
+  
+  df_res_plots <- list(
+    m01  = make_residuals_plot(df = df, res = df_res[["m01"]]), 
+    m02  = make_residuals_plot(df = df, res = df_res[["m02"]]), 
+    m03  = make_residuals_plot(df = df, res = df_res[["m03"]]), 
+    m04  = make_residuals_plot(df = df, res = df_res[["m04"]]), 
+    m05  = make_residuals_plot(df = df, res = df_res[["m05"]])
+  )
+  
   return(
     list(
       "df_plt"= df_plt,
       "df_lm" = df_tab,
-      "df_res" = df_res
+      "df_res" = df_res,
+      "df_plots"= df_plots,
+      "df_res_plots" = df_res_plots
     )
   )
   

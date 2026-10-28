@@ -3,6 +3,8 @@
 # Author : Serge Zaugg
 # ---------------------------
 
+# helpers (not used otside of this moduls )
+
 add_scatterplot_formats <- function(fig){
   fig +
     labs(title = " ") +
@@ -23,15 +25,6 @@ add_scatterplot_formats <- function(fig){
     )
 }
 
-# scatterplot 
-make_data_scatterplot <- function(x){
-  fig <- ggplot(x) + 
-    geom_point(
-      aes(x = predictor, y = response, color = group),
-      size = 1
-    ) 
-  add_scatterplot_formats(fig)
-}
 
 # add regression lines 
 add_lines_to_scatterplot <- function(fig, df_lines) { 
@@ -43,6 +36,24 @@ add_lines_to_scatterplot <- function(fig, df_lines) {
     )  
   
 }
+
+
+# main plot functions
+
+# scatterplot 
+make_data_scatterplot <- function(x, df_lines){
+  fig <- ggplot(x) + 
+    geom_point(
+      aes(x = predictor, y = response, color = group),
+      size = 1
+    ) 
+  
+  fig <- add_lines_to_scatterplot(fig, df_lines)
+  
+  add_scatterplot_formats(fig)
+}
+
+
 
 # scatter plot of residuals 
 make_residuals_plot <- function(df, res) {
