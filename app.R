@@ -20,14 +20,13 @@ source("pages/page_free_param.R")
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
+# Define UI  
 ui <- navbarPage(
   title = "Applied Stats Playground",
-  
-  # styling 
-  
+  # styling colors
   theme = bs_theme(
     bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#660055"),
-  
+  # styling margins
   tags$head(
     tags$style(HTML("
       .container-fluid {
@@ -41,18 +40,13 @@ ui <- navbarPage(
   ),
   
   # pages 
-  
   page_free_param,
-  
   page_summary, 
-  
- 
   
 )
 
 
-
-# Define server logic 
+# Define server  
 server <- function(input, output, session) {
 
   par_a <- reactive(list(
@@ -73,50 +67,22 @@ server <- function(input, output, session) {
     cov_xy = as.numeric(input$cor_b)
   ))
   
+  # simulate data
+  df_all    <- reactive({combine_dfs(par_a(), par_b())})
   # stats computation
-  df_all       <- reactive({combine_dfs(par_a(), par_b())})
-  df_models <- reactive(fit_regression_models(df_all()))
+  li_models <- reactive(fit_regression_models(df_all()))
   
-  # output$debug <- renderPrint(names(resfigs))
-
   # display plots and tables based on user choice
   sel_pl = reactive(input$dist_plot)
+  # Selected table
+  output$sel_ttable <- renderTable({li_models()[[sel_pl()]][["df_tables"]]})
+  # Selected scatter plot
+  output$sel_scatter_plot <- renderPlot({li_models()[[sel_pl()]][["df_plots"]]})
+  # Selected residual plot
+  output$sel_residual_plot <- renderPlot({li_models()[[sel_pl()]][["df_res_plots"]]})
   
-  # which t-table to show
-  output$sel_ttable <- renderTable({
-    switch(
-      sel_pl(),
-      m01 = df_models()[["df_lm"]][["m01"]],
-      m02 = df_models()[["df_lm"]][["m02"]],
-      m03 = df_models()[["df_lm"]][["m03"]],
-      m04 = df_models()[["df_lm"]][["m04"]],
-      m05 = df_models()[["df_lm"]][["m05"]]
-    )
-  }, striped = TRUE, bordered = TRUE, hover = TRUE)
-  
-  # which scatter plot to show
-  output$sel_scatter_plot <- renderPlot({
-    switch(
-      sel_pl(),
-      m01 = df_models()[["df_plots"]][["m01"]],
-      m02 = df_models()[["df_plots"]][["m02"]], 
-      m03 = df_models()[["df_plots"]][["m03"]],
-      m04 = df_models()[["df_plots"]][["m04"]],
-      m05 = df_models()[["df_plots"]][["m05"]]
-    )
-  })
-  
-  # which residual plot to show 
-  output$sel_residual_plot <- renderPlot({
-    switch(
-      sel_pl(),
-      m01 = df_models()[["df_res_plots"]] [["m01"]],
-      m02 = df_models()[["df_res_plots"]] [["m02"]],
-      m03 = df_models()[["df_res_plots"]] [["m03"]],
-      m04 = df_models()[["df_res_plots"]] [["m04"]],
-      m05 = df_models()[["df_res_plots"]] [["m05"]]
-    )
-  })
+  # de-bugging 
+  # output$debug <- renderPrint(names(resfigs))
   
 }
 

@@ -69,7 +69,7 @@ fit_regression_models <- function(df){
     m04  = make_data_scatterplot(x = df, df_lines = df_plt[["m04"]]),
     m05  = make_data_scatterplot(x = df, df_lines = df_plt[["m05"]])
   )
-  
+
   df_res_plots <- list(
     m01  = make_residuals_plot(df = df, res = df_res[["m01"]]), 
     m02  = make_residuals_plot(df = df, res = df_res[["m02"]]), 
@@ -78,15 +78,26 @@ fit_regression_models <- function(df){
     m05  = make_residuals_plot(df = df, res = df_res[["m05"]])
   )
   
-  return(
-    list(
-      "df_plt"= df_plt,
-      "df_lm" = df_tab,
-      "df_res" = df_res,
-      "df_plots"= df_plots,
-      "df_res_plots" = df_res_plots
-    )
+  # list by item type and then models 
+  li <-  list(
+    "df_tables" = df_tab,
+    "df_plots"= df_plots,
+    "df_res_plots" = df_res_plots
   )
+  
+  # re-organize to list by models and then item type
+  inner_names <- unique(unlist(lapply(li, names)))
+  li2 <- setNames(
+    lapply(inner_names, function(inner) {
+      setNames(
+        lapply(li, function(outer) outer[[inner]]),
+        names(li)
+      )
+    }),
+    inner_names
+  )
+  
+  return(li2)
   
 }
 
