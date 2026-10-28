@@ -1,7 +1,6 @@
 # Didactic Statistics App
 
 ### Features
-- This is a purely didactic app
 - Get intuitive understanding of strengths and pitfalls with linear regression
 - Simulate multiple relevant scenarios of data with groups and continuous predictors
 - Explore plots and tables to show how different regression models (mis-)behave
@@ -24,31 +23,30 @@
 ### Data Source
 - Simulated data, there are no external data fetched.
 
-
 ### Installation
 1. Install R and Rstudio   
 1. Clone the repository   
 3. Install R packages  
 
-
 ### Usage
 Start the dashboard locally with:
-- Easy: Open Rstudio and open app.R the use the "Run app" button.
-- More control; Open Rstudio, go to terminal and do
-```bash
+- Open repo in Rstudio as a project (e.g. double-click ```didactic_stats_app.Rproj```)
 
+  - Easy: open app.R the use the "Run app" button
+  - More control: Open Rstudio, go to terminal and do
+  
+```bash
 Rscript --no-init-file -e "shiny::runApp(launch.browser = TRUE)"
 # or 
 Rscript --vanilla      -e "shiny::runApp(launch.browser = TRUE)"
-
-# tbd
+# Without R-studio ... TBD
 Rscript --no-init-file -e "shiny::runApp(appDir = '/your local path/didactic_stats_app', launch.browser = TRUE)"
 
 ```
 
 ### Project Structure
 ```text
-
+TBD
 ```
 
 ### Credits
