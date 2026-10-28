@@ -99,17 +99,9 @@ server <- function(input, output, session) {
     b0     = as.numeric(input$b0_con_a),
     b1     = as.numeric(input$b1_con_a),
     sd_res = as.numeric(input$sd_res_con_a)
-    
-    
-    # n      = as.integer(input$n_con_a),
-    # mu_x   = as.numeric(input$mux_con_a),
-    # mu_y   = as.numeric(input$muy_con_a),
-    # mu_x   = 0.0,
-    # sd_x   = as.numeric(input$sdx_con_a),
-    # sd_x   = 1.0,
-    # sd_y   = as.numeric(input$sdy_con_a),
-    # cov_xy = as.numeric(input$cor_con_a)
-    
+    # xmin   = 0.0,
+    # xmax   = 1.0,
+  
   ))
   
   par_con_b <- reactive(list(
@@ -121,17 +113,6 @@ server <- function(input, output, session) {
     b1     = as.numeric(input$b1_con_b),
     sd_res = as.numeric(input$sd_res_con_b)
     
-    # 
-    # n      = as.integer(input$n_con_b),
-    # 
-    # # mu_x   = as.numeric(input$mux_con_b),
-    # mu_y   = as.numeric(input$muy_con_b),
-    # mu_x   = 0.0,
-    # # sd_x   = as.numeric(input$sdx_con_b),
-    # sd_x   = 1.0,
-    # 
-    # sd_y   = as.numeric(input$sdy_con_b),
-    # cov_xy = as.numeric(input$cor_con_b)
   ))
   
   # simulate data
