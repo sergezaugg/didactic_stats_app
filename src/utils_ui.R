@@ -27,8 +27,8 @@ make_group_controls <- function(group, title, const_x = FALSE) {
           tags$div("X values fixed")  
         } else {
           tagList( # needed for shiny - tagList() groups multiple Shiny UI elements into one object
-            sliderInput(inputId = paste0("xmin_", group), label = "xmin", min = -1.0, max = 0.0, value = -0.5),
-            sliderInput(inputId = paste0("xmax_", group), label = "xmax", min = 0.0, max = 1.0, value = 0.5)
+            sliderInput(inputId = paste0("xmin_", group), label = "xmin", min = -1.0, max = 1.0, value = -0.5, step = 0.1),
+            sliderInput(inputId = paste0("xmax_", group), label = "xmax", min = -1.0, max = 1.0, value = 0.5, step = 0.1)
           )
         },
       ),
