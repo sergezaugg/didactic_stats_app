@@ -16,6 +16,7 @@ source("src/utils_ui.R")
 source("src/utils_plots.R")
 source("pages/page_summary.R")
 source("pages/page_free_param.R")
+source("pages/page_controled_param.R")
 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
@@ -41,6 +42,7 @@ ui <- navbarPage(
   
   # pages 
   page_free_param,
+  page_controlled_param,
   page_summary, 
   
 )
@@ -48,7 +50,9 @@ ui <- navbarPage(
 
 # Define server  
 server <- function(input, output, session) {
-
+  
+  #-----------------------------------
+  # server free params 
   par_a <- reactive(list(
     n      = as.integer(input$n_a),
     mu_x   = as.numeric(input$mux_a),
@@ -83,6 +87,45 @@ server <- function(input, output, session) {
   
   # de-bugging 
   # output$debug <- renderPrint(names(resfigs))
+  
+  
+  #-----------------------------------
+  # server controlled params 
+  par_con_a <- reactive(list(
+    n      = as.integer(input$n_con_a),
+    mu_x   = as.numeric(input$mux_con_a),
+    mu_y   = as.numeric(input$muy_con_a),
+    sd_x   = as.numeric(input$sdx_con_a),
+    sd_y   = as.numeric(input$sdy_con_a),
+    cov_xy = as.numeric(input$cor_con_a)
+  ))
+  
+  par_con_b <- reactive(list(
+    n      = as.integer(input$n_con_b),
+    mu_x   = as.numeric(input$mux_con_b),
+    mu_y   = as.numeric(input$muy_con_b),
+    sd_x   = as.numeric(input$sdx_con_b),
+    sd_y   = as.numeric(input$sdy_con_b),
+    cov_xy = as.numeric(input$cor_con_b)
+  ))
+  
+  # simulate data
+  df_all_con    <- reactive({combine_dfs(par_con_a(), par_con_b())})
+  # stats computation
+  li_models_con <- reactive(fit_regression_models(df_all_con()))
+  
+  # display plots and tables based on user choice
+  sel_pl_con = reactive(input$dist_plot_con_a)
+  # Selected table
+  output$sel_ttable_con <- renderTable({li_models_con()[[sel_pl_con()]][["df_tables"]]})
+  # Selected scatter plot
+  output$sel_scatter_plot_con <- renderPlot({li_models_con()[[sel_pl_con()]][["df_plots"]]})
+  # Selected residual plot
+  output$sel_residual_plot_con <- renderPlot({li_models_con()[[sel_pl_con()]][["df_res_plots"]]})
+  
+  # de-bugging 
+  # output$debug <- renderPrint(names(resfigs))
+  
   
 }
 
