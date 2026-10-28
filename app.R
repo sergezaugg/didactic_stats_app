@@ -14,6 +14,8 @@ library(DT)
 source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
+source("pages/page_summary.R")
+source("pages/page_free_param.R")
 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
@@ -38,86 +40,21 @@ ui <- navbarPage(
     }"))
   ),
   
-  # define ui elements 
-  tabPanel(
-    "Regression",
-
-    fluidRow(
-      
-      # control on the side 
-      column(width = 4,
-        div(style = style_pannels,  
-           h5("Define data distribution"), 
-           tags$hr(style = style_divider),
-           make_group_controls("a", "Group A"),
-           tags$hr(style = style_divider),
-           make_group_controls("b", "Group B"),
-           tags$hr(style = style_divider),
-           tags$p("Quick guide: aaa bbb ccc")
-        )),
-      
-      column(width = 4, 
-        div(style = style_pannels,
-          h5("Scatterplot and regression lines"), 
-          tags$hr(style = style_divider),
-          
-          selectInput(
-           inputId  = "dist_plot",
-           label    = "Choose model",
-           choices  = c(
-             "M1 (Global mean only)" = "m01",
-             "M2 (two means only)" = "m02",
-             "M3 (Global mean & slope)" = "m03",
-             "M4 (Group mean & global slope)"  = "m04",
-             "M5 (Group mean & group slope)" = "m05"
-           ),
-           selected = "m01",
-         ),
-         
-         plotOutput(
-           outputId = "sel_scatter_plot", 
-           height = "300px"
-         )
-        )
-      ),
-      
-      # verbatimTextOutput("debug"),
-      
-      column(4, 
-        div(style = style_pannels,
-           h5("Residuals & Estimates"), 
-           tags$hr(style = style_divider),
-           div(style = "height: 87px;"),
-           plotOutput(
-             outputId = "sel_residual_plot", 
-             height = "300px"
-           ),
-           tags$hr(style = style_divider),
-           tableOutput("sel_ttable")
-        )
-      )
-    )
-    
-  ),
+  # pages 
   
-  tabPanel(
-    "Summary",
-    h2("Summary")
-    
-  ),
+  page_free_param,
   
-  tabPanel(
-    "ch3",
-    h2("Analysis page")
-    
-  )
+  page_summary, 
+  
+ 
+  
 )
 
 
 
 # Define server logic 
 server <- function(input, output, session) {
-  
+
   par_a <- reactive(list(
     n      = as.integer(input$n_a),
     mu_x   = as.numeric(input$mux_a),
@@ -138,17 +75,29 @@ server <- function(input, output, session) {
   
   # stats computation
   df_all       <- reactive({combine_dfs(par_a(), par_b())})
-  df_reg_lines <- reactive(fit_regression_models(df_all()))
+  df_models <- reactive(fit_regression_models(df_all()))
   
   # make all data scatter plots
   fig          <- reactive((make_data_scatterplot(x = df_all())))
   
   # output$debug <- renderPrint({df_all})
   
+  
+  # # add regression lines to all plot
+  # add_lines <- function(){}
+  #   figs <- lapply(sprintf("m%02d", 1:5), function(m) {
+  #     reactive({
+  #       add_lines_to_scatterplot(fig(),df_models()[["df_plt"]][[m]])
+  #     })
+  #   })
+  #   names(figs) <- sprintf("fig%02d", 1:5)
+  # }
+  
+  
   # add regression lines to all plot
   figs <- lapply(sprintf("m%02d", 1:5), function(m) {
     reactive({
-      add_lines_to_scatterplot(fig(),df_reg_lines()[["df_plt"]][[m]])
+      add_lines_to_scatterplot(fig(),df_models()[["df_plt"]][[m]])
     })
   })
   names(figs) <- sprintf("fig%02d", 1:5)
@@ -157,28 +106,25 @@ server <- function(input, output, session) {
   # make all residual plots
   resfigs <- lapply(sprintf("m%02d", 1:5), function(m) {
     reactive({
-      make_residuals_plot(df = df_all(), res = df_reg_lines()[["df_res"]][[m]])
+      make_residuals_plot(df = df_all(), res = df_models()[["df_res"]][[m]])
     })
   })
   names(resfigs) <- sprintf("res%02d", 1:5)
   
   # output$debug <- renderPrint(names(resfigs))
-  
-  
-  
-  
-  
+
+  # display plots and tables based on user choice
   sel_pl = reactive(input$dist_plot)
   
   # which t-table to show
   output$sel_ttable <- renderTable({
     switch(
       sel_pl(),
-      m01 = df_reg_lines()[["df_lm"]][["m01"]],
-      m02 = df_reg_lines()[["df_lm"]][["m02"]],
-      m03 = df_reg_lines()[["df_lm"]][["m03"]],
-      m04 = df_reg_lines()[["df_lm"]][["m04"]],
-      m05 = df_reg_lines()[["df_lm"]][["m05"]]
+      m01 = df_models()[["df_lm"]][["m01"]],
+      m02 = df_models()[["df_lm"]][["m02"]],
+      m03 = df_models()[["df_lm"]][["m03"]],
+      m04 = df_models()[["df_lm"]][["m04"]],
+      m05 = df_models()[["df_lm"]][["m05"]]
     )
   }, striped = TRUE, bordered = TRUE, hover = TRUE)
   
