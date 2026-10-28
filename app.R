@@ -78,22 +78,10 @@ server <- function(input, output, session) {
   df_models <- reactive(fit_regression_models(df_all()))
   
   # make all data scatter plots
-  fig          <- reactive((make_data_scatterplot(x = df_all())))
+  fig       <- reactive((make_data_scatterplot(x = df_all())))
   
   # output$debug <- renderPrint({df_all})
-  
-  
-  # # add regression lines to all plot
-  # add_lines <- function(){}
-  #   figs <- lapply(sprintf("m%02d", 1:5), function(m) {
-  #     reactive({
-  #       add_lines_to_scatterplot(fig(),df_models()[["df_plt"]][[m]])
-  #     })
-  #   })
-  #   names(figs) <- sprintf("fig%02d", 1:5)
-  # }
-  
-  
+
   # add regression lines to all plot
   figs <- lapply(sprintf("m%02d", 1:5), function(m) {
     reactive({
@@ -101,7 +89,7 @@ server <- function(input, output, session) {
     })
   })
   names(figs) <- sprintf("fig%02d", 1:5)
-  
+
 
   # make all residual plots
   resfigs <- lapply(sprintf("m%02d", 1:5), function(m) {
