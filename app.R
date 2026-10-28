@@ -94,21 +94,24 @@ server <- function(input, output, session) {
   par_con_a <- reactive(list(
     
     n      = as.integer(input$n_con_a),
-    xmin   = as.numeric(input$xmin_con_a),
-    xmax   = as.numeric(input$xmax_con_a),
+    # xmin   = as.numeric(input$xmin_con_a),
+    # xmax   = as.numeric(input$xmax_con_a),
+    xmin   = -0.5,
+    xmax   = 0.5,
     b0     = as.numeric(input$b0_con_a),
     b1     = as.numeric(input$b1_con_a),
     sd_res = as.numeric(input$sd_res_con_a)
-    # xmin   = 0.0,
-    # xmax   = 1.0,
+    
   
   ))
   
   par_con_b <- reactive(list(
     
     n      = as.integer(input$n_con_b),
-    xmin   = as.numeric(input$xmin_con_b),
-    xmax   = as.numeric(input$xmax_con_b),
+    # xmin   = as.numeric(input$xmin_con_b),
+    # xmax   = as.numeric(input$xmax_con_b),
+    xmin   = -0.5,
+    xmax   = 0.5,
     b0     = as.numeric(input$b0_con_b),
     b1     = as.numeric(input$b1_con_b),
     sd_res = as.numeric(input$sd_res_con_b)

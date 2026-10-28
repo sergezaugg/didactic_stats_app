@@ -1,12 +1,14 @@
-
-
+# ---------------------------
+# Description : page 2
+# Author : Serge Zaugg
+# ---------------------------
 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
 page_free_param <- tabPanel(
   
-  "Regression",
+  "Regression (free)",
   
   fluidRow(
     
@@ -15,11 +17,11 @@ page_free_param <- tabPanel(
            div(style = style_pannels,  
                h5("Define data distribution"), 
                tags$hr(style = style_divider),
-               make_group_controls("a", "Group A"),
+               make_group_controls("a", "Group A", const_x = FALSE),
                tags$hr(style = style_divider),
-               make_group_controls("b", "Group B"),
+               make_group_controls("b", "Group B", const_x = FALSE),
                tags$hr(style = style_divider),
-               tags$p("Quick guide: aaa bbb ccc"),
+               tags$p("Quick guide: All simulation parameters are free."),
            )),
     
     

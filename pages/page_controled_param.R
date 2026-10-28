@@ -1,4 +1,7 @@
-
+# ---------------------------
+# Description : page 1
+# Author : Serge Zaugg
+# ---------------------------
 
 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
@@ -6,7 +9,7 @@ style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
 page_controlled_param <- tabPanel(
   
-  "Regr (const X)",
+  "Regression (X fixed)",
   
   fluidRow(
     
@@ -15,11 +18,13 @@ page_controlled_param <- tabPanel(
            div(style = style_pannels,  
                h5("Define data distribution"), 
                tags$hr(style = style_divider),
-               make_group_controls("con_a", "Group A"),
+               make_group_controls("con_a", "Group A", const_x = TRUE),
                tags$hr(style = style_divider),
-               make_group_controls("con_b", "Group B"),
+               make_group_controls("con_b", "Group B", const_x = TRUE),
                tags$hr(style = style_divider),
-               tags$p("Quick guide: aaa bbb ccc"),
+               tags$p("Quick guide: Covariate (Predictor) has same distribution in both groups.
+                      This simulates a randomized experiment where covariate is evenly distributed across both groups. 
+                      The covariate may have an association to response and then adjusting for it can increase power."),
            )),
     
     
