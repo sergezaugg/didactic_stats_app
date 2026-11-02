@@ -48,7 +48,7 @@ ui <- navbarPage(
 
 # Define server  
 server <- function(input, output, session) {
-  # load server code from external scripts
+  # load server code from scripts
   source("server/server_x_same.R", local = TRUE)
   source("server/server_x_uneq.R", local = TRUE)
   source("server/server_x_free.R", local = TRUE)

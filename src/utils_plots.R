@@ -21,7 +21,10 @@ add_scatterplot_formats <- function(fig){
         colour = "white",
         fill = NA,
         linewidth = 1
-      )
+      ),
+      axis.text.x = element_text(size = 22),
+      axis.text.y = element_text(size = 22)
+
     )
 }
 
