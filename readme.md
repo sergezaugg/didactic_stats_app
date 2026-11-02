@@ -9,14 +9,12 @@
 
 ### Dependencies
 - R 4.5.1
-- ggplot2
 - tidyverse
 - shiny
 - bslib
-- shinyWidgets
 
 ### Data Source
-- Simulated data, there are no external data fetched.
+- Simulated data, no external data needed.
 
 ### Installation
 * Install R and Rstudio
@@ -27,7 +25,7 @@
   * Check needed R packages: ```renv::status()```
   * Install packages from renv.lock: ```renv::restore()```
 
-### Usage (Start the dashboard locally)
+### Usage (Start the dashboard)
 * Open repo in Rstudio as a project (e.g. double-click ```didactic_stats_app.Rproj```)
   * Easy: open app.R the use the "Run app" button
   * More control: Open Rstudio, go to terminal and do
