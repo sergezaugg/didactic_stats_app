@@ -18,9 +18,9 @@ page_x_uneq <- tabPanel(
            div(style = style_pannels,  
                h5("Define data distribution"), 
                tags$hr(style = style_divider),
-               make_group_controls("fix_a", "Group A", const_x = TRUE),
+               make_group_controls("x_uneq_a", "Group A", const_x = TRUE),
                tags$hr(style = style_divider),
-               make_group_controls("fix_b", "Group B", const_x = TRUE),
+               make_group_controls("x_uneq_b", "Group B", const_x = TRUE),
                tags$hr(style = style_divider),
                tags$p("Quick guide: Covariate (Predictor) has diferent distribution in groups.
                       This simulates observational data where covariate is diferent between both groups. 
@@ -37,7 +37,7 @@ page_x_uneq <- tabPanel(
                tags$hr(style = style_divider),
                
                selectInput(
-                 inputId  = "dist_plot_fix_a",
+                 inputId  = "dist_plot_x_uneq_a",
                  label    = "Choose model",
                  choices  = c(
                    "M1 (Global mean only)" = "m01",
@@ -50,7 +50,7 @@ page_x_uneq <- tabPanel(
                ),
                
                plotOutput(
-                 outputId = "sel_scatter_plot_fix", 
+                 outputId = "sel_scatter_plot_x_uneq", 
                  height = "300px"
                )
            )
@@ -63,11 +63,11 @@ page_x_uneq <- tabPanel(
                tags$hr(style = style_divider),
                div(style = "height: 87px;"),
                plotOutput(
-                 outputId = "sel_residual_plot_fix", 
+                 outputId = "sel_residual_plot_x_uneq", 
                  height = "300px"
                ),
                tags$hr(style = style_divider),
-               tableOutput("sel_ttable_fix")
+               tableOutput("sel_ttable_x_uneq")
            )
     )
   )
