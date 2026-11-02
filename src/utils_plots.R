@@ -65,6 +65,7 @@ make_residuals_plot <- function(df, res) {
       aes(x = predictor, y = res, color = group),
       size = 1
     ) +
+    geom_hline(yintercept = 0,linetype = "dashed",color = "#ff9900") +
     labs(x = "Predictor", y = "Residuals", group = "Group")
   facet_wrap(~group, ncol = 2)
   add_scatterplot_formats(fig)

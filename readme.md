@@ -38,13 +38,26 @@
 Rscript --no-init-file -e "shiny::runApp(appDir = '/your local path/didactic_stats_app', launch.browser = TRUE)"
 ```
 
-
-
-
 ### Project Structure
+
 ```text
-TBD
+didactic_stats_app/
+│
+├── app.R                    # Main application entry point
+├── pages/                   # UI definitions for app pages
+├── server/                  # Server-side logic with page-specific functionality
+├── src/                     # Shared functions and components
+│
+├── renv/                    # Project-specific package environment
+├── renv.lock                # Package versions and dependency snapshot
+├── .Rprofile                # R startup config (used for renv activation)
+│
+├── .gitignore               # Files excluded from version control
+├── didactic_stats_app.Rproj # RStudio project configuration
+├── readme.md
+└── LICENSE
 ```
+
 
 ### Credits
 - Web-app concept, analytics and implementation by Serge Zaugg ([Pollito-ML](https://github.com/sergezaugg))
