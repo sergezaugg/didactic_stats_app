@@ -51,7 +51,7 @@ TBD
 - Web-app concept, analytics and implementation by Serge Zaugg ([Pollito-ML](https://github.com/sergezaugg))
 
 ### License
-[MIT License](LICENSE)
+[MIT License - © 2026 Serge Zaugg](LICENSE)
 
 
 
