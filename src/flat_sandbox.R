@@ -5,7 +5,10 @@
 
 
 
+# install.packages("styler")
 
-
+# styler::style_file("pages/page_x_same.R")
+# styler::style_file("pages/page_x_free.R")
+# styler::style_file("pages/page_x_uneq.R")
 
 
