@@ -17,9 +17,9 @@ page_x_free <- tabPanel(
            div(style = style_pannels,  
                h5("Define data distribution"), 
                tags$hr(style = style_divider),
-               make_group_controls("a", "Group A", const_x = FALSE),
+               make_group_controls("x_free_a", "Group A", const_x = FALSE),
                tags$hr(style = style_divider),
-               make_group_controls("b", "Group B", const_x = FALSE),
+               make_group_controls("x_free_b", "Group B", const_x = FALSE),
                tags$hr(style = style_divider),
                tags$p("Quick guide: All simulation parameters are free."),
            )),
@@ -33,7 +33,7 @@ page_x_free <- tabPanel(
                tags$hr(style = style_divider),
                
                selectInput(
-                 inputId  = "dist_plot",
+                 inputId  = "dist_plot_x_free",
                  label    = "Choose model",
                  choices  = c(
                    "M1 (Global mean only)" = "m01",
@@ -46,7 +46,7 @@ page_x_free <- tabPanel(
                ),
                
                plotOutput(
-                 outputId = "sel_scatter_plot", 
+                 outputId = "sel_scatter_plot_x_free", 
                  height = "300px"
                )
            )
@@ -61,11 +61,11 @@ page_x_free <- tabPanel(
                tags$hr(style = style_divider),
                div(style = "height: 87px;"),
                plotOutput(
-                 outputId = "sel_residual_plot", 
+                 outputId = "sel_residual_plot_x_free", 
                  height = "300px"
                ),
                tags$hr(style = style_divider),
-               tableOutput("sel_ttable")
+               tableOutput("sel_ttable_x_free")
            )
     )
   )

@@ -9,7 +9,6 @@ library(MASS)
 library(shiny)
 library(bslib)
 library(shinyWidgets)
-# library(DT)
 
 source("src/utils_sim.R")
 source("src/utils_ui.R")
@@ -40,13 +39,11 @@ ui <- navbarPage(
         margin-right: auto;
     }"))
   ),
-  
   # pages 
   page_x_same,
   page_x_uneq,
   page_x_free,
   page_summary
-  
 )
 
 # Define server  

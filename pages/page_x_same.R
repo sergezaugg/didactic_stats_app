@@ -3,7 +3,6 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
@@ -49,7 +48,7 @@ page_x_same <- tabPanel(
                ),
                
                plotOutput(
-                 outputId = "sel_scatter_plot_con", 
+                 outputId = "sel_scatter_plot_x_same", 
                  height = "300px"
                )
            )
@@ -64,11 +63,11 @@ page_x_same <- tabPanel(
                tags$hr(style = style_divider),
                div(style = "height: 87px;"),
                plotOutput(
-                 outputId = "sel_residual_plot_con", 
+                 outputId = "sel_residual_plot_x_same", 
                  height = "300px"
                ),
                tags$hr(style = style_divider),
-               tableOutput("sel_ttable_con")
+               tableOutput("sel_ttable_x_same")
            )
     )
   )
