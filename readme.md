@@ -1,11 +1,13 @@
 # Didactic Statistics App
 
+
 ### Features
 - Get intuitive understanding of strengths and pitfalls with linear regression
 - Simulate multiple relevant scenarios of data with groups and continuous predictors
 - Explore plots and tables to show how different regression models (mis-)behave
 - 5 models implemented from "single grand mean" to "separate intercept and separate slope"
 - Friendly multi-page app with dark gothic theme
+
 
 ### Dependencies
 - R 4.5.1
