@@ -11,36 +11,37 @@
 - R 4.5.1
 - ggplot2
 - tidyverse
-- MASS
 - shiny
 - bslib
 - shinyWidgets
-- DT
-
 
 ### Data Source
 - Simulated data, there are no external data fetched.
 
 ### Installation
-1. Install R and Rstudio   
-1. Clone the repository   
-3. Install R packages  
+* Install R and Rstudio
+* In Terminal/cmd/bash: Clone this repository
+* Open this repo in Rstudio as a project (e.g. double-click **didactic_stats_app.Rproj**)
+* In R console:
+  * Activate renv: ```renv::activate()```
+  * Check needed R packages: ```renv::status()```
+  * Install packages from renv.lock: ```renv::restore()```
 
-### Usage
-Start the dashboard locally with:
-- Open repo in Rstudio as a project (e.g. double-click ```didactic_stats_app.Rproj```)
+### Usage (Start the dashboard locally)
+* Open repo in Rstudio as a project (e.g. double-click ```didactic_stats_app.Rproj```)
+  * Easy: open app.R the use the "Run app" button
+  * More control: Open Rstudio, go to terminal and do
+  * ```Rscript --no-init-file -e "shiny::runApp(launch.browser = TRUE)"```
+  * or equivalently
+  * ```Rscript --vanilla      -e "shiny::runApp(launch.browser = TRUE)"```
 
-  - Easy: open app.R the use the "Run app" button
-  - More control: Open Rstudio, go to terminal and do
-  
+### Usage (Without R-studio ... TBD)
 ```bash
-Rscript --no-init-file -e "shiny::runApp(launch.browser = TRUE)"
-# or 
-Rscript --vanilla      -e "shiny::runApp(launch.browser = TRUE)"
-# Without R-studio ... TBD
 Rscript --no-init-file -e "shiny::runApp(appDir = '/your local path/didactic_stats_app', launch.browser = TRUE)"
-
 ```
+
+
+
 
 ### Project Structure
 ```text
