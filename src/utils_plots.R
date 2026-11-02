@@ -1,11 +1,12 @@
 # ---------------------------
-# Description : function that render ggplots 
+# Description : function that render ggplots
 # Author : Serge Zaugg
 # ---------------------------
 
-# helpers (not used otside of this moduls )
+# ---------------------------
+# helpers (not used outside of this module )
 
-add_scatterplot_formats <- function(fig){
+add_scatterplot_formats <- function(fig) {
   fig +
     labs(title = " ") +
     theme_dark() +
@@ -27,14 +28,13 @@ add_scatterplot_formats <- function(fig){
       axis.title.x = element_text(size = 16),
       axis.title.y = element_text(size = 16),
       legend.title = element_text(size = 16),
-      legend.text  = element_text(size = 16)
-
+      legend.text = element_text(size = 16)
     )
 }
 
 
-# add regression lines 
-add_lines_to_scatterplot <- function(fig, df_lines) { 
+# add regression lines
+add_lines_to_scatterplot <- function(fig, df_lines) {
   fig +
     geom_abline(
       data = df_lines,
@@ -46,9 +46,9 @@ add_lines_to_scatterplot <- function(fig, df_lines) {
 # ---------------------------
 # main plot functions
 
-# scatter plot 
-make_data_scatterplot <- function(x, df_lines){
-  fig <- ggplot(x) + 
+# scatter plot
+make_data_scatterplot <- function(x, df_lines) {
+  fig <- ggplot(x) +
     geom_point(
       aes(x = predictor, y = response, color = group),
       size = 1
@@ -58,18 +58,14 @@ make_data_scatterplot <- function(x, df_lines){
   add_scatterplot_formats(fig)
 }
 
-# scatter plot of residuals 
+# scatter plot of residuals
 make_residuals_plot <- function(df, res) {
-  fig <- ggplot(df) + 
+  fig <- ggplot(df) +
     geom_point(
       aes(x = predictor, y = res, color = group),
       size = 1
     ) +
     labs(x = "Predictor", y = "Residuals", group = "Group")
-  facet_wrap(~ group, ncol = 2)
+  facet_wrap(~group, ncol = 2)
   add_scatterplot_formats(fig)
 }
-
-
-
-
