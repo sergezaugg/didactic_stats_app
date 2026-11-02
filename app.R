@@ -14,10 +14,10 @@ library(shinyWidgets)
 source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
+source("pages/page_x_same.R")
+source("pages/page_x_uneq.R")
+source("pages/page_x_free.R")
 source("pages/page_summary.R")
-source("pages/page_free_param.R")
-source("pages/page_controled_param.R")
-source("pages/page_fixed_param.R")
 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
@@ -42,9 +42,9 @@ ui <- navbarPage(
   ),
   
   # pages 
-  page_free_param,
-  page_controlled_param,
-  page_fixed_param,
+  page_x_same,
+  page_x_uneq,
+  page_x_free,
   page_summary
   
 )
@@ -52,9 +52,9 @@ ui <- navbarPage(
 # Define server  
 server <- function(input, output, session) {
   # load server code from external scripts
-  source("server/server_free.R", local = TRUE)
-  source("server/server_fix_equal.R", local = TRUE)
-  source("server/server_fix_unequ.R", local = TRUE)
+  source("server/server_x_same.R", local = TRUE)
+  source("server/server_x_uneq.R", local = TRUE)
+  source("server/server_x_free.R", local = TRUE)
   # de-bugging 
   # output$debug <- renderPrint(names(resfigs))
 }

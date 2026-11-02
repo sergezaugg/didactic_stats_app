@@ -7,9 +7,9 @@
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
-page_controlled_param <- tabPanel(
+page_x_same <- tabPanel(
   
-  "Regression (X fixed - equal)",
+  "Regression (X same)",
   
   fluidRow(
     
@@ -18,9 +18,9 @@ page_controlled_param <- tabPanel(
            div(style = style_pannels,  
                h5("Define data distribution"), 
                tags$hr(style = style_divider),
-               make_group_controls("con_a", "Group A", const_x = TRUE),
+               make_group_controls("x_same_a", "Group A", const_x = TRUE),
                tags$hr(style = style_divider),
-               make_group_controls("con_b", "Group B", const_x = TRUE),
+               make_group_controls("x_same_b", "Group B", const_x = TRUE),
                tags$hr(style = style_divider),
                tags$p("Quick guide: Covariate (Predictor) has same distribution in both groups.
                       This simulates a randomized experiment where covariate is evenly distributed across both groups. 
@@ -36,7 +36,7 @@ page_controlled_param <- tabPanel(
                tags$hr(style = style_divider),
                
                selectInput(
-                 inputId  = "dist_plot_con_a",
+                 inputId  = "dist_plot_x_same_a",
                  label    = "Choose model",
                  choices  = c(
                    "M1 (Global mean only)" = "m01",
