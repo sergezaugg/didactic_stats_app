@@ -17,7 +17,7 @@
 - Simulated data, no external data needed.
 
 ### Installation
-* Install R and Rstudio
+* Install R and Rstudio (and git)
 * In Terminal/cmd/bash: Clone this repository
 * Open this repo in Rstudio as a project (e.g. double-click **didactic_stats_app.Rproj**)
 * In R console:
@@ -25,18 +25,39 @@
   * Check needed R packages: ```renv::status()```
   * Install packages from renv.lock: ```renv::restore()```
 
-### Usage (Start the dashboard)
+### Usage - Start app (with R-studio )
 * Open repo in Rstudio as a project (e.g. double-click ```didactic_stats_app.Rproj```)
   * Easy: open app.R the use the "Run app" button
   * More control: Open Rstudio, go to terminal and do
   * ```Rscript --no-init-file -e "shiny::runApp(launch.browser = TRUE)"```
   * or equivalently
-  * ```Rscript --vanilla      -e "shiny::runApp(launch.browser = TRUE)"```
+  * ```Rscript --vanilla -e "shiny::runApp(launch.browser = TRUE)"```
+  * more arguments
+  * ```Rscript --vanilla -e "shiny::runApp(launch.browser = TRUE, port = 3838, host = '127.0.0.1')"```
 
-### Usage (Without R-studio ... TBD)
+### Usage - Start app (with PowerShell)
+
+Navigate to dir containing Rscript.exe
+
 ```bash
-Rscript --no-init-file -e "shiny::runApp(appDir = '/your local path/didactic_stats_app', launch.browser = TRUE)"
+cd <dir containing Rscript.exe>
 ```
+
+Example ```cd "C:\Program Files\R\R-4.5.1\bin\"``` path many vary on each computer.
+
+Install dependencies (skip if you already executed installation steps above)
+
+```bash
+.\Rscript -e "renv::restore(project = '.../didactic_stats_app')"
+```
+
+Call Rscript with repo path as argument to runApp(), below replace ... by your path to repo
+
+```bash
+.\Rscript --no-init-file -e "shiny::runApp(appDir = '.../didactic_stats_app', launch.browser = TRUE)"
+```
+
+
 
 ### Project Structure
 
