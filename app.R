@@ -1,17 +1,11 @@
 # ---------------------------
 # Description : entry point of the app
 # Author : Serge Zaugg
-# renv cheatsheet
-# renv::init()
-# renv::status()   # Check whether lockfile and library are synchronised
-# renv::snapshot() # Update renv.lock (uses static code analysis, not the packages currently loaded)
-# renv::restore()  # Restore packages from renv.lock
 # ---------------------------
 
 library(tidyverse)
 library(shiny)
 library(bslib)
-
 
 source("src/utils_sim.R")
 source("src/utils_ui.R")
@@ -22,12 +16,19 @@ source("pages/page_x_uneq.R")
 source("pages/page_x_free.R")
 source("pages/page_summary.R")
 
+addResourcePath("ressources", "ressources")
+
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
 # Define UI  
 ui <- navbarPage(
-  title = "Applied Stats Playground",
+  # title = "Applied Stats Playground",
+  title = tags$span(
+    style = "display: inline-flex; align-items: center; gap: 10px;",
+    tags$img(src = "ressources/z_logo_violet.png", height = "30px"),
+    tags$span("Applied Stats Playground")
+  ),
   # styling colors
   theme = bs_theme(
     bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#660055"),
