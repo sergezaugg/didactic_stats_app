@@ -22,8 +22,12 @@ add_scatterplot_formats <- function(fig){
         fill = NA,
         linewidth = 1
       ),
-      axis.text.x = element_text(size = 22),
-      axis.text.y = element_text(size = 22)
+      axis.text.x = element_text(size = 16),
+      axis.text.y = element_text(size = 16),
+      axis.title.x = element_text(size = 16),
+      axis.title.y = element_text(size = 16),
+      legend.title = element_text(size = 16),
+      legend.text  = element_text(size = 16)
 
     )
 }
@@ -36,27 +40,23 @@ add_lines_to_scatterplot <- function(fig, df_lines) {
       data = df_lines,
       aes(intercept = intercept, slope = slope, color = group),
       linewidth = 1
-    )  
-  
+    )
 }
 
-
+# ---------------------------
 # main plot functions
 
-# scatterplot 
+# scatter plot 
 make_data_scatterplot <- function(x, df_lines){
   fig <- ggplot(x) + 
     geom_point(
       aes(x = predictor, y = response, color = group),
       size = 1
-    ) 
-  
+    ) +
+    labs(x = "Predictor", y = "Response", group = "Group")
   fig <- add_lines_to_scatterplot(fig, df_lines)
-  
   add_scatterplot_formats(fig)
 }
-
-
 
 # scatter plot of residuals 
 make_residuals_plot <- function(df, res) {
@@ -65,8 +65,8 @@ make_residuals_plot <- function(df, res) {
       aes(x = predictor, y = res, color = group),
       size = 1
     ) +
-    facet_wrap(~ group, ncol = 2)
-  
+    labs(x = "Predictor", y = "Residuals", group = "Group")
+  facet_wrap(~ group, ncol = 2)
   add_scatterplot_formats(fig)
 }
 
