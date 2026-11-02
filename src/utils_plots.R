@@ -4,7 +4,7 @@
 # ---------------------------
 
 # ---------------------------
-# helpers (not used outside of this module )
+# helpers (not used outside of this module)
 
 add_scatterplot_formats <- function(fig) {
   fig +
