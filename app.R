@@ -2,10 +2,11 @@
 # Description : entry point of the app
 # Author : Serge Zaugg
 # renv::init()
+# renv::status()    # Check whether lockfile and library are synchronised
+# renv::snapshot() # Update renv.lock (uses static code analysis, not the packages currently loaded)
+# renv::restore()  # Restore packages from renv.lock
 # ---------------------------
 
-# library(shinyWidgets)
-# library(MASS)
 library(tidyverse)
 library(shiny)
 library(bslib)
