@@ -9,11 +9,11 @@ library(MASS)
 library(shiny)
 library(bslib)
 library(shinyWidgets)
-# library(DT)
 
 source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
+
 source("pages/page_x_same.R")
 source("pages/page_x_uneq.R")
 source("pages/page_x_free.R")
@@ -40,18 +40,16 @@ ui <- navbarPage(
         margin-right: auto;
     }"))
   ),
-  
   # pages 
   page_x_same,
   page_x_uneq,
   page_x_free,
   page_summary
-  
 )
 
 # Define server  
 server <- function(input, output, session) {
-  # load server code from external scripts
+  # load server code from scripts
   source("server/server_x_same.R", local = TRUE)
   source("server/server_x_uneq.R", local = TRUE)
   source("server/server_x_free.R", local = TRUE)
