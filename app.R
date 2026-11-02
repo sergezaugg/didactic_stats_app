@@ -13,10 +13,12 @@ library(shinyWidgets)
 source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
+
 source("pages/page_x_same.R")
 source("pages/page_x_uneq.R")
 source("pages/page_x_free.R")
 source("pages/page_summary.R")
+
 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
