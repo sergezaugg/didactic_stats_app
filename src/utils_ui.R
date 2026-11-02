@@ -5,39 +5,41 @@
 
 
 # ui elements 
-make_group_controls <- function(group, title) {
-  
+make_group_controls <- function(group, title, const_x = FALSE) {
   fluidRow(
     tagList(
-      
-      
       column(width = 3, 
            h6(title),
            selectInput(inputId =  paste0("n_",  group),  
              label = "N", 
              choices = c(10, 50, 100, 500), 
              selected = 100),
-           numericInput(inputId = paste0("cor_", group),
-             label = "Correlation",
-             value = 0.5,
-             min = -1,
-             max = 1,
-             step = 0.1
+           numericInput(inputId = paste0("sd_res_", group),
+             label = "sd resid",
+             value = 1.0,
+             min = 0.2,
+             max = 5.0,
+             step = 0.2
            )
       ),
       column(width = 4, 
-             sliderInput(inputId = paste0("mux_", group), label = "Mu-X", min = -10, max = 10, value = 0),
-             sliderInput(inputId = paste0("sdx_", group), label = "SD-X", min = 0.1, max = 10.0, value = 1.0)
+        if (const_x){
+          tags$div("X values fixed")  
+        } else {
+          tagList( # needed for shiny - tagList() groups multiple Shiny UI elements into one object
+            sliderInput(inputId = paste0("xmin_", group), label = "xmin", min = -1.0, max = 1.0, value = -0.5, step = 0.1),
+            sliderInput(inputId = paste0("xmax_", group), label = "xmax", min = -1.0, max = 1.0, value = 0.5, step = 0.1)
+          )
+        },
       ),
       column(width = 4, 
-             sliderInput(inputId = paste0("muy_", group), label = "Mu-Y", min = -10, max = 10, value = 0),
-             sliderInput(inputId = paste0("sdy_", group), label = "SD-Y", min = 0.1, max = 10.0, value = 1.0)
+         sliderInput(inputId = paste0("b0_", group), label = "b0", min = -5, max = 5.0, value = 1.0),
+         sliderInput(inputId = paste0("b1_", group), label = "b1", min = -5, max = 5.0, value = 1.0)
       )
     )
   )
   
 }
-
 
 
 

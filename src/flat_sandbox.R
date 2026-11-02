@@ -17,10 +17,8 @@ df_all <- combine_dfs(par_a, par_b)
 li_models <- fit_regression_models(df_all)
 
 li_models %>% class()
-
 li_models %>% names()
 li_models[["m04"]] %>% names()
-
 li_models[["m04"]][["df_tables"]]
 li_models[["m04"]][["df_plots"]]
 li_models[["m04"]][["df_res_plots"]]

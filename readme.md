@@ -9,15 +9,13 @@
 
 ### Dependencies
 - R 4.5.1
-
-  - ggplot2
-  - tidyverse
-  - MASS
-
-  - shiny
-  - bslib
-  - shinyWidgets
-  - DT
+- ggplot2
+- tidyverse
+- MASS
+- shiny
+- bslib
+- shinyWidgets
+- DT
 
 
 ### Data Source
