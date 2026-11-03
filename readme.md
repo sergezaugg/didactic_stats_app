@@ -96,7 +96,8 @@ didactic_stats_app/
 ### License
 [MIT License - © 2026 Serge Zaugg](LICENSE)
 
-
+### Preview
+![Description](ressources/app_screenshot.png)
 
 
 
