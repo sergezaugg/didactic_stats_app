@@ -13,8 +13,8 @@ make_group_controls <- function(group, title, const_x = FALSE) {
         selectInput(
           inputId = paste0("n_", group),
           label = "N",
-          choices = c(10, 50, 100, 500),
-          selected = 100
+          choices = c(10, 20, 30, 50, 100, 500),
+          selected = 50
         ),
         numericInput(
           inputId = paste0("sd_res_", group),
