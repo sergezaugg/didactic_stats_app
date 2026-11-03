@@ -48,9 +48,15 @@ page_x_uneq <- tabPanel(
         plotOutput(
           outputId = "sel_scatter_plot_x_uneq",
           height = "300px"
+        ),
+        div(style = "height: 15px;"),
+        plotOutput(
+          outputId = "sel_residual_plot_x_uneq",
+          height = "220px"
         )
       )
     ),
+    # verbatimTextOutput("debug"),
     # plots and table to the right
     column(
       4,
@@ -58,12 +64,10 @@ page_x_uneq <- tabPanel(
         style = style_pannels,
         h5("Residuals & Estimates"),
         tags$hr(style = style_divider),
-        div(style = "height: 87px;"),
-        plotOutput(
-          outputId = "sel_residual_plot_x_uneq",
-          height = "300px"
-        ),
-        tags$hr(style = style_divider),
+        h6("Conventional coefficients"),
+        tableOutput("sel_tabconv_x_uneq"),
+        div(style = "height: 15px;"),
+        h6("Per-group coefficients"),
         tableOutput("sel_ttable_x_uneq")
       )
     )

@@ -36,9 +36,10 @@ li_models_x_same <- reactive(fit_regression_models(df_all_x_same()))
 sel_pl_x_same = reactive(input$dist_plot_x_same_a)
 # Selected table
 output$sel_ttable_x_same <- renderTable({li_models_x_same()[[sel_pl_x_same()]][["df_tables"]]})
+# Selected conv table
+output$sel_tabconv_x_same <- renderTable({li_models_x_same()[[sel_pl_x_same()]][["df_tab_conv"]]})
 # Selected scatter plot
 output$sel_scatter_plot_x_same <- renderPlot({li_models_x_same()[[sel_pl_x_same()]][["df_plots"]]})
 # Selected residual plot
 output$sel_residual_plot_x_same <- renderPlot({li_models_x_same()[[sel_pl_x_same()]][["df_res_plots"]]})
-
 

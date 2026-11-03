@@ -66,8 +66,6 @@ page_x_free <- tabPanel(
         div(style = "height: 15px;"),
         h6("Per-group coefficients"),
         tableOutput("sel_ttable_x_free")
-        
-        
       )
     )
   )
