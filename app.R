@@ -11,6 +11,7 @@ source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
 
+source("pages/page_about.R")
 source("pages/page_x_same.R")
 source("pages/page_x_uneq.R")
 source("pages/page_x_free.R")
@@ -24,6 +25,7 @@ style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
 # Define UI  
 ui <- navbarPage(
+  selected = "Regression (X same)",
   # title = "Applied Stats Playground",
   title = tags$span(
     style = "display: inline-flex; align-items: center; gap: 10px;",
@@ -32,7 +34,7 @@ ui <- navbarPage(
   ),
   # version and (c) at bottom
   tags$div(
-    "v0.9.0 - © 2026 Serge Zaugg",
+    "v0.9.1 - © 2026 Serge Zaugg",
     style = "position: fixed;bottom: 8px; left: 20px;
       font-size: 14px; color: #888888; opacity: 1.0; z-index: 9999;
     "
@@ -54,6 +56,7 @@ ui <- navbarPage(
     }"))
   ),
   # pages 
+  page_about,
   page_x_same,
   page_x_uneq,
   page_x_free,
