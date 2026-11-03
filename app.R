@@ -16,6 +16,7 @@ source("pages/page_x_uneq.R")
 source("pages/page_x_free.R")
 source("pages/page_summary.R")
 
+# Tell shiny where to find ressources
 addResourcePath("ressources", "ressources")
 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
@@ -29,6 +30,14 @@ ui <- navbarPage(
     tags$img(src = "ressources/z_logo_violet.png", height = "30px"),
     tags$span("Applied Stats Playground")
   ),
+  # version and (c) at bottom
+  tags$div(
+    "v0.9.0 - © 2026 Serge Zaugg",
+    style = "position: fixed;bottom: 8px; left: 20px;
+      font-size: 14px; color: #888888; opacity: 1.0; z-index: 9999;
+    "
+  ),
+  
   # styling colors
   theme = bs_theme(
     bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#660055"),

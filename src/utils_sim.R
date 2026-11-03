@@ -40,6 +40,16 @@ get_t_table <- function(mod){
 # fit multiple models on one dataset
 fit_regression_models <- function(df){
   
+  # conventional parametrisation
+  li_formu_conv <- list(
+    m01 = as.formula("response ~ 1"),
+    m02 = as.formula("response ~ group"),
+    m03 = as.formula("response ~ predictor"),
+    m04 = as.formula("response ~ predictor + group"),
+    m05 = as.formula("response ~ predictor*group")
+  )
+  
+  # "sep-slope" parametrisation
   li_formu <- list(
     m01 = as.formula("response ~ 1"),
     m02 = as.formula("response ~ group - 1"),
@@ -50,15 +60,21 @@ fit_regression_models <- function(df){
   
   groups = levels(df$group)
   
+  # conventional parametrisation (only get t-tables)
+  models_conv <- lapply(li_formu_conv, lm, data = df)
+  df_tab_conv <- lapply(models_conv, get_t_table)
+  
+  # "sep-slope" parametrisation (t-table and do all plots)
   models <- lapply(li_formu, lm, data = df)
   df_tab <- lapply(models, get_t_table)
   df_res <- lapply(models, residuals)
   coefs  <- lapply(models, coef)
   
+  # print(coefs$m02b)
   df_plt <- list(
-    m01  = data.frame(group = groups, intercept = coefs$m01["(Intercept)"], slope = 0),
+    m01  = data.frame(group = groups, intercept = coefs$m01["(Intercept)"],  slope = 0),
     m02  = data.frame(group = groups, intercept = coefs$m02[paste0("group", groups)], slope = 0),
-    m03  = data.frame(group = groups, intercept = coefs$m03["(Intercept)"], slope = coefs$m03["predictor"]),
+    m03  = data.frame(group = groups, intercept = coefs$m03["(Intercept)"],  slope = coefs$m03["predictor"]),
     m04  = data.frame(group = groups, intercept = coefs$m04[paste0("group", groups)], slope = coefs$m04["predictor"]),
     m05  = data.frame(group = groups, intercept = coefs$m05[paste0("group", groups)], slope = coefs$m05[paste0("predictor:group", groups)])
   )
@@ -73,7 +89,7 @@ fit_regression_models <- function(df){
 
   df_res_plots <- list(
     m01  = make_residuals_plot(df = df, res = df_res[["m01"]]), 
-    m02  = make_residuals_plot(df = df, res = df_res[["m02"]]), 
+    m02   = make_residuals_plot(df = df, res = df_res[["m02"]]), 
     m03  = make_residuals_plot(df = df, res = df_res[["m03"]]), 
     m04  = make_residuals_plot(df = df, res = df_res[["m04"]]), 
     m05  = make_residuals_plot(df = df, res = df_res[["m05"]])
@@ -82,6 +98,7 @@ fit_regression_models <- function(df){
   # list by item type and then models 
   li <-  list(
     "df_tables" = df_tab,
+    "df_tab_conv" = df_tab_conv,
     "df_plots"= df_plots,
     "df_res_plots" = df_res_plots
   )

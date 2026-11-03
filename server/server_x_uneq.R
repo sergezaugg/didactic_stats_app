@@ -36,9 +36,10 @@ li_models_x_uneq <- reactive(fit_regression_models(df_all_x_uneq()))
 sel_pl_x_uneq = reactive(input$dist_plot_x_uneq_a)
 # Selected table
 output$sel_ttable_x_uneq <- renderTable({li_models_x_uneq()[[sel_pl_x_uneq()]][["df_tables"]]})
+# Selected conv table
+output$sel_tabconv_x_uneq <- renderTable({li_models_x_uneq()[[sel_pl_x_uneq()]][["df_tab_conv"]]})
 # Selected scatter plot
 output$sel_scatter_plot_x_uneq <- renderPlot({li_models_x_uneq()[[sel_pl_x_uneq()]][["df_plots"]]})
 # Selected residual plot
 output$sel_residual_plot_x_uneq <- renderPlot({li_models_x_uneq()[[sel_pl_x_uneq()]][["df_res_plots"]]})
-
 
