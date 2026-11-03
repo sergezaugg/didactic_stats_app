@@ -36,6 +36,11 @@ li_models_x_free <- reactive(fit_regression_models(df_all_x_free()))
 sel_pl_x_free = reactive(input$dist_plot_x_free)
 # Selected table
 output$sel_ttable_x_free <- renderTable({li_models_x_free()[[sel_pl_x_free()]][["df_tables"]]})
+
+# Selected conv table
+output$sel_tabconv_x_free <- renderTable({li_models_x_free()[[sel_pl_x_free()]][["df_tab_conv"]]})
+
+
 # Selected scatter plot
 output$sel_scatter_plot_x_free <- renderPlot({li_models_x_free()[[sel_pl_x_free()]][["df_plots"]]})
 # Selected residual plot

@@ -2,12 +2,11 @@
 
 
 ### Features
-- Get intuitive understanding of strengths and pitfalls with linear regression
-- Simulate multiple relevant scenarios of data with groups and continuous predictors
-- Explore plots and tables to show how different regression models (mis-)behave
-- 5 models implemented from "single grand mean" to "separate intercept and separate slope"
-- Friendly multi-page app with dark gothic theme
-
+This Shiny web-app offers an interactive exploration of the strengths and limitations 
+of linear regression. Users can generate simulated datasets with different 
+underlying structures, involving one grouping variable and one continuous 
+predictor. They can fit and compare regression models of varying complexity, 
+assessing their suitability for each scenario through visualisations and summary tables.
 
 ### Dependencies
 - R 4.5.1
@@ -27,15 +26,24 @@
   * Check needed R packages: ```renv::status()```
   * Install packages from renv.lock: ```renv::restore()```
 
-### Usage - Start app (with R-studio )
-* Open repo in Rstudio as a project (e.g. double-click ```didactic_stats_app.Rproj```)
-  * Easy: open app.R the use the "Run app" button
-  * More control: Open Rstudio, go to terminal and do
-  * ```Rscript --no-init-file -e "shiny::runApp(launch.browser = TRUE)"```
-  * or equivalently
-  * ```Rscript --vanilla -e "shiny::runApp(launch.browser = TRUE)"```
-  * more arguments
-  * ```Rscript --vanilla -e "shiny::runApp(launch.browser = TRUE, port = 3838, host = '127.0.0.1')"```
+### Usage - Start app (with R-studio)
+Open repo in Rstudio as a project (e.g. double-click ```didactic_stats_app.Rproj```)
+
+Easiest is to open app.R and then use the "Run app" button
+
+For more control, use Rstudio's terminal and do
+
+```bash
+Rscript --no-init-file -e "shiny::runApp(launch.browser = TRUE)"
+# or 
+Rscript --vanilla -e "shiny::runApp(launch.browser = TRUE)"
+```
+
+More arguments can be provided, e.g.:
+
+```bash
+Rscript --vanilla -e "shiny::runApp(launch.browser = TRUE, port = 3838, host = '127.0.0.1')"
+```
 
 ### Usage - Start app (with PowerShell)
 
@@ -60,7 +68,6 @@ Call Rscript with repo path as argument to runApp(), below replace ... by your p
 ```
 
 
-
 ### Project Structure
 
 ```text
@@ -70,6 +77,7 @@ didactic_stats_app/
 ├── pages/                   # UI definitions for app pages
 ├── server/                  # Server-side logic with page-specific functionality
 ├── src/                     # Shared functions and components
+├── ressources/              # static items: pics, codebooks etc.
 │
 ├── renv/                    # Project-specific package environment
 ├── renv.lock                # Package versions and dependency snapshot
