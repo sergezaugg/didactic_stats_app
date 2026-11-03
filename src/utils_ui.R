@@ -18,7 +18,7 @@ make_group_controls <- function(group, title, const_x = FALSE) {
         ),
         numericInput(
           inputId = paste0("sd_res_", group),
-          label = "sd resid",
+          label = "σ (Noise)",
           value = 1.0,
           min = 0.2,
           max = 5.0,
@@ -44,8 +44,8 @@ make_group_controls <- function(group, title, const_x = FALSE) {
       ),
       column(
         width = 4,
-        sliderInput(inputId = paste0("b0_", group), label = "b0", min = -5, max = 5.0, value = 1.0),
-        sliderInput(inputId = paste0("b1_", group), label = "b1", min = -5, max = 5.0, value = 1.0)
+        sliderInput(inputId = paste0("b0_", group), label = "β₀", min = -8.0, max = 8.0, value = 2.0),
+        sliderInput(inputId = paste0("b1_", group), label = "β₁", min = -8.0, max = 8.0, value = 3.0)
       )
     )
   )

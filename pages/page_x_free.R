@@ -35,7 +35,7 @@ page_x_free <- tabPanel(
           label = "Choose model",
           choices = c(
             "M1 (Global mean only)" = "m01",
-            "M2 (two means only)" = "m02",
+            "M2 (Group means only)" = "m02",
             "M3 (Global mean & slope)" = "m03",
             "M4 (Group mean & global slope)" = "m04",
             "M5 (Group mean & group slope)" = "m05"
