@@ -1,4 +1,7 @@
-
+# ---------------------------
+# Description : text only page 
+# Author : Serge Zaugg
+# ---------------------------
 
 page_summary <- tabPanel(
   "Summary",
