@@ -33,7 +33,7 @@ page_x_same <- tabPanel(
         h5("Scatterplot and regression lines"),
         tags$hr(style = style_divider),
         selectInput(
-          inputId = "dist_plot_x_same_a",
+          inputId = "dist_plot_x_same",
           label = "Choose model",
           choices = c(
             "M1 (Global mean only)" = "m01",
