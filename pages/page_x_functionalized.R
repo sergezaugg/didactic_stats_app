@@ -2,7 +2,7 @@
 # Description : page X free
 # Author : Serge Zaugg
 # ---------------------------
-# 
+ 
 # id_tag = "x_free"
 # paste0(id_tag, "_a")
 # paste0(id_tag, "_b")
@@ -11,8 +11,6 @@
 # paste0("sel_residual_plot_", id_tag)
 # paste0("sel_tabconv_", id_tag)
 # paste0("sel_ttable_" , id_tag)
-
-
 
 make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE) { 
     
