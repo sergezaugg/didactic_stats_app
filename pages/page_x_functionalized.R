@@ -12,7 +12,7 @@
 # paste0("sel_tabconv_", id_tag)
 # paste0("sel_ttable_" , id_tag)
 
-make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE) { 
+make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE, text = "") { 
     
   style_pannels <- "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
   style_divider <- "margin-top: 11px; margin-bottom: 11px;"
@@ -31,7 +31,7 @@ make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE) {
           tags$hr(style = style_divider),
           make_group_controls(paste0(id_tag, "_b"), "Group B", const_x = const_x),
           tags$hr(style = style_divider),
-          tags$p("Quick guide: All simulation parameters are free."),
+          tags$p(text),
         )
       ),
       # plots in the middle
@@ -79,7 +79,6 @@ make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE) {
           tableOutput(paste0("sel_ttable_" , id_tag))
         )
       )
-      
     )
   )
   return(page)

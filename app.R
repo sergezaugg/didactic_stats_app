@@ -17,9 +17,19 @@ source("pages/page_summary.R")
 
 # parametrized page generations 
 source("pages/page_x_functionalized.R")
-page_x_free = make_page_x(id_tag = "x_free", title = "Regression (X free) NEW", const_x = FALSE)
-page_x_same = make_page_x(id_tag = "x_same", title = "Regression (X same) NEW", const_x = TRUE)
-page_x_uneq = make_page_x(id_tag = "x_uneq", title = "Regression (X unequal) NEW", const_x = TRUE)
+
+text_x_free = "All simulation parameters are free."
+text_x_same = "Covariate (Predictor) constrained to same distribution in both groups.
+  This simulates a randomized experiment where covariate is evenly distributed across both groups.
+  The covariate may have an association to response and then adjusting for it is adecquate."
+text_x_uneq = "Covariate (Predictor) constrained to have different distribution in groups.
+  This simulates observational data where covariate is diferent between both groups.
+  Failing to adjust for covariate or group may lead to biased estimates.
+  An extreme example is Simpson's paradox which can be simulated here"
+
+page_x_free = make_page_x(id_tag = "x_free", title = "Regression (X free)", const_x = FALSE, text = text_x_free)
+page_x_same = make_page_x(id_tag = "x_same", title = "Regression (X same)", const_x = TRUE, text = text_x_same)
+page_x_uneq = make_page_x(id_tag = "x_uneq", title = "Regression (X unequal)", const_x = TRUE, text = text_x_uneq)
 
 # Tell shiny where to find ressources
 addResourcePath("ressources", "ressources")
@@ -28,11 +38,9 @@ addResourcePath("ressources", "ressources")
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
-
 # Define UI  
 ui <- navbarPage(
   selected = "Regression (X same)",
-  # title = "Applied Stats Playground",
   title = tags$span(
     style = "display: inline-flex; align-items: center; gap: 10px;",
     tags$img(src = "ressources/z_logo_violet.png", height = "30px"),
