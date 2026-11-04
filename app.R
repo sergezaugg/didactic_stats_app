@@ -27,9 +27,17 @@ text_x_uneq = "Covariate (Predictor) constrained to have different distribution 
   Failing to adjust for covariate or group may lead to biased estimates.
   An extreme example is Simpson's paradox which can be simulated here"
 
-page_x_free = make_page_x(id_tag = "x_free", title = "Regression (X free)", const_x = FALSE, text = text_x_free)
-page_x_same = make_page_x(id_tag = "x_same", title = "Regression (X same)", const_x = TRUE, text = text_x_same)
-page_x_uneq = make_page_x(id_tag = "x_uneq", title = "Regression (X unequal)", const_x = TRUE, text = text_x_uneq)
+page_x_free = make_page_x(id_tag = "x_free", title = "Regression (X free)", 
+  const_x = FALSE, simpso = FALSE, text = text_x_free)
+
+page_x_same = make_page_x(id_tag = "x_same", title = "Regression (X same)", 
+  const_x = TRUE, simpso = FALSE, text = text_x_same)
+
+page_x_uneq = make_page_x(id_tag = "x_uneq", title = "Regression (X unequal)", 
+  const_x = TRUE, simpso = FALSE, text = text_x_uneq)
+
+page_simpso = make_page_x(id_tag = "simpso", title = "Regression (S-Paradox)", 
+  const_x = TRUE, simpso = TRUE, text = "")
 
 # Tell shiny where to find ressources
 addResourcePath("ressources", "ressources")
@@ -73,6 +81,7 @@ ui <- navbarPage(
   page_about,
   page_x_same,
   page_x_uneq,
+  page_simpso,
   page_x_free,
   page_summary
 )
@@ -83,6 +92,7 @@ server <- function(input, output, session) {
   source("server/server_x_same.R", local = TRUE)
   source("server/server_x_uneq.R", local = TRUE)
   source("server/server_x_free.R", local = TRUE)
+  source("server/server_simpso.R", local = TRUE)
   # de-bugging 
   # output$debug <- renderPrint(names(resfigs))
 }

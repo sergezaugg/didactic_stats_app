@@ -4,7 +4,7 @@
 # ---------------------------
 
 # ui elements
-make_group_controls <- function(group, title, const_x = FALSE) {
+make_group_controls <- function(group, title, const_x = FALSE, simpso = FALSE) {
   fluidRow(
     tagList(
       column(
@@ -45,7 +45,11 @@ make_group_controls <- function(group, title, const_x = FALSE) {
       column(
         width = 4,
         sliderInput(inputId = paste0("b0_", group), label = "β₀", min = -8.0, max = 8.0, value = 2.0),
-        sliderInput(inputId = paste0("b1_", group), label = "β₁", min = -8.0, max = 8.0, value = 3.0)
+        if (simpso) { 
+          tags$div("slope constrained to negative")
+        } else { 
+          sliderInput(inputId = paste0("b1_", group), label = "β₁", min = -8.0, max = 8.0, value = 3.0)
+        }
       )
     )
   )
