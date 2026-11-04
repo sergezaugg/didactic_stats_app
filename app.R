@@ -19,25 +19,40 @@ source("pages/page_summary.R")
 source("pages/page_x_functionalized.R")
 
 text_x_free = "All simulation parameters are free."
+
 text_x_same = "Covariate (Predictor) constrained to same distribution in both groups.
   This simulates a randomized experiment where covariate is evenly distributed across both groups.
   The covariate may have an association to response and then adjusting for it is adecquate."
+
 text_x_uneq = "Covariate (Predictor) constrained to have different distribution in groups.
   This simulates observational data where covariate is diferent between both groups.
-  Failing to adjust for covariate or group may lead to biased estimates.
-  An extreme example is Simpson's paradox which can be simulated here"
+  Failing to adjust for covariate or group may lead to biased estimates."
 
+text_simpso = "Slope constrained to be negative and group B higher than A. 
+  Simpson's Paradox: M3 ignores groups and suggests a positive association 
+  between predictor and response.
+  If group is included in models (M4 & M5) we find that association is negative"
+  
+  
 page_x_free = make_page_x(id_tag = "x_free", title = "Regression (X free)", 
-  const_x = FALSE, simpso = FALSE, text = text_x_free)
+  const_x = FALSE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+  text = text_x_free)
 
 page_x_same = make_page_x(id_tag = "x_same", title = "Regression (X same)", 
-  const_x = TRUE, simpso = FALSE, text = text_x_same)
+  const_x = TRUE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+  text = text_x_same)
 
 page_x_uneq = make_page_x(id_tag = "x_uneq", title = "Regression (X unequal)", 
-  const_x = TRUE, simpso = FALSE, text = text_x_uneq)
+  const_x = TRUE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),  
+  text = text_x_uneq)
 
 page_simpso = make_page_x(id_tag = "simpso", title = "Regression (S-Paradox)", 
-  const_x = TRUE, simpso = TRUE, text = "")
+  const_x = TRUE, 
+  betas_a = c(-8,-2,   -8,-6), betas_b = c(2,8,    -8,-6),
+  text = text_simpso)
 
 # Tell shiny where to find ressources
 addResourcePath("ressources", "ressources")
