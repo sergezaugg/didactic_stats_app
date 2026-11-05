@@ -33,40 +33,54 @@ add_scatterplot_formats <- function(fig) {
 }
 
 
-# add regression lines
-add_lines_to_scatterplot <- function(fig, df_lines) {
-  fig +
-    geom_abline(
-      data = df_lines,
-      aes(intercept = intercept, slope = slope, color = group),
-      linewidth = 1
-    )
-}
+
 
 # ---------------------------
 # main plot functions
 
 # scatter plot
-make_data_scatterplot <- function(x, df_lines) {
-  fig <- ggplot(x) +
-    geom_point(
-      aes(x = predictor, y = response, color = group),
-      size = 1
-    ) +
-    labs(x = "Predictor", y = "Response", group = "Group")
-  fig <- add_lines_to_scatterplot(fig, df_lines)
-  add_scatterplot_formats(fig)
+make_data_scatterplot <- function(x, df_lines, colo = FALSE) {
+  
+  fig <- ggplot(x) 
+    
+  if (colo) {
+    fig <- fig + geom_point(aes(x = predictor, y = response, color = group), size = 1)  
+    fig <- fig + labs(x = "Predictor", y = "Response", group = "Group")
+    fig <- fig + geom_abline(data = df_lines,
+      aes(intercept = intercept, slope = slope, color = group), linewidth = 1)
+    fig <- add_scatterplot_formats(fig)
+    fig <- fig + theme(plot.margin = margin(t = 5, r = 5, b = 5, l = 5))
+  } else {
+    fig <- fig + geom_point(aes(x = predictor, y = response), color = "#ffffff") 
+    fig <- fig + labs(x = "Predictor", y = "Response")
+    fig <- fig + geom_abline(data = df_lines,
+      aes(intercept = intercept, slope = slope), linewidth = 1, color = "#ffffff")
+    fig <- add_scatterplot_formats(fig)
+    fig <- fig + theme(plot.margin = margin(t = 5, r = 68, b = 5, l = 5))
+  }
+  
+  return(fig)
+  
 }
 
 # scatter plot of residuals
-make_residuals_plot <- function(df, res) {
-  fig <- ggplot(df) +
-    geom_point(
-      aes(x = predictor, y = res, color = group),
-      size = 1
-    ) +
-    geom_hline(yintercept = 0,linetype = "dashed",color = "#ff9900") +
-    labs(x = "Predictor", y = "Residuals", group = "Group")
-  facet_wrap(~group, ncol = 2)
-  add_scatterplot_formats(fig)
+make_residuals_plot <- function(df, res, colo = FALSE) {
+  fig <- ggplot(df) 
+  
+  if (colo) {
+    fig <- fig +  
+      geom_point(aes(x = predictor, y = res, color = group), size = 1 ) +
+      labs(x = "Predictor", y = "Residuals", group = "Group")  
+    fig <- add_scatterplot_formats(fig)
+    fig <- fig + theme(plot.margin = margin(t = 5, r = 5, b = 5, l = 5))
+  } else {
+    fig <- fig +  
+      geom_point(aes(x = predictor, y = res), size = 1, color = "#ffffff") +
+      labs(x = "Predictor", y = "Residuals") 
+    fig <- add_scatterplot_formats(fig)  
+    fig <- fig + theme(plot.margin = margin(t = 5, r = 68, b = 5, l = 5))
+  }
+  
+  fig <- fig + geom_hline(yintercept = 0,linetype = "dashed",color = "#ff9900")
+  return(fig)
 }

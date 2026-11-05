@@ -28,7 +28,8 @@ par_x_same_b <- reactive(list(
 # simulate data
 df_all_x_same    <- reactive({combine_dfs_lin(par_x_same_a(), par_x_same_b())})
 # stats computation
-li_models_x_same <- reactive(fit_regression_models(df_all_x_same()))
+show_color_x_same <- reactive(input$show_color_x_same)
+li_models_x_same <- reactive(fit_regression_models(df_all_x_same(), show_color_x_same()))
 
 # ---------------------------
 # (3) return output

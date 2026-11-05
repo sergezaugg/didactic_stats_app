@@ -28,7 +28,8 @@ par_x_free_b <- reactive(list(
 # simulate data
 df_all_x_free    <- reactive({combine_dfs_lin(par_x_free_a(), par_x_free_b())})
 # stats computation
-li_models_x_free <- reactive(fit_regression_models(df_all_x_free()))
+show_color_x_free <- reactive(input$show_color_x_free)
+li_models_x_free <- reactive(fit_regression_models(df_all_x_free(), show_color_x_free()))
 
 # ---------------------------
 # (3) return output

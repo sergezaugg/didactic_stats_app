@@ -7,6 +7,7 @@
 library(tidyverse)
 library(shiny)
 library(bslib)
+# library(shinyWidgets)
 # load own functions
 source("src/utils_sim.R")
 source("src/utils_ui.R")
@@ -73,7 +74,7 @@ ui <- navbarPage(
   
   # version and (c) at bottom
   tags$div(
-    "v0.9.2 - © 2026 Serge Zaugg",
+    "v0.9.3 - © 2026 Serge Zaugg",
     style = "position: fixed;bottom: 8px; left: 20px;
       font-size: 14px; color: #888888; opacity: 1.0; z-index: 9999;
     "
