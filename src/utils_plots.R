@@ -56,15 +56,18 @@ make_data_scatterplot <- function(x, df_lines, colo = FALSE) {
     fig <- fig + labs(x = "Predictor", y = "Response", group = "Group")
     fig <- fig + geom_abline(data = df_lines,
       aes(intercept = intercept, slope = slope, color = group), linewidth = 1)
+    fig <- add_scatterplot_formats(fig)
+    fig <- fig + theme(plot.margin = margin(t = 5, r = 5, b = 5, l = 5))
   } else {
     fig <- fig + geom_point(aes(x = predictor, y = response), color = "#ffffff") 
     fig <- fig + labs(x = "Predictor", y = "Response")
     fig <- fig + geom_abline(data = df_lines,
       aes(intercept = intercept, slope = slope), linewidth = 1, color = "#ffffff")
+    fig <- add_scatterplot_formats(fig)
+    fig <- fig + theme(plot.margin = margin(t = 5, r = 68, b = 5, l = 5))
   }
   
-  # fig <- add_lines_to_scatterplot(fig, df_lines)
-  add_scatterplot_formats(fig)
+  return(fig)
   
 }
 
