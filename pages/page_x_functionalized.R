@@ -43,21 +43,21 @@ make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE, betas
           tags$hr(style = style_divider),
           
           fluidRow(
-            column(width = 6,
+            column(width = 8,
               selectInput(
                 inputId = paste0("dist_plot_", id_tag),
                 label = "Choose model",
                 choices = c(
-                  "M1 (Global mean only)" = "m01",
-                  "M2 (Group means only)" = "m02",
-                  "M3 (Global mean & slope)" = "m03",
-                  "M4 (Group mean & global slope)" = "m04",
-                  "M5 (Group mean & group slope)" = "m05"
+                  "M1 (mean)" = "m01",
+                  "M2 (grp means)" = "m02",
+                  "M3 (mean & slope)" = "m03",
+                  "M4 (grp means & slope)" = "m04",
+                  "M5 (grp means & grp slopes)" = "m05"
                 ),
                 selected = "m01",
               )
             ),
-            column(width = 6,
+            column(width = 4,
                checkboxInput(
                  inputId = paste0("show_color_", id_tag),
                  label = "Show group color",
