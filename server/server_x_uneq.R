@@ -33,7 +33,7 @@ li_models_x_uneq <- reactive(fit_regression_models(df_all_x_uneq()))
 # ---------------------------
 # (3) return output
 # display plots and tables based on user choice
-sel_pl_x_uneq = reactive(input$dist_plot_x_uneq_a)
+sel_pl_x_uneq = reactive(input$dist_plot_x_uneq)
 # Selected table
 output$sel_ttable_x_uneq <- renderTable({li_models_x_uneq()[[sel_pl_x_uneq()]][["df_tables"]]})
 # Selected conv table

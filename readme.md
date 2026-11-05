@@ -1,5 +1,4 @@
-# Didactic Statistics App
-
+# Applied Stats Playground
 
 ### Features
 This Shiny web-app offers an interactive exploration of the strengths and limitations 
@@ -77,7 +76,7 @@ didactic_stats_app/
 ├── pages/                   # UI definitions for app pages
 ├── server/                  # Server-side logic with page-specific functionality
 ├── src/                     # Shared functions and components
-├── ressources/              # static items: pics, codebooks etc.
+├── resources/              # static items: pics, codebooks etc.
 │
 ├── renv/                    # Project-specific package environment
 ├── renv.lock                # Package versions and dependency snapshot
@@ -97,7 +96,7 @@ didactic_stats_app/
 [MIT License - © 2026 Serge Zaugg](LICENSE)
 
 ### Preview
-![Description](ressources/app_screenshot.png)
+![Description](resources/app_screenshot.png)
 
 
 

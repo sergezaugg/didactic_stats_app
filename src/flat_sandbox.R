@@ -16,6 +16,15 @@
 # styler::style_file("pages/page_x_uneq.R")
 # styler::style_file("src/utils_plots.R")
 # styler::style_file("src/utils_ui.R")
+# styler::style_file("src/utils_ui.R")
+# styler::style_file("pages/text_for_pages.R")
+# styler::style_file("pages/page_summary.R")
+
+
+
+
+
+
 
 source("src/utils_sim.R")
 library(tidyverse)

@@ -3,38 +3,77 @@
 # Author : Serge Zaugg
 # ---------------------------
 
+# load packages
 library(tidyverse)
 library(shiny)
 library(bslib)
-
+# load own functions
 source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
+# Tell shiny where to find resources
+addResourcePath("resources", "resources")
 
+
+#-----------------------------
+# (1) load and generate pages   
+#-----------------------------
+
+# load non-interactive pages 
 source("pages/page_about.R")
-source("pages/page_x_same.R")
-source("pages/page_x_uneq.R")
-source("pages/page_x_free.R")
 source("pages/page_summary.R")
+# load function for page generations 
+source("pages/page_x_functionalized.R")
+# load info texts 
+source("pages/text_for_pages.R")
+# ptext %>% names()
 
-# Tell shiny where to find ressources
-addResourcePath("ressources", "ressources")
+# generate pages 
+page_x_free = make_page_x(id_tag = "x_free", 
+  const_x = FALSE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+  title = ptext$x_free_ti, 
+  text = ptext$x_free_tx
+)
 
-style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
-style_divider = "margin-top: 11px; margin-bottom: 11px;"
+page_x_same = make_page_x(id_tag = "x_same", 
+  const_x = TRUE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+  title = ptext$x_same_ti, 
+  text = ptext$x_same_tx
+)
 
-# Define UI  
+page_x_uneq = make_page_x(id_tag = "x_uneq", 
+  const_x = TRUE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8), 
+  title = ptext$x_uneq_ti, 
+  text = ptext$x_uneq_tx
+)
+
+page_simpso = make_page_x(id_tag = "simpso", 
+  const_x = TRUE, 
+  betas_a = c(-8, -2, -8, -6), betas_b = c(2, 8, -8, -6),
+  title = ptext$simpso_ti, 
+  text = ptext$simpso_tx
+)
+
+
+#-----------------------------
+# (2) Define UI  
+#-----------------------------
+
 ui <- navbarPage(
-  selected = "Regression (X same)",
-  # title = "Applied Stats Playground",
+  selected = "Sim Randomized Experiment",
+  
   title = tags$span(
     style = "display: inline-flex; align-items: center; gap: 10px;",
-    tags$img(src = "ressources/z_logo_violet.png", height = "30px"),
+    tags$img(src = "resources/z_logo_violet.png", height = "30px"),
     tags$span("Applied Stats Playground")
   ),
+  
   # version and (c) at bottom
   tags$div(
-    "v0.9.1 - © 2026 Serge Zaugg",
+    "v0.9.2 - © 2026 Serge Zaugg",
     style = "position: fixed;bottom: 8px; left: 20px;
       font-size: 14px; color: #888888; opacity: 1.0; z-index: 9999;
     "
@@ -55,23 +94,45 @@ ui <- navbarPage(
         margin-right: auto;
     }"))
   ),
+  
+  # formatting for MathJax equations 
+  header = tags$head(
+    tags$style(HTML("
+      .MathJax_Display {
+        text-align: left !important;
+        margin-left: 0 !important;
+      }
+    "))
+  ),
+  
   # pages 
   page_about,
   page_x_same,
   page_x_uneq,
+  page_simpso,
   page_x_free,
   page_summary
 )
 
-# Define server  
+
+#-----------------------------
+# (3) Define server 
+#-----------------------------
+
 server <- function(input, output, session) {
   # load server code from scripts
   source("server/server_x_same.R", local = TRUE)
   source("server/server_x_uneq.R", local = TRUE)
   source("server/server_x_free.R", local = TRUE)
+  source("server/server_simpso.R", local = TRUE)
   # de-bugging 
   # output$debug <- renderPrint(names(resfigs))
 }
+
+
+#-----------------------------
+# (4) create Shiny app object
+#-----------------------------
 
 shinyApp(ui, server)
 
