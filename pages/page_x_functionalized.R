@@ -12,11 +12,11 @@
 # paste0("sel_tabconv_", id_tag)
 # paste0("sel_ttable_" , id_tag)
 
+style_pannels <- "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
+style_divider <- "margin-top: 11px; margin-bottom: 11px;"
+
 make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE, betas_a = "", betas_b = "", text = "") { 
     
-  style_pannels <- "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
-  style_divider <- "margin-top: 11px; margin-bottom: 11px;"
-  
   page <- tabPanel(
     title = title,
     fluidRow(

@@ -3,10 +3,6 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-# style 
-style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
-style_divider = "margin-top: 11px; margin-bottom: 11px;"
-
 # load packages
 library(tidyverse)
 library(shiny)
@@ -16,7 +12,7 @@ source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
 # Tell shiny where to find resources
-addResourcePath("ressources", "ressources")
+addResourcePath("resources", "resources")
 
 
 #-----------------------------
@@ -68,11 +64,13 @@ page_simpso = make_page_x(id_tag = "simpso",
 
 ui <- navbarPage(
   selected = "Sim Randomized Experiment",
+  
   title = tags$span(
     style = "display: inline-flex; align-items: center; gap: 10px;",
-    tags$img(src = "ressources/z_logo_violet.png", height = "30px"),
+    tags$img(src = "resources/z_logo_violet.png", height = "30px"),
     tags$span("Applied Stats Playground")
   ),
+  
   # version and (c) at bottom
   tags$div(
     "v0.9.1 - © 2026 Serge Zaugg",
@@ -96,6 +94,17 @@ ui <- navbarPage(
         margin-right: auto;
     }"))
   ),
+  
+  # formatting for MathJax equations 
+  header = tags$head(
+    tags$style(HTML("
+      .MathJax_Display {
+        text-align: left !important;
+        margin-left: 0 !important;
+      }
+    "))
+  ),
+  
   # pages 
   page_about,
   page_x_same,
