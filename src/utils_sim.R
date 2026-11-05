@@ -88,11 +88,11 @@ fit_regression_models <- function(df, colo){
   )
 
   df_res_plots <- list(
-    m01  = make_residuals_plot(df = df, res = df_res[["m01"]]), 
-    m02   = make_residuals_plot(df = df, res = df_res[["m02"]]), 
-    m03  = make_residuals_plot(df = df, res = df_res[["m03"]]), 
-    m04  = make_residuals_plot(df = df, res = df_res[["m04"]]), 
-    m05  = make_residuals_plot(df = df, res = df_res[["m05"]])
+    m01  = make_residuals_plot(df = df, res = df_res[["m01"]], colo), 
+    m02  = make_residuals_plot(df = df, res = df_res[["m02"]], colo), 
+    m03  = make_residuals_plot(df = df, res = df_res[["m03"]], colo), 
+    m04  = make_residuals_plot(df = df, res = df_res[["m04"]], colo), 
+    m05  = make_residuals_plot(df = df, res = df_res[["m05"]], colo)
   )
   
   # list by item type and then models 
