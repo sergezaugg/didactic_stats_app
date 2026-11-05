@@ -28,7 +28,8 @@ par_x_uneq_b <- reactive(list(
 # simulate data
 df_all_x_uneq    <- reactive({combine_dfs_lin(par_x_uneq_a(), par_x_uneq_b())})
 # stats computation
-li_models_x_uneq <- reactive(fit_regression_models(df_all_x_uneq()))
+show_color_x_uneq <- reactive(input$show_color_x_uneq)
+li_models_x_uneq <- reactive(fit_regression_models(df_all_x_uneq(), show_color_x_uneq()))
 
 # ---------------------------
 # (3) return output

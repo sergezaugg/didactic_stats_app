@@ -33,29 +33,39 @@ add_scatterplot_formats <- function(fig) {
 }
 
 
-# add regression lines
-add_lines_to_scatterplot <- function(fig, df_lines) {
-  fig +
-    geom_abline(
-      data = df_lines,
-      aes(intercept = intercept, slope = slope, color = group),
-      linewidth = 1
-    )
-}
+# # add regression lines
+# add_lines_to_scatterplot <- function(fig, df_lines) {
+#   fig +
+#     geom_abline(
+#       data = df_lines,
+#       aes(intercept = intercept, slope = slope, color = group),
+#       linewidth = 1
+#     )
+# }
 
 # ---------------------------
 # main plot functions
 
 # scatter plot
-make_data_scatterplot <- function(x, df_lines) {
-  fig <- ggplot(x) +
-    geom_point(
-      aes(x = predictor, y = response, color = group),
-      size = 1
-    ) +
-    labs(x = "Predictor", y = "Response", group = "Group")
-  fig <- add_lines_to_scatterplot(fig, df_lines)
+make_data_scatterplot <- function(x, df_lines, colo = FALSE) {
+  
+  fig <- ggplot(x) 
+    
+  if (colo) {
+    fig <- fig + geom_point(aes(x = predictor, y = response, color = group), size = 1)  
+    fig <- fig + labs(x = "Predictor", y = "Response", group = "Group")
+    fig <- fig + geom_abline(data = df_lines,
+      aes(intercept = intercept, slope = slope, color = group), linewidth = 1)
+  } else {
+    fig <- fig + geom_point(aes(x = predictor, y = response), color = "#ffffff") 
+    fig <- fig + labs(x = "Predictor", y = "Response")
+    fig <- fig + geom_abline(data = df_lines,
+      aes(intercept = intercept, slope = slope), linewidth = 1, color = "#ffffff")
+  }
+  
+  # fig <- add_lines_to_scatterplot(fig, df_lines)
   add_scatterplot_formats(fig)
+  
 }
 
 # scatter plot of residuals

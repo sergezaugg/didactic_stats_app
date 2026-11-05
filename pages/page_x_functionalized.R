@@ -41,18 +41,31 @@ make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE, betas
           style = style_pannels,
           h5("Scatterplot, regression lines, residuals"),
           tags$hr(style = style_divider),
-          selectInput(
-            inputId = paste0("dist_plot_", id_tag),
-            label = "Choose model",
-            choices = c(
-              "M1 (Global mean only)" = "m01",
-              "M2 (Group means only)" = "m02",
-              "M3 (Global mean & slope)" = "m03",
-              "M4 (Group mean & global slope)" = "m04",
-              "M5 (Group mean & group slope)" = "m05"
+          
+          fluidRow(
+            column(width = 6,
+              selectInput(
+                inputId = paste0("dist_plot_", id_tag),
+                label = "Choose model",
+                choices = c(
+                  "M1 (Global mean only)" = "m01",
+                  "M2 (Group means only)" = "m02",
+                  "M3 (Global mean & slope)" = "m03",
+                  "M4 (Group mean & global slope)" = "m04",
+                  "M5 (Group mean & group slope)" = "m05"
+                ),
+                selected = "m01",
+              )
             ),
-            selected = "m01",
+            column(width = 6,
+               checkboxInput(
+                 inputId = paste0("show_color_", id_tag),
+                 label = "Show group color",
+                 value = TRUE
+              )     
+            )
           ),
+          
           plotOutput(
             outputId = paste0("sel_scatter_plot_", id_tag),
             height = "300px"

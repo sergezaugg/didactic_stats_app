@@ -28,7 +28,8 @@ par_simpso_b <- reactive(list(
 # simulate data
 df_all_simpso    <- reactive({combine_dfs_lin(par_simpso_a(), par_simpso_b())})
 # stats computation
-li_models_simpso <- reactive(fit_regression_models(df_all_simpso()))
+show_color_simpso <- reactive(input$show_color_simpso)
+li_models_simpso <- reactive(fit_regression_models(df_all_simpso(), show_color_simpso()))
 
 # ---------------------------
 # (3) return output

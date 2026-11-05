@@ -38,7 +38,7 @@ get_t_table <- function(mod){
 }
 
 # fit multiple models on one dataset
-fit_regression_models <- function(df){
+fit_regression_models <- function(df, colo){
   
   # conventional parametrisation
   li_formu_conv <- list(
@@ -80,11 +80,11 @@ fit_regression_models <- function(df){
   )
   
   df_plots <- list(
-    m01  = make_data_scatterplot(x = df, df_lines = df_plt[["m01"]]),
-    m02  = make_data_scatterplot(x = df, df_lines = df_plt[["m02"]]),
-    m03  = make_data_scatterplot(x = df, df_lines = df_plt[["m03"]]),
-    m04  = make_data_scatterplot(x = df, df_lines = df_plt[["m04"]]),
-    m05  = make_data_scatterplot(x = df, df_lines = df_plt[["m05"]])
+    m01  = make_data_scatterplot(x = df, df_lines = df_plt[["m01"]], colo),
+    m02  = make_data_scatterplot(x = df, df_lines = df_plt[["m02"]], colo),
+    m03  = make_data_scatterplot(x = df, df_lines = df_plt[["m03"]], colo),
+    m04  = make_data_scatterplot(x = df, df_lines = df_plt[["m04"]], colo),
+    m05  = make_data_scatterplot(x = df, df_lines = df_plt[["m05"]], colo)
   )
 
   df_res_plots <- list(

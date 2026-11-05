@@ -7,6 +7,7 @@
 library(tidyverse)
 library(shiny)
 library(bslib)
+library(shinyWidgets)
 # load own functions
 source("src/utils_sim.R")
 source("src/utils_ui.R")
