@@ -3,67 +3,71 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-library(tidyverse)
-library(shiny)
-library(bslib)
-
-source("src/utils_sim.R")
-source("src/utils_ui.R")
-source("src/utils_plots.R")
-
-# make non-interactive pages 
-source("pages/page_about.R")
-source("pages/page_summary.R")
-
-# parametrized page generations 
-source("pages/page_x_functionalized.R")
-
-text_x_free = "All simulation parameters are free."
-
-text_x_same = "Covariate (Predictor) constrained to same distribution in both groups.
-  This simulates a randomized experiment where covariate is evenly distributed across both groups.
-  The covariate may have an association to response and then adjusting for it is adecquate."
-
-text_x_uneq = "Covariate (Predictor) constrained to have different distribution in groups.
-  This simulates observational data where covariate is diferent between both groups.
-  Failing to adjust for covariate or group may lead to biased estimates."
-
-text_simpso = "Slope constrained to be negative and group B higher than A. 
-  Simpson's Paradox: M3 ignores groups and suggests a positive association 
-  between predictor and response.
-  If group is included in models (M4 & M5) we find that association is negative"
-  
-  
-page_x_free = make_page_x(id_tag = "x_free", title = "Regression (X free)", 
-  const_x = FALSE, 
-  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
-  text = text_x_free)
-
-page_x_same = make_page_x(id_tag = "x_same", title = "Regression (X same)", 
-  const_x = TRUE, 
-  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
-  text = text_x_same)
-
-page_x_uneq = make_page_x(id_tag = "x_uneq", title = "Regression (X unequal)", 
-  const_x = TRUE, 
-  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),  
-  text = text_x_uneq)
-
-page_simpso = make_page_x(id_tag = "simpso", title = "Regression (S-Paradox)", 
-  const_x = TRUE, 
-  betas_a = c(-8,-2,   -8,-6), betas_b = c(2,8,    -8,-6),
-  text = text_simpso)
-
-# Tell shiny where to find ressources
-addResourcePath("ressources", "ressources")
-
 # style 
 style_pannels = "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider = "margin-top: 11px; margin-bottom: 11px;"
 
-# Define UI  
+# load packages
+library(tidyverse)
+library(shiny)
+library(bslib)
+# load own functions
+source("src/utils_sim.R")
+source("src/utils_ui.R")
+source("src/utils_plots.R")
+# Tell shiny where to find resources
+addResourcePath("ressources", "ressources")
+
+
+#-----------------------------
+# (1) load and generate pages   
+#-----------------------------
+
+# load non-interactive pages 
+source("pages/page_about.R")
+source("pages/page_summary.R")
+# load function for page generations 
+source("pages/page_x_functionalized.R")
+# load info texts 
+source("pages/text_for_pages.R")
+# ptext %>% names()
+
+# generate pages 
+page_x_free = make_page_x(id_tag = "x_free", 
+  const_x = FALSE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+  title = ptext$x_free_ti, 
+  text = ptext$x_free_tx
+)
+
+page_x_same = make_page_x(id_tag = "x_same", 
+  const_x = TRUE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+  title = ptext$x_same_ti, 
+  text = ptext$x_same_tx
+)
+
+page_x_uneq = make_page_x(id_tag = "x_uneq", 
+  const_x = TRUE, 
+  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8), 
+  title = ptext$x_uneq_ti, 
+  text = ptext$x_uneq_tx
+)
+
+page_simpso = make_page_x(id_tag = "simpso", 
+  const_x = TRUE, 
+  betas_a = c(-8, -2, -8, -6), betas_b = c(2, 8, -8, -6),
+  title = ptext$simpso_ti, 
+  text = ptext$simpso_tx
+)
+
+
+#-----------------------------
+# (2) Define UI  
+#-----------------------------
+
 ui <- navbarPage(
-  selected = "Regression (X same)",
+  selected = "Sim Randomized Experiment",
   title = tags$span(
     style = "display: inline-flex; align-items: center; gap: 10px;",
     tags$img(src = "ressources/z_logo_violet.png", height = "30px"),
@@ -101,7 +105,11 @@ ui <- navbarPage(
   page_summary
 )
 
-# Define server  
+
+#-----------------------------
+# (3) Define server 
+#-----------------------------
+
 server <- function(input, output, session) {
   # load server code from scripts
   source("server/server_x_same.R", local = TRUE)
@@ -111,6 +119,11 @@ server <- function(input, output, session) {
   # de-bugging 
   # output$debug <- renderPrint(names(resfigs))
 }
+
+
+#-----------------------------
+# (4) create Shiny app object
+#-----------------------------
 
 shinyApp(ui, server)
 

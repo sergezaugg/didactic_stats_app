@@ -39,7 +39,7 @@ make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE, betas
         width = 4,
         div(
           style = style_pannels,
-          h5("Scatterplot and regression lines"),
+          h5("Scatterplot, regression lines, residuals"),
           tags$hr(style = style_divider),
           selectInput(
             inputId = paste0("dist_plot_", id_tag),
@@ -64,13 +64,12 @@ make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE, betas
           )
         )
       ),
-      # verbatimTextOutput("debug"),
       # plots and table to the right
       column(
         4,
         div(
           style = style_pannels,
-          h5("Residuals & Estimates"),
+          h5("Statistical estimates"),
           tags$hr(style = style_divider),
           h6("Conventional coefficients"),
           tableOutput(paste0("sel_tabconv_", id_tag)),

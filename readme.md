@@ -1,5 +1,4 @@
-# Didactic Statistics App
-
+# Applied Stats Playground
 
 ### Features
 This Shiny web-app offers an interactive exploration of the strengths and limitations 
