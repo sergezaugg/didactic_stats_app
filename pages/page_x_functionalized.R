@@ -40,11 +40,11 @@ make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE, betas
                 inputId = paste0("dist_plot_", id_tag),
                 label = "Choose model",
                 choices = c(
-                  "M1 (mean)" = "m01",
-                  "M2 (grp means)" = "m02",
-                  "M3 (mean & slope)" = "m03",
-                  "M4 (grp means & slope)" = "m04",
-                  "M5 (grp means & grp slopes)" = "m05"
+                  "M1 (Null model)" = "m01",
+                  "M2 (Group effect)" = "m02",
+                  "M3 (Predictor effect)" = "m03",
+                  "M4 (Additive model)" = "m04",
+                  "M5 (Interaction model)" = "m05"
                 ),
                 selected = "m01",
               )

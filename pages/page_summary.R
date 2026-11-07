@@ -15,19 +15,19 @@ page_summary <- tabPanel(
         withMathJax(
           tags$div(
             
-            h6("M1"),
+            h6("M1 (Null model)"),
             HTML("$$Y_i = \\color{#EE82EE}{\\beta_0} + \\varepsilon_i$$"),
             
-            h6("M2"),
+            h6("M2 (Group effect)"),
             HTML("$$Y_i = \\color{#EE82EE}{\\beta_0} + \\color{#EE82EE}{\\beta_1} G_i + \\varepsilon_i$$"),
             
-            h6("M3"),
+            h6("M3 (Predictor effect)"),
             HTML("$$Y_i = \\color{#EE82EE}{\\beta_0}                                 + \\color{#EE82EE}{\\beta_2} X_i + \\varepsilon_i$$"),
             
-            h6("M4"),
+            h6("M4 (Additive model)"),
             HTML("$$Y_i = \\color{#EE82EE}{\\beta_0} + \\color{#EE82EE}{\\beta_1} G_i + \\color{#EE82EE}{\\beta_2} X_i  + \\varepsilon_i$$"),
             
-            h6("M5"),
+            h6("M5 (Interaction model)"),
             HTML("$$Y_i = \\color{#EE82EE}{\\beta_0} + \\color{#EE82EE}{\\beta_1} G_i + \\color{#EE82EE}{\\beta_2} X_i  + \\color{#EE82EE}{\\beta_3} X_i G_i + \\varepsilon_i$$")
           )
         )
