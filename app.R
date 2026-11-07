@@ -7,7 +7,6 @@
 library(tidyverse)
 library(shiny)
 library(bslib)
-# library(shinyWidgets)
 # load own functions
 source("src/utils_sim.R")
 source("src/utils_ui.R")
@@ -64,7 +63,7 @@ page_simpso = make_page_x(id_tag = "simpso",
 #-----------------------------
 
 ui <- navbarPage(
-  selected = "Sim Randomized Experiment",
+  selected = ptext$x_same_ti,
   
   title = tags$span(
     style = "display: inline-flex; align-items: center; gap: 10px;",
@@ -74,15 +73,19 @@ ui <- navbarPage(
   
   # version and (c) at bottom
   tags$div(
-    "v0.9.3 - © 2026 Serge Zaugg",
+    "v0.9.4 - © 2026 Serge Zaugg",
     style = "position: fixed;bottom: 8px; left: 20px;
       font-size: 14px; color: #888888; opacity: 1.0; z-index: 9999;
     "
   ),
   
-  # styling colors
-  theme = bs_theme(
-    bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#660055"),
+  # define header colors 
+  tags$head(
+    tags$style(HTML("
+    h5 {color: #EE82EE !important;}
+  "))
+  ),
+  
   # styling margins
   tags$head(
     tags$style(HTML("
@@ -104,6 +107,14 @@ ui <- navbarPage(
         margin-left: 0 !important;
       }
     "))
+  ),
+  
+  # styling colors
+  theme = bs_theme(
+    bg = "#000000", 
+    fg = "white", 
+    primary = "#ddccdd", 
+    secondary = "#660055"
   ),
   
   # pages 

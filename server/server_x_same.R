@@ -27,20 +27,33 @@ par_x_same_b <- reactive(list(
 # (2) compute stuff
 # simulate data
 df_all_x_same    <- reactive({combine_dfs_lin(par_x_same_a(), par_x_same_b())})
-# stats computation
+# fit models 
+lim0_x_same <- reactive(fit_regression_models(df = df_all_x_same()))
+# just re-shape list 
+lim1_x_same <- reactive(re_organize_list(lim0_x_same()))
+# get color options from user  
 show_color_x_same <- reactive(input$show_color_x_same)
-li_models_x_same <- reactive(fit_regression_models(df_all_x_same(), show_color_x_same()))
+# make plots 
+lip_x_same <- reactive(
+  re_organize_list(
+    make_all_plots(
+      df = df_all_x_same(), 
+      models = lim0_x_same()[["models"]], 
+      colo = show_color_x_same()
+    )
+  )
+)
 
 # ---------------------------
 # (3) return output
 # display plots and tables based on user choice
 sel_pl_x_same = reactive(input$dist_plot_x_same)
 # Selected table
-output$sel_ttable_x_same <- renderTable({li_models_x_same()[[sel_pl_x_same()]][["df_tables"]]})
+output$sel_ttable_x_same <- renderTable({lim1_x_same()[[sel_pl_x_same()]][["df_tables"]]})
 # Selected conv table
-output$sel_tabconv_x_same <- renderTable({li_models_x_same()[[sel_pl_x_same()]][["df_tab_conv"]]})
+output$sel_tabconv_x_same <- renderTable({lim1_x_same()[[sel_pl_x_same()]][["df_tab_conv"]]})
 # Selected scatter plot
-output$sel_scatter_plot_x_same <- renderPlot({li_models_x_same()[[sel_pl_x_same()]][["df_plots"]]})
+output$sel_scatter_plot_x_same <- renderPlot({lip_x_same()[[sel_pl_x_same()]][["df_plots"]]})
 # Selected residual plot
-output$sel_residual_plot_x_same <- renderPlot({li_models_x_same()[[sel_pl_x_same()]][["df_res_plots"]]})
+output$sel_residual_plot_x_same <- renderPlot({lip_x_same()[[sel_pl_x_same()]][["df_res_plots"]]})
 

@@ -20,13 +20,8 @@
 # styler::style_file("pages/text_for_pages.R")
 # styler::style_file("pages/page_summary.R")
 
-
-
-
-
-
-
 source("src/utils_sim.R")
+source("src/utils_plots.R")
 library(tidyverse)
 
 # (1) get input from user
@@ -35,23 +30,17 @@ par_x_free_b <- list(n = 100,xmin = 1,xmax = 2,b0 = 0,b1 = 1,sd_res = 0.1)
 
 # simulate data
 df_all_x_free    <- combine_dfs_lin(par_x_free_a, par_x_free_b)
-                                   
-# stats computation
-li_models <- fit_regression_models(df_all_x_free)
+ 
+# computation
+li_items1 <- fit_regression_models(df = df_all_x_free)
+li_models <- re_organize_list(li = li_items1)
+li_items2 <- make_all_plots(df = df_all_x_free, models = li_items1$models, colo = FALSE)
+li_plots <- re_organize_list(li = li_items2)
 
 li_models %>% names()
+li_plots %>% names()
 
-li_models[["m02"]] %>% names()
-
-li_models[["m02"]][["df_tables"]]
-li_models[["m02"]][["df_tab_conv"]]
-
-li_models[["m05"]][["df_tables"]]
-li_models[["m05"]][["df_tab_conv"]]
-   
-
-
-
-
+li_models[["m01"]] %>% names()
+li_plots[["m01"]] %>% names()
 
 
