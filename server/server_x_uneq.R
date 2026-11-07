@@ -8,7 +8,7 @@
 par_x_uneq_a <- reactive(list(
   n      = as.integer(input$n_x_uneq_a),
   xmin   = -0.5,
-  xmax   = 0.1,
+  xmax   = 0.2,
   b0     = as.numeric(input$b0_x_uneq_a),
   b1     = as.numeric(input$b1_x_uneq_a),
   sd_res = as.numeric(input$sd_res_x_uneq_a)
@@ -16,7 +16,7 @@ par_x_uneq_a <- reactive(list(
 
 par_x_uneq_b <- reactive(list(
   n      = as.integer(input$n_x_uneq_b),
-  xmin   = -0.1,
+  xmin   = -0.2,
   xmax   = 0.5,
   b0     = as.numeric(input$b0_x_uneq_b),
   b1     = as.numeric(input$b1_x_uneq_b),

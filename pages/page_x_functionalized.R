@@ -2,15 +2,6 @@
 # Description : page X free
 # Author : Serge Zaugg
 # ---------------------------
- 
-# id_tag = "x_free"
-# paste0(id_tag, "_a")
-# paste0(id_tag, "_b")
-# paste0("dist_plot_", id_tag)
-# paste0("sel_scatter_plot_", id_tag)
-# paste0("sel_residual_plot_", id_tag)
-# paste0("sel_tabconv_", id_tag)
-# paste0("sel_ttable_" , id_tag)
 
 style_pannels <- "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
 style_divider <- "margin-top: 11px; margin-bottom: 11px;"
@@ -31,6 +22,7 @@ make_page_x <- function(id_tag = "default", title = "aa", const_x = FALSE, betas
           tags$hr(style = style_divider),
           make_group_controls(paste0(id_tag, "_b"), "Group B", const_x = const_x, b = betas_b),
           tags$hr(style = style_divider),
+          h5(paste0("Simulate ", title)), 
           tags$p(text),
         )
       ),

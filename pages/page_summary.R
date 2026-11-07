@@ -15,20 +15,20 @@ page_summary <- tabPanel(
         withMathJax(
           tags$div(
             
-            h5("M1"),
-            HTML("$$Y_i = \\color{orange}{\\beta_0} + \\varepsilon_i$$"),
+            h6("M1"),
+            HTML("$$Y_i = \\color{#EE82EE}{\\beta_0} + \\varepsilon_i$$"),
             
-            h5("M2"),
-            HTML("$$Y_i = \\color{orange}{\\beta_0} + \\color{orange}{\\beta_1} G_i + \\varepsilon_i$$"),
+            h6("M2"),
+            HTML("$$Y_i = \\color{#EE82EE}{\\beta_0} + \\color{#EE82EE}{\\beta_1} G_i + \\varepsilon_i$$"),
             
-            h5("M3"),
-            HTML("$$Y_i = \\color{orange}{\\beta_0}                                 + \\color{orange}{\\beta_2} X_i + \\varepsilon_i$$"),
+            h6("M3"),
+            HTML("$$Y_i = \\color{#EE82EE}{\\beta_0}                                 + \\color{#EE82EE}{\\beta_2} X_i + \\varepsilon_i$$"),
             
-            h5("M4"),
-            HTML("$$Y_i = \\color{orange}{\\beta_0} + \\color{orange}{\\beta_1} G_i + \\color{orange}{\\beta_2} X_i  + \\varepsilon_i$$"),
+            h6("M4"),
+            HTML("$$Y_i = \\color{#EE82EE}{\\beta_0} + \\color{#EE82EE}{\\beta_1} G_i + \\color{#EE82EE}{\\beta_2} X_i  + \\varepsilon_i$$"),
             
-            h5("M5"),
-            HTML("$$Y_i = \\color{orange}{\\beta_0} + \\color{orange}{\\beta_1} G_i + \\color{orange}{\\beta_2} X_i  + \\color{orange}{\\beta_3} X_i G_i + \\varepsilon_i$$")
+            h6("M5"),
+            HTML("$$Y_i = \\color{#EE82EE}{\\beta_0} + \\color{#EE82EE}{\\beta_1} G_i + \\color{#EE82EE}{\\beta_2} X_i  + \\color{#EE82EE}{\\beta_3} X_i G_i + \\varepsilon_i$$")
           )
         )
       )
@@ -42,20 +42,20 @@ page_summary <- tabPanel(
         style = style_pannels,
         withMathJax(
           tags$div(
-            h5("M1 (not applicable)"),
+            h6("M1 (not applicable)"),
             HTML("$$ $$"),
 
-            h5("M2"),
-            HTML("$$Y_i = \\color{orange}{\\beta_{1a}} G_{i,a} + \\color{orange}{\\beta_{1b}} G_{i,b} + \\varepsilon_i$$"),
+            h6("M2"),
+            HTML("$$Y_i = \\color{#EE82EE}{\\beta_{1a}} G_{i,a} + \\color{#EE82EE}{\\beta_{1b}} G_{i,b} + \\varepsilon_i$$"),
             
-            h5("M3 (not applicable)"),
+            h6("M3 (not applicable)"),
             HTML("$$ $$"),
             
-            h5("M4"),
-            HTML("$$Y_i = \\color{orange}{\\beta_{1a}} G_{i,a} + \\color{orange}{\\beta_{1b}} G_{i,b} + \\color{orange}{\\beta_2} X_i + \\varepsilon_i$$"),
+            h6("M4"),
+            HTML("$$Y_i = \\color{#EE82EE}{\\beta_{1a}} G_{i,a} + \\color{#EE82EE}{\\beta_{1b}} G_{i,b} + \\color{#EE82EE}{\\beta_2} X_i + \\varepsilon_i$$"),
             
-            h5("M5"),
-            HTML("$$Y_i = \\color{orange}{\\beta_{1a}} G_{i,a} + \\color{orange}{\\beta_{1b}} G_{i,b} + \\color{orange}{\\beta_{2a}} X_i G_{i,a} + \\color{orange}{\\beta_{2b}} X_i G_{i,b} + \\varepsilon_i$$")
+            h6("M5"),
+            HTML("$$Y_i = \\color{#EE82EE}{\\beta_{1a}} G_{i,a} + \\color{#EE82EE}{\\beta_{1b}} G_{i,b} + \\color{#EE82EE}{\\beta_{2a}} X_i G_{i,a} + \\color{#EE82EE}{\\beta_{2b}} X_i G_{i,b} + \\varepsilon_i$$")
           )
         )
       )

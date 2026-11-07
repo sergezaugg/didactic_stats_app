@@ -8,7 +8,7 @@
 par_simpso_a <- reactive(list(
   n      = as.integer(input$n_simpso_a),
   xmin   = -0.5,
-  xmax   = 0.1,
+  xmax   = 0.2,
   b0     = as.numeric(input$b0_simpso_a),
   b1     = as.numeric(input$b1_simpso_a),
   sd_res = as.numeric(input$sd_res_simpso_a)
@@ -16,7 +16,7 @@ par_simpso_a <- reactive(list(
 
 par_simpso_b <- reactive(list(
   n      = as.integer(input$n_simpso_b),
-  xmin   = -0.1,
+  xmin   = -0.2,
   xmax   = 0.5,
   b0     = as.numeric(input$b0_simpso_b),
   b1     = as.numeric(input$b1_simpso_b),
