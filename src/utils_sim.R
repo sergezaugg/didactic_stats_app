@@ -12,6 +12,7 @@ simulate_linear_data <- function(par){
   return(df)
 }
 
+
 combine_dfs_lin <- function(...) {
   pars <- list(...)
   dfs <- lapply(seq_along(pars), function(i) {
@@ -37,8 +38,10 @@ get_t_table <- function(mod){
     mutate(across(where(is.numeric), ~ round(., 2)))
 }
 
+
+
 # fit multiple models on one dataset
-fit_regression_models <- function(df, colo){
+fit_regression_models <- function(df){
   
   # conventional parametrisation
   li_formu_conv <- list(
@@ -58,19 +61,36 @@ fit_regression_models <- function(df, colo){
     m05 = as.formula("response ~ predictor:group + group - 1")
   )
   
-  groups = levels(df$group)
-  
-  # conventional parametrisation (only get t-tables)
+  # fit conventional parametrisation (and get t-tables)
   models_conv <- lapply(li_formu_conv, lm, data = df)
   df_tab_conv <- lapply(models_conv, get_t_table)
   
-  # "sep-slope" parametrisation (t-table and do all plots)
+  # fit "sep-slope" parametrisation (and get t-tables)
   models <- lapply(li_formu, lm, data = df)
   df_tab <- lapply(models, get_t_table)
-  df_res <- lapply(models, residuals)
-  coefs  <- lapply(models, coef)
   
-  # print(coefs$m02b)
+  # list by item type and then models 
+  li <-  list(
+    "df_tables" = df_tab,
+    "df_tab_conv" = df_tab_conv,
+    "models"= models
+  )
+
+  return(li)
+  
+}
+
+
+
+# make plots of data + lines and residual plots 
+make_all_plots <- function(df, models, colo){
+  
+  groups = levels(df$group)
+  
+  coefs  <- lapply(models, coef)
+  df_res <- lapply(models, residuals)
+  
+  # 
   df_plt <- list(
     m01  = data.frame(group = groups, intercept = coefs$m01["(Intercept)"],  slope = 0),
     m02  = data.frame(group = groups, intercept = coefs$m02[paste0("group", groups)], slope = 0),
@@ -86,7 +106,7 @@ fit_regression_models <- function(df, colo){
     m04  = make_data_scatterplot(x = df, df_lines = df_plt[["m04"]], colo),
     m05  = make_data_scatterplot(x = df, df_lines = df_plt[["m05"]], colo)
   )
-
+  
   df_res_plots <- list(
     m01  = make_residuals_plot(df = df, res = df_res[["m01"]], colo), 
     m02  = make_residuals_plot(df = df, res = df_res[["m02"]], colo), 
@@ -96,14 +116,19 @@ fit_regression_models <- function(df, colo){
   )
   
   # list by item type and then models 
-  li <-  list(
-    "df_tables" = df_tab,
-    "df_tab_conv" = df_tab_conv,
+  li <- list(
     "df_plots"= df_plots,
     "df_res_plots" = df_res_plots
   )
   
-  # re-organize to list by models and then item type
+  return(li)
+  
+}
+
+
+
+# re-organize to list by models and then item type
+re_organize_list <- function(li){
   inner_names <- unique(unlist(lapply(li, names)))
   li2 <- setNames(
     lapply(inner_names, function(inner) {
@@ -114,15 +139,8 @@ fit_regression_models <- function(df, colo){
     }),
     inner_names
   )
-  
   return(li2)
-  
 }
-
-
-
-
-
 
 
 
