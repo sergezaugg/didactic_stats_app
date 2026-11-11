@@ -67,13 +67,13 @@ ui <- navbarPage(
   
   title = tags$span(
     style = "display: inline-flex; align-items: center; gap: 10px;",
-    tags$img(src = "resources/z_logo_violet.png", height = "30px"),
+    tags$img(src = "resources/z_logo_red.png", height = "30px"),
     tags$span("Applied Stats Playground")
   ),
   
   # version and (c) at bottom
   tags$div(
-    "v0.9.4 - © 2026 Serge Zaugg",
+    "v0.9.5 - © 2026 Serge Zaugg",
     style = "position: fixed;bottom: 8px; left: 20px;
       font-size: 14px; color: #888888; opacity: 1.0; z-index: 9999;
     "
@@ -82,7 +82,7 @@ ui <- navbarPage(
   # define header colors 
   tags$head(
     tags$style(HTML("
-    h5 {color: #EE82EE !important;}
+    h5 {color: #FFDDCC !important;}
   "))
   ),
   
