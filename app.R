@@ -133,14 +133,14 @@ ui <- navbarPage(
   page_summary,
   
   # 
-  page_test <- make_page_mod( id = "test01",
+  make_page_mod( id = "test01",
     const_x = FALSE, 
     betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
     title = "aaaaaa", 
     text = "adfadfbsdfbfas"
   ),
   
-  page_test <- make_page_mod( id = "test44",
+  make_page_mod( id = "test44",
     const_x = FALSE, 
     betas_a = c(4,8,4,8), betas_b = c(4,8,4,8),
     title = "acafagasd", 
