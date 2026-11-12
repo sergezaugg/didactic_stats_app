@@ -28,6 +28,11 @@ source("pages/page_x_functionalized.R")
 source("pages/text_for_pages.R")
 # ptext %>% names()
 
+# new 
+source("server/server_functionalized.R")
+
+
+
 # generate pages 
 page_x_free = make_page_x(id_tag = "x_free", 
   const_x = FALSE, 
@@ -56,6 +61,8 @@ page_simpso = make_page_x(id_tag = "simpso",
   title = ptext$simpso_ti, 
   text = ptext$simpso_tx
 )
+
+
 
 
 #-----------------------------
@@ -123,7 +130,25 @@ ui <- navbarPage(
   page_x_uneq,
   page_simpso,
   page_x_free,
-  page_summary
+  page_summary,
+  
+  # 
+  page_test <- make_page_mod( id = "test01",
+    const_x = FALSE, 
+    betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+    title = "aaaaaa", 
+    text = "adfadfbsdfbfas"
+  ),
+  
+  page_test <- make_page_mod( id = "test44",
+    const_x = FALSE, 
+    betas_a = c(4,8,4,8), betas_b = c(4,8,4,8),
+    title = "acafagasd", 
+    text = "ss ss ss ss ss "
+  )
+
+  
+  
 )
 
 
@@ -139,6 +164,13 @@ server <- function(input, output, session) {
   source("server/server_simpso.R", local = TRUE)
   # de-bugging 
   # output$debug <- renderPrint(names(resfigs))
+  
+  
+  my_module_server("test01")
+  
+  my_module_server("test44")
+  
+  
 }
 
 
