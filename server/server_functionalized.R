@@ -3,29 +3,58 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-my_module_server <- function(id) {
+my_module_server <- function(id, x_vals_a = NULL, x_vals_b = NULL) {
   
   moduleServer(id, function(input, output, session) {
         
-    # ---------------------------
-    # (1) get input from user
-    par_x_free_a <- reactive(list(
-      n      = as.integer(input$n_a),
-      xmin   = as.numeric(input$xmin_a),
-      xmax   = as.numeric(input$xmax_a),
-      b0     = as.numeric(input$b0_a),
-      b1     = as.numeric(input$b1_a),
-      sd_res = as.numeric(input$sd_res_a)
-    ))
-
-    par_x_free_b <- reactive(list(
-      n      = as.integer(input$n_b),
-      xmin   = as.numeric(input$xmin_b),
-      xmax   = as.numeric(input$xmax_b),
-      b0     = as.numeric(input$b0_b),
-      b1     = as.numeric(input$b1_b),
-      sd_res = as.numeric(input$sd_res_b)
-    ))
+    if (is.null(x_vals_a)) {
+      
+      # ---------------------------
+      # (1) get input from user
+      par_x_free_a <- reactive(list(
+        n      = as.integer(input$n_a),
+        xmin   = as.numeric(input$xmin_a),
+        xmax   = as.numeric(input$xmax_a),
+        b0     = as.numeric(input$b0_a),
+        b1     = as.numeric(input$b1_a),
+        sd_res = as.numeric(input$sd_res_a)
+      ))
+      
+      par_x_free_b <- reactive(list(
+        n      = as.integer(input$n_b),
+        xmin   = as.numeric(input$xmin_b),
+        xmax   = as.numeric(input$xmax_b),
+        b0     = as.numeric(input$b0_b),
+        b1     = as.numeric(input$b1_b),
+        sd_res = as.numeric(input$sd_res_b)
+      ))
+      
+      
+    } else {
+      
+      # ---------------------------
+      # (1) get input from user
+      par_x_free_a <- reactive(list(
+        n      = as.integer(input$n_a),
+        xmin   = x_vals_a[1],
+        xmax   = x_vals_a[2],
+        b0     = as.numeric(input$b0_a),
+        b1     = as.numeric(input$b1_a),
+        sd_res = as.numeric(input$sd_res_a)
+      ))
+      
+      par_x_free_b <- reactive(list(
+        n      = as.integer(input$n_b),
+        xmin   = x_vals_b[1],
+        xmax   = x_vals_b[2],
+        b0     = as.numeric(input$b0_b),
+        b1     = as.numeric(input$b1_b),
+        sd_res = as.numeric(input$sd_res_b)
+      ))
+      
+    }
+    
+   
 
     # ---------------------------
     # (2) compute stuff
