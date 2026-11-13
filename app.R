@@ -33,7 +33,7 @@ ui <- navbarPage(
   # default starting page 
   selected = ptext$x_same_ti,
   # styling colors
-  theme = bs_theme(bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#550033"),
+  theme = bs_theme(bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#440022"),
   # add custom title and logo
   app_custom_title(),
   # add version and (c) at bottom
