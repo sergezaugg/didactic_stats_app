@@ -1,23 +1,37 @@
 # ---------------------------
-# Description : large ui elements are defined here and later imported to app.R
+# Description : ui elements are defined here and later imported to app.R
 # Author : Serge Zaugg
 # ---------------------------
 
-# ui elements
-make_group_controls <- function(group, title, const_x = FALSE, b) {
+app_custom_title <- function() {
+  tags$span(
+    style = "display: inline-flex; align-items: center; gap: 10px;",
+    tags$img(src = "resources/z_logo_red.png", height = "30px"),
+    tags$span("Applied Stats Playground")
+  )
+}
+
+app_footer <- function() {
+  tags$div(
+    "v0.10.0 - © 2026 Serge Zaugg",
+    class = "app-footer"
+  )
+}
+
+make_group_controls_ns <- function(group, title, const_x = FALSE, b, ns) {
   fluidRow(
     tagList(
       column(
         width = 3,
         h6(title),
         selectInput(
-          inputId = paste0("n_", group),
+          inputId = ns(paste0("n", group)),
           label = "N",
           choices = c(10, 20, 30, 50, 100),
           selected = 50
         ),
         numericInput(
-          inputId = paste0("sd_res_", group),
+          inputId = ns(paste0("sd_res", group)),
           label = "σ (Noise)",
           value = 1.0,
           min = 0.2,
@@ -32,11 +46,13 @@ make_group_controls <- function(group, title, const_x = FALSE, b) {
         } else {
           tagList( # needed for shiny - tagList() groups multiple Shiny UI elements into one object
             sliderInput(
-              inputId = paste0("xmin_", group), label = "xmin",
+              inputId = ns(paste0("xmin", group)), 
+              label = "xmin",
               min = -1.0, max = 0.0, value = -0.5, step = 0.1
             ),
             sliderInput(
-              inputId = paste0("xmax_", group), label = "xmax",
+              inputId = ns(paste0("xmax", group)), 
+              label = "xmax",
               min = 0.0, max = 1.0, value = 0.5, step = 0.1
             )
           )
@@ -44,9 +60,19 @@ make_group_controls <- function(group, title, const_x = FALSE, b) {
       ),
       column(
         width = 4,
-        sliderInput(inputId = paste0("b0_", group), label = "β₀", min = b[1], max = b[2], value = (b[1]+b[2])/2),
-        sliderInput(inputId = paste0("b1_", group), label = "β₁", min = b[3], max = b[4], value = (b[3]+b[4])/2)
+        sliderInput(
+          inputId = ns(paste0("b0", group)), 
+          label = "β₀", min = b[1], max = b[2], value = (b[1]+b[2])/2),
+        sliderInput(
+          inputId = ns(paste0("b1", group)), 
+          label = "β₁", min = b[3], max = b[4], value = (b[3]+b[4])/2)
       )
     )
   )
 }
+
+
+
+
+
+

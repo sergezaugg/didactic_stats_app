@@ -1,0 +1,48 @@
+/* Header colors */
+h5 {
+  color: #FFDDCC !important;
+}
+
+/* Main container */
+.container-fluid {
+  margin-top: 0;
+  margin-bottom: 30px;
+  min-width: 1400px;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* MathJax equations */
+.MathJax_Display {
+  text-align: left !important;
+  margin-left: 0 !important;
+}
+
+.app-footer {
+  position: fixed;
+  bottom: 8px;
+  left: 20px;
+  font-size: 14px;
+  color: #888888;
+  z-index: 9999;
+}
+
+/* Module panels */
+.panel-custom {
+  background-color: #330022;
+  padding: 15px;
+  border-radius: 5px;
+  height: 700px;
+}
+
+/* Dividers */
+.divider-custom {
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+
+
+
+
+

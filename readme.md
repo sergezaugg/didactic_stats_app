@@ -73,8 +73,6 @@ Call Rscript with repo path as argument to runApp(), below replace ... by your p
 didactic_stats_app/
 │
 ├── app.R                    # Main application entry point
-├── pages/                   # UI definitions for app pages
-├── server/                  # Server-side logic with page-specific functionality
 ├── src/                     # Shared functions and components
 ├── resources/              # static items: pics, codebooks etc.
 │
