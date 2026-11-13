@@ -3,9 +3,6 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-style_pannels <- "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
-style_divider <- "margin-top: 11px; margin-bottom: 11px;"
-
 page_about <- tabPanel(
   "About",
   fluidRow(
@@ -13,8 +10,8 @@ page_about <- tabPanel(
     column(width = 4,
       div(     
         h5("Background"),
-        tags$hr(style = style_divider),
-        style = style_pannels,
+        tags$hr(class = "divider-custom"),
+        class = "panel-custom",
         tags$p("
           Linear regression models are among the most versatile data analysis tools.
           They can do simple t-tests and complex multiple regression models.
@@ -30,8 +27,8 @@ page_about <- tabPanel(
     column(width = 4,
       div(      
         h5("Objective"),
-        tags$hr(style = style_divider),
-        style = style_pannels,
+        tags$hr(class = "divider-custom"),
+        class = "panel-custom",
         tags$p("
           This app provides interactive and intuitive exploration of the mechanics of regression.
           It can be used to demonstrate the strengths and limitations of linear regression.
@@ -50,8 +47,8 @@ page_about <- tabPanel(
     column(width = 4,
       div(      
         h5("Author"),
-        tags$hr(style = style_divider),
-        style = style_pannels,
+        tags$hr(class = "divider-custom"),
+        class = "panel-custom",
         tags$p(
           "Serge Zaugg (",
           tags$a("LinkedIn", href = "https://www.linkedin.com/in/dkifh34rtn345eb5fhrthdbgf45/",

@@ -17,7 +17,7 @@ addResourcePath("resources", "resources")
 source("src/utils_sim.R")
 source("src/utils_ui.R")
 source("src/utils_plots.R")
-# load non-interactive pages &  texts 
+# load non-interactive pages & texts 
 source("src/page_about.R")
 source("src/page_summary.R")
 source("src/text_for_pages.R")
@@ -33,7 +33,7 @@ ui <- navbarPage(
   # default starting page 
   selected = ptext$x_same_ti,
   # styling colors
-  theme = bs_theme(bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#440022"),
+  theme = bs_theme(bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#550044"),
   # add custom title and logo
   app_custom_title(),
   # add version and (c) at bottom

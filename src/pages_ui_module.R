@@ -3,9 +3,6 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-style_pannels <- "background-color: #220022; padding: 15px; border-radius: 5px; height: 700px;"
-style_divider <- "margin-top: 11px; margin-bottom: 11px;"
-
 pages_ui_module <- function(id, title = "aa", const_x = FALSE, betas_a = "", betas_b = "", text = "") { 
   
   ns <- NS(id)
@@ -17,13 +14,13 @@ pages_ui_module <- function(id, title = "aa", const_x = FALSE, betas_a = "", bet
       column(
         width = 4,
         div(
-          style = style_pannels,
+          class = "panel-custom",
           h5("Define data distribution"),
-          tags$hr(style = style_divider),
+          tags$hr(class = "divider-custom"),
           make_group_controls_ns("_a", "Group A", const_x = const_x, b = betas_a, ns = ns),
-          tags$hr(style = style_divider),
+          tags$hr(class = "divider-custom"),
           make_group_controls_ns("_b", "Group B", const_x = const_x, b = betas_b, ns = ns),
-          tags$hr(style = style_divider),
+          tags$hr(class = "divider-custom"),
           h5(paste0("Simulate ", title)), 
           tags$p(text),
         )
@@ -32,9 +29,9 @@ pages_ui_module <- function(id, title = "aa", const_x = FALSE, betas_a = "", bet
       column(
         width = 4,
         div(
-          style = style_pannels,
+          class = "panel-custom",
           h5("Scatterplot, regression lines, residuals"),
-          tags$hr(style = style_divider),
+          tags$hr(class = "divider-custom"),
           
           fluidRow(
             column(width = 8,
@@ -75,9 +72,9 @@ pages_ui_module <- function(id, title = "aa", const_x = FALSE, betas_a = "", bet
       column(
         4,
         div(
-          style = style_pannels,
+          class = "panel-custom",
           h5("Statistical estimates"),
-          tags$hr(style = style_divider),
+          tags$hr(class = "divider-custom"),
           h6("Conventional coefficients"),
           tableOutput(ns("sel_tabconv")),
           div(style = "height: 15px;"),

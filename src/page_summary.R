@@ -10,8 +10,8 @@ page_summary <- tabPanel(
       width = 4,
       div(  
         h5("Conventional coefficients"),
-        tags$hr(style = style_divider),
-        style = style_pannels,
+        tags$hr(class = "divider-custom"),
+        class = "panel-custom",
         withMathJax(
           tags$div(
             
@@ -38,8 +38,8 @@ page_summary <- tabPanel(
       width = 4,
       div(  
         h5("Per-group coefficients"),
-        tags$hr(style = style_divider),
-        style = style_pannels,
+        tags$hr(class = "divider-custom"),
+        class = "panel-custom",
         withMathJax(
           tags$div(
             h6("M1 (not applicable)"),
@@ -64,9 +64,9 @@ page_summary <- tabPanel(
     column(
       width = 4,
       div(
-        style = style_pannels,
+        class = "panel-custom",
         h5("Variables"),
-        tags$hr(style = style_divider),
+        tags$hr(class = "divider-custom"),
         withMathJax(
           tags$div(
             tags$p(HTML("\\(Y_i\\): response")),
