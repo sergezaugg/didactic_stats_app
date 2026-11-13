@@ -129,7 +129,7 @@ ui <- navbarPage(
   
   page_about,
   
-  page_x_same,
+  # page_x_same,
   make_page_mod(id = "x_same", 
                 const_x = TRUE, 
                 betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
@@ -138,7 +138,7 @@ ui <- navbarPage(
   ),
   
   
-  page_x_uneq,
+  # page_x_uneq,
   make_page_mod(id = "x_uneq",
                 const_x = TRUE,
                 betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
@@ -146,7 +146,7 @@ ui <- navbarPage(
                 text = ptext$x_uneq_tx
   ),
   
-  page_simpso,
+  # page_simpso,
   make_page_mod(id = "simpso",
                 const_x = TRUE,
                 betas_a = c(-8, -2, -8, -6), betas_b = c(2, 8, -8, -6),
@@ -154,7 +154,7 @@ ui <- navbarPage(
                 text = ptext$simpso_tx
   ),
   
-  page_x_free,
+  # page_x_free,
   make_page_mod(id = "x_free",
                 const_x = FALSE,
                 betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
@@ -190,11 +190,11 @@ ui <- navbarPage(
 
 server <- function(input, output, session) {
   
-  # load server code from scripts
-  source("server/server_x_same.R", local = TRUE)
-  source("server/server_x_uneq.R", local = TRUE)
-  source("server/server_x_free.R", local = TRUE)
-  source("server/server_simpso.R", local = TRUE)
+  # # load server code from scripts
+  # source("server/server_x_same.R", local = TRUE)
+  # source("server/server_x_uneq.R", local = TRUE)
+  # source("server/server_x_free.R", local = TRUE)
+  # source("server/server_simpso.R", local = TRUE)
   
   my_module_server("x_free")
   my_module_server("x_same", x_vals_a = c(-0.5,0.5), x_vals_b = c(-0.5, 0.5))
