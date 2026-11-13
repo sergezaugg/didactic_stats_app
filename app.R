@@ -3,6 +3,10 @@
 # Author : Serge Zaugg
 # ---------------------------
 
+#-----------------------------
+# (1) load and prepare   
+#-----------------------------
+
 # load packages
 library(tidyverse)
 library(shiny)
@@ -13,57 +17,13 @@ source("src/utils_ui.R")
 source("src/utils_plots.R")
 # Tell shiny where to find resources
 addResourcePath("resources", "resources")
-
-
-#-----------------------------
-# (1) load and generate pages   
-#-----------------------------
-
-# load non-interactive pages 
+# load non-interactive pages &  texts 
 source("pages/page_about.R")
 source("pages/page_summary.R")
-# load function for page generations 
-source("pages/page_x_functionalized.R")
-# load info texts 
 source("pages/text_for_pages.R")
-# ptext %>% names()
-
-# new 
-source("server/server_functionalized.R")
-
-
-
-# generate pages 
-page_x_free = make_page_x(id_tag = "x_free", 
-  const_x = FALSE, 
-  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
-  title = ptext$x_free_ti, 
-  text = ptext$x_free_tx
-)
-
-page_x_same = make_page_x(id_tag = "x_same", 
-  const_x = TRUE, 
-  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
-  title = ptext$x_same_ti, 
-  text = ptext$x_same_tx
-)
-
-page_x_uneq = make_page_x(id_tag = "x_uneq", 
-  const_x = TRUE, 
-  betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8), 
-  title = ptext$x_uneq_ti, 
-  text = ptext$x_uneq_tx
-)
-
-page_simpso = make_page_x(id_tag = "simpso", 
-  const_x = TRUE, 
-  betas_a = c(-8, -2, -8, -6), betas_b = c(2, 8, -8, -6),
-  title = ptext$simpso_ti, 
-  text = ptext$simpso_tx
-)
-
-
-
+# load function page UI generations & server processing 
+source("pages/pages_ui_module.R")
+source("server/pages_server_module.R")
 
 #-----------------------------
 # (2) Define UI  
@@ -129,86 +89,54 @@ ui <- navbarPage(
   
   page_about,
   
-  # page_x_same,
-  make_page_mod(id = "x_same", 
-                const_x = TRUE, 
-                betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
-                title = ptext$x_same_ti, 
-                text = ptext$x_same_tx
+  pages_ui_module(
+    id = "x_same", 
+    const_x = TRUE, 
+    betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+    title = ptext$x_same_ti, 
+    text = ptext$x_same_tx
   ),
   
-  
-  # page_x_uneq,
-  make_page_mod(id = "x_uneq",
-                const_x = TRUE,
-                betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
-                title = ptext$x_uneq_ti,
-                text = ptext$x_uneq_tx
+  pages_ui_module(
+    id = "x_uneq",
+    const_x = TRUE,
+    betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+    title = ptext$x_uneq_ti,
+    text = ptext$x_uneq_tx
   ),
   
-  # page_simpso,
-  make_page_mod(id = "simpso",
-                const_x = TRUE,
-                betas_a = c(-8, -2, -8, -6), betas_b = c(2, 8, -8, -6),
-                title = ptext$simpso_ti,
-                text = ptext$simpso_tx
+  pages_ui_module(
+    id = "simpso",
+    const_x = TRUE,
+    betas_a = c(-8, -2, -8, -6), betas_b = c(2, 8, -8, -6),
+    title = ptext$simpso_ti,
+    text = ptext$simpso_tx
   ),
   
-  # page_x_free,
-  make_page_mod(id = "x_free",
-                const_x = FALSE,
-                betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
-                title = ptext$x_free_ti,
-                text = ptext$x_free_tx
+  pages_ui_module(
+    id = "x_free",
+    const_x = FALSE,
+    betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
+    title = ptext$x_free_ti,
+    text = ptext$x_free_tx
   ),
-  
   
   page_summary,
-  
-  
-  
-  
-  # make_page_mod(id = "test44",
-  #   const_x = FALSE,
-  #   betas_a = c(4,8,4,8), betas_b = c(4,8,4,8),
-  #   title = "acafagasd",
-  #   text = "ss ss ss ss ss "
-  # )
-
-  
-  
-  
-  
-  
-  
+ 
 )
 
 
 #-----------------------------
-# (3) Define server 
+# (3) Define server processing
 #-----------------------------
 
 server <- function(input, output, session) {
-  
-  # # load server code from scripts
-  # source("server/server_x_same.R", local = TRUE)
-  # source("server/server_x_uneq.R", local = TRUE)
-  # source("server/server_x_free.R", local = TRUE)
-  # source("server/server_simpso.R", local = TRUE)
-  
-  my_module_server("x_free")
-  my_module_server("x_same", x_vals_a = c(-0.5,0.5), x_vals_b = c(-0.5, 0.5))
-  my_module_server("x_uneq", x_vals_a = c(-0.5,0.2), x_vals_b = c(-0.2, 0.5))
-  my_module_server("simpso", x_vals_a = c(-0.5,0.2), x_vals_b = c(-0.2, 0.5))
-  
-  # my_module_server("test44")
-
-  # de-bugging 
+  pages_server_module("x_free")
+  pages_server_module("x_same", x_vals_a = c(-0.5,0.5), x_vals_b = c(-0.5, 0.5))
+  pages_server_module("x_uneq", x_vals_a = c(-0.5,0.2), x_vals_b = c(-0.2, 0.5))
+  pages_server_module("simpso", x_vals_a = c(-0.5,0.2), x_vals_b = c(-0.2, 0.5))
   # output$debug <- renderPrint(names(resfigs))
-  
-  
 }
-
 
 #-----------------------------
 # (4) create Shiny app object

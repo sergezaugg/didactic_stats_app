@@ -3,7 +3,7 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-my_module_server <- function(id, x_vals_a = NULL, x_vals_b = NULL) {
+pages_server_module <- function(id, x_vals_a = NULL, x_vals_b = NULL) {
   
   moduleServer(id, function(input, output, session) {
         
