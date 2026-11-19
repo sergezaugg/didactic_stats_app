@@ -4,34 +4,6 @@
 # ---------------------------
 
 
-
-
-
-# 
-# app_custom_title <- function() {
-#   if (input$dark_mode == "lig") {
-#     tags$span(
-#       style = "display: inline-flex; align-items: center; gap: 10px;",
-#       tags$img(src = "contents/z_logo_red.png", height = "30px"),
-#       tags$span("Applied Stats Playground")
-#     )
-#     
-#   } else {
-#     tags$span(
-#       style = "display: inline-flex; align-items: center; gap: 10px;",
-#       tags$img(src = "contents/z_logo_blue.png", height = "30px"),
-#       tags$span("Applied Stats Playground")
-#     )
-#   }
-# }
-
-
-
-
-
-
-
-
 app_footer <- function() {
   tags$div(
     "v0.10.0 - © 2026 Serge Zaugg",
