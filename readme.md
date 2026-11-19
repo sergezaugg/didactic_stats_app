@@ -7,11 +7,12 @@ underlying structures, involving one grouping variable and one continuous
 predictor. They can fit and compare regression models of varying complexity, 
 assessing their suitability for each scenario through visualisations and summary tables.
 
+### Preview
+<img src="contents/app_screenshot.png" width="500">
+
 ### Dependencies
 - R 4.5.1
-- tidyverse
-- shiny
-- bslib
+- tidyverse · shiny · bslib
 
 ### Data Source
 - Simulated data, no external data needed.
@@ -94,8 +95,7 @@ didactic_stats_app/
 ### License
 [MIT License - © 2026 Serge Zaugg](LICENSE)
 
-### Preview
-![Description](contents/app_screenshot.png)
+
 
 
 
