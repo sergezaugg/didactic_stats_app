@@ -12,7 +12,7 @@ library(tidyverse)
 library(shiny)
 library(bslib)
 # Tell shiny where to find resources
-addResourcePath("resources", "resources")
+addResourcePath(prefix="contents", directoryPath="contents")
 # load own functions
 source("src/utils_sim.R")
 source("src/utils_ui.R")
@@ -24,22 +24,26 @@ source("src/text_for_pages.R")
 # load function page UI generations & server processing 
 source("src/pages_ui_module.R")
 source("src/pages_server_module.R")
+# load styles 
+source("styles/styles.R")
+
 
 #-----------------------------
 # (2) Define UI  
 #-----------------------------
 
 ui <- navbarPage(
+  # get CSS styles 
+  includeCSS("styles/styles.css"),
+  # styling colors
+  add_custom_styles("custom_goth"),
+  theme = themes_li$custom_goth,
   # default starting page 
   selected = ptext$x_same_ti,
-  # styling colors
-  theme = bs_theme(bg = "#000000", fg = "white", primary = "#ddccdd", secondary = "#550044"),
   # add custom title and logo
   app_custom_title(),
   # add version and (c) at bottom
   app_footer(),
-  # get CSS styles 
-  includeCSS("resources/styles.css"),
   
   #  pages 
   page_about,
@@ -71,7 +75,6 @@ server <- function(input, output, session) {
   pages_server_module("x_same", x_vals_a = c(-0.5,0.5), x_vals_b = c(-0.5, 0.5))
   pages_server_module("x_uneq", x_vals_a = c(-0.5,0.2), x_vals_b = c(-0.2, 0.5))
   pages_server_module("simpso", x_vals_a = c(-0.5,0.2), x_vals_b = c(-0.2, 0.5))
-  # output$debug <- renderPrint(names(resfigs))
 }
 
 #-----------------------------
