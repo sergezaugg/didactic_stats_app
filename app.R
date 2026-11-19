@@ -3,10 +3,6 @@
 # Author : Serge Zaugg
 # ---------------------------
 
-#-----------------------------
-# (1) load and prepare   
-#-----------------------------
-
 # load packages
 library(tidyverse)
 library(shiny)
@@ -29,8 +25,7 @@ source("styles/styles.R")
 
 
 #-----------------------------
-# (2) Define UI  
-#-----------------------------
+# Define UI  
 
 ui <- navbarPage(
   # set starting theme 
@@ -77,8 +72,7 @@ ui <- navbarPage(
 )
 
 #-----------------------------
-# (3) Define server processing
-#-----------------------------
+# Define server processing
 
 server <- function(input, output, session) {
   change_theme(input, output, session)
@@ -89,8 +83,7 @@ server <- function(input, output, session) {
 }
 
 #-----------------------------
-# (4) create Shiny app object
-#-----------------------------
+# create Shiny app object
 
 shinyApp(ui, server)
 
