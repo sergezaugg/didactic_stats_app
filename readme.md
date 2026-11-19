@@ -75,6 +75,7 @@ didactic_stats_app/
 ├── app.R                    # Main application entry point
 ├── src/                     # Shared functions and components
 ├── contents/                # static items: pics, codebooks etc.
+├── styles/                  # Style definitions, CSS and R
 │
 ├── renv/                    # Project-specific package environment
 ├── renv.lock                # Package versions and dependency snapshot
