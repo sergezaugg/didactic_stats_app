@@ -3,38 +3,100 @@
 # Author : Serge Zaugg
 # ---------------------------
 
+# bslib custom themes
 themes_li <- list(
   
   "custom_goth" = bs_theme(
     bg = "#000000", fg = "#ffffff", 
-    primary = "#ddccdd", secondary = "#550044",
+    primary = "#eeaacc", secondary = "#550044",
     ),
   
   "custom_cold" = bs_theme(
     bg = "#000000", fg = "#ffffff", 
-    primary = "#aaccee", secondary = "#003377"
+    primary = "#88ccff", secondary = "#003377"
     )
 )
 
 
-
-
-add_custom_styles <- function(theme = c("custom_cold", "custom_goth")) {
+# server-side function to dynamically swap themes 
+change_theme <- function(input, output, session) {
   
-  theme <- match.arg(theme)
-  
-  panel_color <- switch(
-    theme,
-    custom_cold = "#001139",
-    custom_goth = "#330022"
-  )
-  
-  tags$style(HTML(sprintf("
-    /* Module panels */
-    .panel-custom {
-      background-color: %s;
+  observe({
+    if (input$dark_mode == "lig") {
+      session$setCurrentTheme(themes_li$custom_cold)
+    } else {
+      session$setCurrentTheme(themes_li$custom_goth)
     }
-  ", panel_color)))
+  })
+  
+  output$custom_styles <- renderUI({
+    panel_color <- if (input$dark_mode == "lig") {"#001139"} else {"#330022"}
+    h5_color <- if (input$dark_mode == "lig") {"#CCDDFF"} else {"#FFBBCC"}
+    
+    if (input$dark_mode == "lig") {
+      logo <- tags$span(
+        style = "display: inline-flex; align-items: center; gap: 10px;",
+        tags$img(src = "contents/z_logo_blue.png", height = "30px"),
+        tags$span("Applied Stats Playground")
+      )
+      
+    } else {
+      logo <- tags$span(
+        style = "display: inline-flex; align-items: center; gap: 10px;",
+        tags$img(src = "contents/z_logo_red.png", height = "30px"),
+        tags$span("Applied Stats Playground")
+      )
+    }
+
+    tagList(
+      tags$style(HTML(sprintf("
+      .panel-custom {
+        background-color: %s !important;
+      }
+      ", panel_color))),
+      
+      tags$style(HTML(sprintf("
+      h5 {
+        color: %s !important;
+      }
+      ", h5_color))),
+      
+      output$app_title <- renderUI({logo})
+    
+    )
+    
+  })
+  
+  
+  # output$app_title <- renderUI({
+  #   
+  #   if (input$dark_mode == "lig") {
+  #     tags$span(
+  #       style = "display: inline-flex; align-items: center; gap: 10px;",
+  #       tags$img(src = "contents/z_logo_red.png", height = "30px"),
+  #       tags$span("Applied Stats Playground")
+  #     )
+  #     
+  #   } else {
+  #     tags$span(
+  #       style = "display: inline-flex; align-items: center; gap: 10px;",
+  #       tags$img(src = "contents/z_logo_blue.png", height = "30px"),
+  #       tags$span("Applied Stats Playground")
+  #     )
+  #   }
+  #   
+  # })
+  
+  
+}
+
+
+
+app_custom_theme_title <- function(text){
+  tags$span(
+    style = "display: inline-flex; align-items: center; gap: 10px;",
+    tags$span(text)
+  )
 }
 
 

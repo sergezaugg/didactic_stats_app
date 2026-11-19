@@ -33,15 +33,29 @@ source("styles/styles.R")
 #-----------------------------
 
 ui <- navbarPage(
-  # get CSS styles 
-  includeCSS("styles/styles.css"),
-  # styling colors
-  add_custom_styles("custom_goth"),
+  
+  
+  
+  # set starting theme 
   theme = themes_li$custom_goth,
+  # activate custom CSS
+  
+  # uiOutput("app_title"),
+  uiOutput("custom_styles"),
+  
+  
+  # apply CSS styles 
+  includeCSS("styles/styles.css"),
+  
   # default starting page 
   selected = ptext$x_same_ti,
   # add custom title and logo
-  app_custom_title(),
+  # app_custom_title(),
+  
+  
+  
+  
+  
   # add version and (c) at bottom
   app_footer(),
   
@@ -64,6 +78,17 @@ ui <- navbarPage(
     title = ptext$x_free_ti, text = ptext$x_free_tx
   ),
   page_summary,
+  
+  # theme selection
+  nav_spacer(),
+  nav_item(app_custom_theme_title("Theme")),
+  nav_item(
+    radioButtons(inputId = "dark_mode", label = NULL,
+      choices = c("Cold" = "lig", "Goth" = "dar"), selected = "lig", inline = TRUE)
+  ), 
+
+  
+  
 )
 
 #-----------------------------
@@ -71,6 +96,14 @@ ui <- navbarPage(
 #-----------------------------
 
 server <- function(input, output, session) {
+  
+  change_theme(input, output, session)
+  
+
+  
+  
+  
+  
   pages_server_module("x_free")
   pages_server_module("x_same", x_vals_a = c(-0.5,0.5), x_vals_b = c(-0.5, 0.5))
   pages_server_module("x_uneq", x_vals_a = c(-0.5,0.2), x_vals_b = c(-0.2, 0.5))
