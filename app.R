@@ -4,7 +4,9 @@
 # ---------------------------
 
 # load packages
-library(tidyverse)
+library(dplyr)
+library(tibble)
+library(ggplot2)
 library(shiny)
 library(bslib)
 # Tell shiny where to find resources

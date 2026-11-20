@@ -23,12 +23,12 @@ add_scatterplot_formats <- function(fig) {
         fill = NA,
         linewidth = 1
       ),
-      axis.text.x = element_text(size = 16),
-      axis.text.y = element_text(size = 16),
-      axis.title.x = element_text(size = 16),
-      axis.title.y = element_text(size = 16),
-      legend.title = element_text(size = 16),
-      legend.text = element_text(size = 16)
+      # axis.text.x = element_text(size = 16),
+      # axis.text.y = element_text(size = 16),
+      # axis.title.x = element_text(size = 16),
+      # axis.title.y = element_text(size = 16),
+      # legend.title = element_text(size = 16),
+      # legend.text = element_text(size = 16)
     )
 }
 
