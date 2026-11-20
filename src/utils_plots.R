@@ -29,10 +29,9 @@ add_scatterplot_formats <- function(fig) {
       # axis.title.y = element_text(size = 16),
       # legend.title = element_text(size = 16),
       # legend.text = element_text(size = 16)
-    )
+    ) + 
+    scale_colour_manual(values = c("#4466ee", "#EE5555", "#228833"))
 }
-
-
 
 
 # ---------------------------

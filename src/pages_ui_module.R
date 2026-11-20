@@ -34,7 +34,7 @@ pages_ui_module <- function(id, title = "aa", const_x = FALSE, betas_a = "", bet
           tags$hr(class = "divider-custom"),
           
           fluidRow(
-            column(width = 8,
+            column(width = 6,
                    selectInput(
                      inputId = ns("dist_plot"),
                      label = "Choose model",
@@ -48,12 +48,20 @@ pages_ui_module <- function(id, title = "aa", const_x = FALSE, betas_a = "", bet
                      selected = "m01",
                    )
             ),
-            column(width = 4,
-                   checkboxInput(
-                     inputId = ns("show_color"),
-                     label = "Show group color",
-                     value = TRUE
-                   )     
+            column(width = 6,
+                   tagList(
+                     tags$label("Group color"),
+                     checkboxInput(
+                       inputId = ns("show_color"),
+                       label = NULL,
+                       value = TRUE
+                     )
+                   )
+                   # checkboxInput(
+                   #   inputId = ns("show_color"),
+                   #   label = "Group color",
+                   #   value = TRUE
+                   # )     
             )
           ),
           
