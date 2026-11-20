@@ -23,16 +23,15 @@ add_scatterplot_formats <- function(fig) {
         fill = NA,
         linewidth = 1
       ),
-      axis.text.x = element_text(size = 16),
-      axis.text.y = element_text(size = 16),
-      axis.title.x = element_text(size = 16),
-      axis.title.y = element_text(size = 16),
-      legend.title = element_text(size = 16),
-      legend.text = element_text(size = 16)
-    )
+      # axis.text.x = element_text(size = 16),
+      # axis.text.y = element_text(size = 16),
+      # axis.title.x = element_text(size = 16),
+      # axis.title.y = element_text(size = 16),
+      # legend.title = element_text(size = 16),
+      # legend.text = element_text(size = 16)
+    ) + 
+    scale_colour_manual(values = c("#4466ee", "#EE5555", "#228833"))
 }
-
-
 
 
 # ---------------------------
@@ -56,7 +55,7 @@ make_data_scatterplot <- function(x, df_lines, colo = FALSE) {
     fig <- fig + geom_abline(data = df_lines,
       aes(intercept = intercept, slope = slope), linewidth = 1, color = "#ffffff")
     fig <- add_scatterplot_formats(fig)
-    fig <- fig + theme(plot.margin = margin(t = 5, r = 68, b = 5, l = 5))
+    fig <- fig + theme(plot.margin = margin(t = 5, r = 56, b = 5, l = 5))
   }
   
   return(fig)

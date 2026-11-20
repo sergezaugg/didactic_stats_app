@@ -4,10 +4,12 @@
 # ---------------------------
 
 # load packages
-library(tidyverse)
+library(dplyr)
+library(tibble)
+library(ggplot2)
 library(shiny)
 library(bslib)
-# Tell shiny where to find resources
+# tell shiny where to find resources
 addResourcePath(prefix="contents", directoryPath="contents")
 # load own functions
 source("src/utils_sim.R")
@@ -40,7 +42,6 @@ ui <- navbarPage(
   app_footer(),
  
   #  pages 
-  page_about,
   pages_ui_module(id = "x_same", 
     const_x = TRUE, betas_a = c(-8,8,-8,8), betas_b = c(-8,8,-8,8),
     title = ptext$x_same_ti, text = ptext$x_same_tx
@@ -50,7 +51,7 @@ ui <- navbarPage(
     title = ptext$x_uneq_ti, text = ptext$x_uneq_tx
   ),
   pages_ui_module(id = "simpso",
-    const_x = TRUE, betas_a = c(-8, -2, -8, -6), betas_b = c(2, 8, -8, -6),
+    const_x = TRUE, betas_a = c(-8,-2,-8,-6), betas_b = c(2, 8, -8, -6),
     title = ptext$simpso_ti, text = ptext$simpso_tx
   ),
   pages_ui_module(id = "x_free",
@@ -58,6 +59,7 @@ ui <- navbarPage(
     title = ptext$x_free_ti, text = ptext$x_free_tx
   ),
   page_summary,
+  page_about
   
 )
 
