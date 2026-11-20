@@ -55,7 +55,7 @@ make_data_scatterplot <- function(x, df_lines, colo = FALSE) {
     fig <- fig + geom_abline(data = df_lines,
       aes(intercept = intercept, slope = slope), linewidth = 1, color = "#ffffff")
     fig <- add_scatterplot_formats(fig)
-    fig <- fig + theme(plot.margin = margin(t = 5, r = 68, b = 5, l = 5))
+    fig <- fig + theme(plot.margin = margin(t = 5, r = 56, b = 5, l = 5))
   }
   
   return(fig)
