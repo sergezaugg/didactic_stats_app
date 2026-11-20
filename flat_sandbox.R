@@ -20,9 +20,52 @@
 # styler::style_file("pages/text_for_pages.R")
 # styler::style_file("pages/page_summary.R")
 
+
+
+# install.packages("shinylive")
+# install.packages("S7")
+.libPaths()
+
+# setwd("..")
+getwd()
+dir()
+
+# renv::deactivate()
+shinylive::export(appdir = "didactic_stats_app", destdir = "docs")
+
+# renv::activate()
+# renv::install("S7")
+
+httpuv::runStaticServer("docs_b")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 source("src/utils_sim.R")
 source("src/utils_plots.R")
 library(tidyverse)
+
+
+
+
+
 
 # (1) get input from user
 par_x_free_a <- list(n = 100,xmin = 1,xmax = 2,b0 = 0,b1 = -1,sd_res = 0.1)
