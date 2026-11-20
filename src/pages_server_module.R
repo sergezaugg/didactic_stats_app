@@ -86,10 +86,9 @@ pages_server_module <- function(id, x_vals_a = NULL, x_vals_b = NULL) {
     # Selected conv table
     output$sel_tabconv <- renderTable({lim1_x_free()[[sel_pl_x_free()]][["df_tab_conv"]]})
     # Selected scatter plot
-    output$sel_scatter_plot <- renderPlot({lip_x_free()[[sel_pl_x_free()]][["df_plots"]]})
+    output$sel_scatter_plot <- renderPlot({lip_x_free()[[sel_pl_x_free()]][["df_plots"]]}, res = 96)
     # Selected residual plot
-    output$sel_residual_plot <- renderPlot({lip_x_free()[[sel_pl_x_free()]][["df_res_plots"]]})
-
+    output$sel_residual_plot <- renderPlot({lip_x_free()[[sel_pl_x_free()]][["df_res_plots"]]}, res = 96)
 
   })
 }
