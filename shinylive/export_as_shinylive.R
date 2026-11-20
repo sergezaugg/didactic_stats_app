@@ -14,7 +14,7 @@
 # install.packages("S7")
 .libPaths()
 
-shinylive::export(appdir = ".", destdir = "docs")
+shinylive::export(appdir = ".", destdir = "docs", wasm_packages = FALSE)
 
 httpuv::runStaticServer("docs")
 
