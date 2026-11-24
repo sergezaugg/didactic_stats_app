@@ -1,26 +1,8 @@
-
-
-# docker rm -f didactic-stats-test
-
-# docker build --no-cache -t didactic-stats-app .
-
-# Creates a new container from an image and starts it
-# docker run -d -p 3838:3838 --name didadida didactic-stats-app
-# http://localhost:3838/didactic_stats_app/
-
-# docker run -d -p 3838:3838 --name didadida didactic-stats-app
-# http://localhost:3838/didadida
-
-# The -d means detached: Docker runs it independently of your terminal.
-
-# Starts an existing, stopped container.
-# docker start didactic-stats-test
-# docker stop didactic-stats-test
-
-# docker ps
-# docker ps -a
-
-# docker images
+#------------------------
+# Applied Stats Playground — Dockerfile
+# Author: Serge Zaugg
+# Purpose: Build and run the R Shiny application
+#------------------------
 
 FROM rocker/shiny:4.5.1
 
