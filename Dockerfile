@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy application
-COPY . .
+# COPY . .
+COPY . /srv/shiny-server/
 
 # Install renv
 RUN R --vanilla -e "install.packages('renv', repos='https://cloud.r-project.org')"
