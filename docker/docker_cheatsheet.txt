@@ -15,7 +15,6 @@ docker run -d -p 3839:3838 --name app02 didactic-stats-app
 # in browser 
 http://localhost:3838/didactic_stats_app/
 http://localhost:3839/didactic_stats_app/
-http://localhost:3838/didactic-stats-app/
 
 # remove existing container 
 docker rm -f app01
@@ -26,6 +25,7 @@ docker rm -f app01
 # Start / stop an existing container.
 docker start didactic-stats-test
 docker stop didactic-stats-test
+docker stop app01
 
 # get info 
 docker ps
