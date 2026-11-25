@@ -4,15 +4,12 @@
 Docker command below are to build and use this specific repo and not generally valid for any Docker project
 </div>
 
-<hr style="height: 3px; background-color: #0099ee; border: none; border-radius: 2px;">
+
 
 ### Setup 
 
 * Install **Docker Desktop** from <a href="https://docs.docker.com/" target="_blank">Docker documentation</a>.
 * Go to root-dir of this repo (relative paths used below)
-
-<hr style="height: 3px; background-color: #0099ee; border: none; border-radius: 2px;">
-
 
 ### Build image 
 `-t` stands for tag  
@@ -57,10 +54,6 @@ docker ps
 docker ps -a
 
 ```
-
-<br>
-<hr style="height: 3px; background-color: #0099ee; border: none; border-radius: 2px;">
-
 
 
 ## Clean-up
