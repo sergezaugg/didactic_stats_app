@@ -7,10 +7,14 @@ underlying structures, involving one grouping variable and one continuous
 predictor. They can fit and compare regression models of varying complexity, 
 assessing their suitability for each scenario through visualisations and summary tables.
 
+[Docker documentation here](docker/readme.md)
+[Docker documentation here](docker/readme.md)
+
+
 ### Preview
 <img src="contents/app_screenshot.png" width="500">
 
-[Docker documentation here](docs/docker.md)
+
 
 ### Dependencies
 - R 4.5.1
