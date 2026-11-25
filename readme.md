@@ -10,6 +10,8 @@ assessing their suitability for each scenario through visualisations and summary
 ### Preview
 <img src="contents/app_screenshot.png" width="500">
 
+[Docker documentation here](docs/docker.md)
+
 ### Dependencies
 - R 4.5.1
 - tidyverse · shiny · bslib
