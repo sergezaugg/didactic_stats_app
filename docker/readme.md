@@ -17,8 +17,8 @@ docker build            -t didactic-stats-app:v0.2.2 -f docker/Dockerfile .
 ## Usage 
 
 ### Creates container from image and start
-`-d` = detached: Docker runs it independently of terminal  
-`-p` HOST_PORT:CONTAINER_PORT  
+`-d`      detached: Docker runs it independently of terminal  
+`-p`      HOST_PORT:CONTAINER_PORT  
 `--name` 	Assign  name to  container  
 
 ```
@@ -29,7 +29,7 @@ docker start stats-cont-v0-2-1
 docker run -d -p 50111:3838 --name stats-cont-v0-2-2 didactic-stats-app:v0.2.2
 ```
 
-### Exposed in browser 
+### Local check/usage in browser 
 <a href="http://localhost:3838" target="_blank">http://localhost:3838</a>  
 <a href="http://localhost:50111" target="_blank">http://localhost:50111</a>
 
@@ -39,17 +39,12 @@ docker stop stats-cont-v0-2-1
 docker stop stats-cont-v0-2-2
 ```
 
-
-
-
 ### Get info
 ```
 docker images
 docker ps
 docker ps -a
-
 ```
-
 
 ## Clean-up
 
