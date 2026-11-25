@@ -4,7 +4,6 @@
 # Purpose: Build and run the R Shiny application
 #------------------------
 
-
 FROM rocker/shiny:4.5.1
 
 # Application directory
@@ -35,6 +34,7 @@ RUN R -e "renv::restore(prompt = FALSE)"
 # Shiny Server port
 EXPOSE 3838
 
+# command to execute when a container starts
 CMD ["/usr/bin/shiny-server"]
 
 
