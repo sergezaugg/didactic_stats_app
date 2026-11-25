@@ -1,7 +1,7 @@
 # Docker - Build and Usage 
 
 * Docker command below are to build and use this specific repo and not generally valid for any Docker project
-* Install **Docker Desktop** from <a href="https://docs.docker.com/" target="_blank">Docker documentation</a>.
+* Install **Docker Desktop** from https://docs.docker.com/   
 * Go to root-dir of this repo (relative paths used durin build)
 
 ## 1. Build image 
@@ -30,8 +30,8 @@ docker run -d -p 50111:3838 --name stats-cont-v0-2-2 didactic-stats-app:v0.2.2
 ```
 
 ### 2.2 Local check/usage in browser 
-<a href="http://localhost:3838" target="_blank">http://localhost:3838</a>  
-<a href="http://localhost:50111" target="_blank">http://localhost:50111</a>
+http://localhost:3838  
+http://localhost:50111  
 
 ### 2.3 Stop container
 ```
