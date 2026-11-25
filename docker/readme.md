@@ -1,17 +1,10 @@
 # Docker - Build and Usage 
 
-<div style="width: 400px; padding: 12px; border: 1px solid #0099ee; border-radius: 6px;">
-Docker command below are to build and use this specific repo and not generally valid for any Docker project
-</div>
-
-
-
-### Setup 
-
+* Docker command below are to build and use this specific repo and not generally valid for any Docker project
 * Install **Docker Desktop** from <a href="https://docs.docker.com/" target="_blank">Docker documentation</a>.
-* Go to root-dir of this repo (relative paths used below)
+* Go to root-dir of this repo (relative paths used durin build)
 
-### Build image 
+## Build image 
 `-t` stands for tag  
 
 `-f` location of Dockerfile  
@@ -20,6 +13,8 @@ Docker command below are to build and use this specific repo and not generally v
 docker build --no-cache -t didactic-stats-app:v0.2.1 -f docker/Dockerfile .
 docker build            -t didactic-stats-app:v0.2.2 -f docker/Dockerfile .
 ```
+
+## Usage 
 
 ### Creates container from image and start
 `-d` = detached: Docker runs it independently of terminal  
