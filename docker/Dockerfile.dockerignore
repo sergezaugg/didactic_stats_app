@@ -14,4 +14,7 @@ renv/library
 renv/staging
 renv/cache
 
+renv/
+.Rprofile
+.git/
 
