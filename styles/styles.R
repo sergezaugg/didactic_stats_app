@@ -6,7 +6,7 @@
 # bslib custom themes
 themes_li <- list(
   "custom_goth" = bs_theme(bg = "#000000", fg = "#ffffff", primary = "#ffddee", secondary = "#550044"),
-  "custom_cold" = bs_theme(bg = "#000000", fg = "#ffffff", primary = "#88ccff", secondary = "#003377")
+  "custom_cold" = bs_theme(bg = "#000000", fg = "#ffffff", primary = "#ccddff", secondary = "#334477")
 )
 
 app_custom_theme_title <- function(text){
