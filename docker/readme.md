@@ -10,8 +10,8 @@
 `-f` location of Dockerfile  
 
 ```
-docker build --no-cache -t didactic-stats-app:v0.2.1 -f docker/Dockerfile .
-docker build            -t didactic-stats-app:v0.2.2 -f docker/Dockerfile .
+docker build --no-cache -t didactic-stats-app:v0.2.1 -f docker/v2/Dockerfile .
+docker build            -t didactic-stats-app:v0.2.2 -f docker/v2/Dockerfile .
 ```
 
 ## 2. Usage 
