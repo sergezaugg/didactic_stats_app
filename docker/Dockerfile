@@ -22,6 +22,8 @@ RUN rm -rf /srv/shiny-server/*
 # Copy application
 COPY . /srv/shiny-server/
 
+
+
 # Install renv
 RUN R --vanilla -e "install.packages('renv', repos='https://cloud.r-project.org')"
 
@@ -33,6 +35,9 @@ RUN R -e "renv::restore(prompt = FALSE)"
 
 # Shiny Server port
 EXPOSE 3838
+
+# rocker/shiny ships a non-root 'shiny' user — run as it
+USER shiny 
 
 # command to execute when a container starts
 CMD ["/usr/bin/shiny-server"]
