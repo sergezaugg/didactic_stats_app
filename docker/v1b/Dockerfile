@@ -19,27 +19,19 @@ RUN apt-get update && apt-get install -y \
 # Remove default Shiny examples and welcome page
 RUN rm -rf /srv/shiny-server/*
 
-# 3. Install renv quickly using Rocker's preconfigured binary repo
-RUN install2.r --error --skipinstalled renv
-# Install renv
-# RUN R --vanilla -e "install.packages('renv', repos='https://cloud.r-project.org')"
-
-# 4. Copy ONLY renv lockfile first to cache package installation
-COPY renv.lock /srv/shiny-server/renv.lock
-
-
-
-# Avoid symlinks to root user's renv cache
-#ENV RENV_CONFIG_CACHE_SYMLINKS=FALSE
-# Restore R packages
-#RUN R -e "renv::restore(prompt = FALSE)"
-
-# 5. Restore packages into the global library (keeps them accessible to 'shiny' user)
-ENV RENV_CONFIG_CACHE_SYMLINKS=FALSE
-RUN R -e "renv::restore(library = .libPaths()[1], prompt = FALSE)"
-
 # Copy application
 COPY . /srv/shiny-server/
+
+
+
+# Install renv
+RUN R --vanilla -e "install.packages('renv', repos='https://cloud.r-project.org')"
+
+# Avoid symlinks to root user's renv cache
+ENV RENV_CONFIG_CACHE_SYMLINKS=FALSE
+
+# Restore R packages
+RUN R -e "renv::restore(prompt = FALSE)"
 
 # Shiny Server port
 EXPOSE 3838
