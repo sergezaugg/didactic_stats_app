@@ -2,13 +2,11 @@
 
 * Docker command below are to build and use this specific repo and not generally valid for any Docker project
 * Install **Docker Desktop** from https://docs.docker.com/   
-* Go to root-dir of this repo (relative paths used durin build)
+* Go to root-dir of this repo (relative paths used during build)
 
 ## 1. Build image 
 `-t` stands for tag  
-
 `-f` location of Dockerfile  
-
 ```
 docker build --no-cache -t didactic-stats-app:v0.2.1 -f docker/v2/Dockerfile .
 docker build            -t didactic-stats-app:v0.2.2 -f docker/v2/Dockerfile .
@@ -22,10 +20,11 @@ docker build            -t didactic-stats-app:v0.2.2 -f docker/v2/Dockerfile .
 `--name` 	Assign  name to  container  
 
 ```
+# create container 1 and start (two-liner)
 docker create -p  3838:3838 --name stats-cont-v0-2-1 didactic-stats-app:v0.2.1
 docker start stats-cont-v0-2-1
 
-# create and start
+# create container 2 and start (one-liner)
 docker run -d -p 50111:3838 --name stats-cont-v0-2-2 didactic-stats-app:v0.2.2
 ```
 
