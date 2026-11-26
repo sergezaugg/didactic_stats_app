@@ -13,7 +13,7 @@ app_custom_title <- function() {
 
 app_footer <- function() {
   tags$div(
-    "v0.10.3 - © 2026 Serge Zaugg",
+    "v0.10.4 - © 2026 Serge Zaugg",
     class = "app-footer"
   )
 }
